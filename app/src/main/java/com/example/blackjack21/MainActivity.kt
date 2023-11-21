@@ -10,7 +10,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val deck = Deck(1)
         Log.d("!!!", "${deck.decklist[0]}" )
-        deck.decklist.shuffle()
+        deck.shuffle()
         Log.d("!!!", "${deck.decklist[0]}" )
+        Log.d("!!!", "${deck.drawACard()}" )
+        Log.d("!!!", "${deck.decklist[0]}" )
+        Log.d("!!!", "${deck.decklist.size}" )
     }
 }
