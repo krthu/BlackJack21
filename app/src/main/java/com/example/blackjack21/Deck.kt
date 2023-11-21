@@ -1,10 +1,26 @@
 package com.example.blackjack21
 
-class Deck(numberOfDecks: Int) {
+class Deck(private var numberOfDecks: Int) {
     val decklist = mutableListOf<Card>()
     private val numbers = listOf(2,3,4,5,6,7,8,9,10,11,12,13,14)
-    private val suits = listOf("Herts", "Diamonds", "Clubs", "Spades")
+    private val suits = listOf("Hearts", "Diamonds", "Clubs", "Spades")
     init {
+        createDeckList()
+    }
+
+    fun shuffle(){
+        decklist.shuffle()
+    }
+
+    fun drawACard(): Card?{
+        // Perhaps change this to shuffle in new decks if this is happens so we can return a card? Discuss
+        if (decklist.isNotEmpty()){
+            return decklist.removeAt(0)
+        }
+        return null
+    }
+
+    fun createDeckList(){
         for (i in 1..numberOfDecks){
             suits.forEach{ suit ->
                 numbers.forEach{ number ->
@@ -13,4 +29,6 @@ class Deck(numberOfDecks: Int) {
             }
         }
     }
+
+
 }
