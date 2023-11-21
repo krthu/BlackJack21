@@ -1,4 +1,5 @@
 package com.example.blackjack21
 
-class Player {
+open class Player(public val name: String) {
+
 }
