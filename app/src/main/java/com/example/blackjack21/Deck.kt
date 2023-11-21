@@ -12,12 +12,13 @@ class Deck(private var numberOfDecks: Int) {
         decklist.shuffle()
     }
 
-    fun drawACard(): Card?{
+    fun drawACard(): Card{
         // Perhaps change this to shuffle in new decks if this is happens so we can return a card? Discuss
-        if (decklist.isNotEmpty()){
-            return decklist.removeAt(0)
+        if (decklist.isEmpty()){
+            createDeckList()
+            decklist.shuffle()
         }
-        return null
+        return decklist.removeAt(0)
     }
 
     fun createDeckList(){
