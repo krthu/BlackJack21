@@ -1,7 +1,7 @@
 package com.example.blackjack21
 
 class BlackJackPlayer(name: String, private var money: Int): Player(name) {
-    private val hands = mutableListOf<Hand>()
+    val hands = mutableListOf<Hand>()
 
     fun makeBet(bet: Int): Boolean{
         if (money > bet){
