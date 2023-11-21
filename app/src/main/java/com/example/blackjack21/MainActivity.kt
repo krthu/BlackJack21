@@ -9,6 +9,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val deck = Deck(1)
-        Log.d("!!!", "${deck.decklist.size}" )
+        Log.d("!!!", "${deck.decklist[0]}" )
+        deck.decklist.shuffle()
+        Log.d("!!!", "${deck.decklist[0]}" )
     }
 }
