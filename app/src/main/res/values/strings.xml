@@ -2,5 +2,7 @@
     <string name="app_name">BlackJack21</string>
     <string name="start_game">Start Game</string>
     <string name="scoreboard">ScoreBoard</string>
-    <string name="quit">Quit</string>    
+    <string name="quit">Quit</string>
+    <string name="choosePlayer">Choose Player</string>
+    <string name="newUser">New User</string> 
 </resources>

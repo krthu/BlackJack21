@@ -58,13 +58,16 @@ class MainMenuFragment : Fragment() {
     fun changeFragment(fragment: Fragment){
         val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.replace(R.id.fragmentContainer, fragment)
 
         fragmentTransaction.commit()
     }
 
     fun onStartPress(){
-        Log.d("!!!", "Start pressed")
+        val fragment = ChoosePlayerFragment()
+        changeFragment(fragment)
+
     }
 
     fun onFlagPress(){
