@@ -7,12 +7,24 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class PlayerAdapter(
-    private val data: List<PlayerData>
+    private val data: List<PlayerData>,
+    private val lister: RecyclerViewEvent
 ) : RecyclerView.Adapter<PlayerAdapter.ItemViewHoler>() {
 
     // Setup variables to hold instances of views
     // Kind like onCreate
-    inner class ItemViewHoler(view: View): RecyclerView.ViewHolder(view){
+    inner class ItemViewHoler(view: View): RecyclerView.ViewHolder(view), View.OnClickListener{
+       init {
+           view.setOnClickListener(this)
+       }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                lister.onRowClick(position)
+            }
+        }
+
         val nameTextView: TextView = view.findViewById(R.id.nameView)
     }
 // Inflating the layout of each row

@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -14,17 +16,19 @@ import androidx.recyclerview.widget.RecyclerView
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private var playerData = listOf<PlayerData>()
 
 /**
  * A simple [Fragment] subclass.
  * Use the [ChoosePlayerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ChoosePlayerFragment : Fragment() {
+class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var backImageView: ImageView
+    private lateinit var newUserTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,33 +44,36 @@ class ChoosePlayerFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_choose_player, container, false)
-        backImageView = fragment.findViewById<ImageView>(R.id.backImageView)
-        backImageView.setOnClickListener{ onBackPress() }
+        newUserTextView = fragment.findViewById(R.id.newUserTextView)
+        backImageView = fragment.findViewById(R.id.backImageView)
+        newUserTextView.setOnClickListener{ Toast.makeText(requireContext(), "Need to fix click on New user", Toast.LENGTH_SHORT).show() }
+        backImageView.setOnClickListener { onBackPress() }
+        playerData = getPlayerData()
         val recyclerView: RecyclerView = fragment.findViewById(R.id.playerRecyclerView)
-        recyclerView.adapter = PlayerAdapter(getPlayerData())
+        recyclerView.adapter = PlayerAdapter(playerData, this)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-            return fragment
+        return fragment
     }
 
-    fun getPlayerData(): List<PlayerData>{
-        val playerData = mutableListOf<PlayerData>()
-        playerData.add(PlayerData("Linus"))
-        playerData.add(PlayerData("Kalle"))
-        playerData.add(PlayerData("Nils"))
-        playerData.add(PlayerData("Kristian"))
-        playerData.add(PlayerData("Linus"))
-        playerData.add(PlayerData("Kalle"))
-        playerData.add(PlayerData("Nils"))
-        playerData.add(PlayerData("Kristian"))
-        playerData.add(PlayerData("Linus"))
-        playerData.add(PlayerData("Kalle"))
-        playerData.add(PlayerData("Nils"))
-        playerData.add(PlayerData("Kristian"))
-        return playerData
+    fun getPlayerData(): List<PlayerData> {
+        val data = mutableListOf<PlayerData>()
+        data.add(PlayerData("Linus"))
+        data.add(PlayerData("Kalle"))
+        data.add(PlayerData("Nils"))
+        data.add(PlayerData("Kristian"))
+        data.add(PlayerData("Linus"))
+        data.add(PlayerData("Kalle"))
+        data.add(PlayerData("Nils"))
+        data.add(PlayerData("Kristian"))
+        data.add(PlayerData("Linus"))
+        data.add(PlayerData("Kalle"))
+        data.add(PlayerData("Nils"))
+        data.add(PlayerData("Kristian"))
+        return data
     }
 
-    fun onBackPress(){
+    fun onBackPress() {
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.popBackStack()
     }
@@ -89,5 +96,9 @@ class ChoosePlayerFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onRowClick(position: Int) {
+        Toast.makeText(requireContext(), "${playerData[position].name} your playing!", Toast.LENGTH_SHORT).show()
     }
 }
