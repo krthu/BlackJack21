@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,7 +42,28 @@ class ChoosePlayerFragment : Fragment() {
         val fragment = inflater.inflate(R.layout.fragment_choose_player, container, false)
         backImageView = fragment.findViewById<ImageView>(R.id.backImageView)
         backImageView.setOnClickListener{ onBackPress() }
+        val recyclerView: RecyclerView = fragment.findViewById(R.id.playerRecyclerView)
+        recyclerView.adapter = PlayerAdapter(getPlayerData())
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
             return fragment
+    }
+
+    fun getPlayerData(): List<PlayerData>{
+        val playerData = mutableListOf<PlayerData>()
+        playerData.add(PlayerData("Linus"))
+        playerData.add(PlayerData("Kalle"))
+        playerData.add(PlayerData("Nils"))
+        playerData.add(PlayerData("Kristian"))
+        playerData.add(PlayerData("Linus"))
+        playerData.add(PlayerData("Kalle"))
+        playerData.add(PlayerData("Nils"))
+        playerData.add(PlayerData("Kristian"))
+        playerData.add(PlayerData("Linus"))
+        playerData.add(PlayerData("Kalle"))
+        playerData.add(PlayerData("Nils"))
+        playerData.add(PlayerData("Kristian"))
+        return playerData
     }
 
     fun onBackPress(){
