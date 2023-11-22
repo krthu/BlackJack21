@@ -13,6 +13,7 @@
         <item name="android:shadowDx">5</item>
         <item name="android:shadowDy">5</item>
         <item name="android:shadowRadius">4</item>
+        <item name="android:padding">5dp</item>
 
     </style>
 

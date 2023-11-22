@@ -8,7 +8,7 @@
     android:background="@drawable/gradient_activity_background_color">
 
     <FrameLayout
-        android:id="@+id/fragmentContiner"
+        android:id="@+id/fragmentContainer"
         android:layout_width="409dp"
         android:layout_height="729dp"
         app:layout_constraintBottom_toBottomOf="parent"

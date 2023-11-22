@@ -1,13 +1,13 @@
 package com.example.blackjack21
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +25,7 @@ class MainMenuFragment : Fragment() {
     private lateinit var startGameView: TextView
     private lateinit var scoreBoardView: TextView
     private lateinit var quitView: TextView
+    private lateinit var flagView: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -42,8 +43,41 @@ class MainMenuFragment : Fragment() {
         startGameView = fragment.findViewById(R.id.startGameView)
         scoreBoardView = fragment.findViewById(R.id.scoreBoardView)
         quitView = fragment.findViewById(R.id.quitView)
+        flagView = fragment.findViewById(R.id.flagImage)
+
+        startGameView.setOnClickListener { onStartPress() }
+        scoreBoardView.setOnClickListener { onScoreBoardPress() }
+        quitView.setOnClickListener { onQuitPress() }
+        flagView.setOnClickListener{ onFlagPress() }
+
+
 
         return fragment
+    }
+
+    fun changeFragment(fragment: Fragment){
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+
+        fragmentTransaction.commit()
+    }
+
+    fun onStartPress(){
+        Log.d("!!!", "Start pressed")
+    }
+
+    fun onFlagPress(){
+        Log.d("!!!", "Flag pressed")
+    }
+
+    fun onScoreBoardPress(){
+        Log.d("!!!", "ScoreBoard pressed")
+    }
+
+    fun onQuitPress(){
+        Log.d("!!!", "ScoreBoard pressed")
+        requireActivity().finish();
     }
 
     companion object {
