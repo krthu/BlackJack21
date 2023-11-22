@@ -8,14 +8,14 @@
     tools:context=".GameplayFragment">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/vertical_guideline"
+        android:id="@+id/vertical_guideline_playFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontal_guideline"
+        android:id="@+id/horizontal_guideline_playFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -34,7 +34,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline" />
+        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_playFragment" />
 
     <Button
         android:id="@+id/btn_stand"
@@ -48,7 +48,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline" />
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment" />
 
     <Button
         android:id="@+id/btn_double"
@@ -88,7 +88,7 @@
         android:background="@drawable/card_placeholder"
         android:rotation="175"
         app:layout_constraintBottom_toTopOf="@+id/btn_stand"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline" />
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment" />
 
     <ImageView
         android:id="@+id/second_card_player"
@@ -100,41 +100,13 @@
         android:background="@drawable/card_placeholder"
         android:rotation="5"
         app:layout_constraintBottom_toTopOf="@+id/btn_stand"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline" />
+        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_playFragment" />
 
-    <ImageView
-        android:id="@+id/first_card_dealer"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="3dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/card_placeholder"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/second_card_dealer"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="80dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/card_placeholder"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/deck_dealer"
-        android:layout_width="60dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/card_placeholder"
-        android:rotation="30"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+
+
 
     <TextView
         android:id="@+id/card_value_player"
@@ -144,18 +116,10 @@
         android:rotation="320"
         android:text="CardValue"
         app:layout_constraintBottom_toTopOf="@+id/first_card_player"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/card_value_dealer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CardValue"
-        app:layout_constraintBottom_toTopOf="@+id/second_card_dealer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/bet_amount_player"
