@@ -17,5 +17,14 @@
 
     </style>
 
+    <style name="menu_text.large">
+        <item name="android:textSize">48dp</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">4</item>
+        <item name="android:padding">5dp</item>
+
+    </style>
+
 
 </resources>

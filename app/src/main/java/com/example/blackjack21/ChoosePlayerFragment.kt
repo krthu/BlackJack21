@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,16 +15,15 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MainMenuFragment.newInstance] factory method to
+ * Use the [ChoosePlayerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainMenuFragment : Fragment() {
+class ChoosePlayerFragment : Fragment() {
+    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var startGameView: TextView
-    private lateinit var scoreBoardView: TextView
-    private lateinit var quitView: TextView
-    private lateinit var flagView: ImageView
+    private lateinit var backImageView: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -39,48 +37,15 @@ class MainMenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val fragment = inflater.inflate(R.layout.fragment_main_menu, container, false)
-        startGameView = fragment.findViewById(R.id.startGameView)
-        scoreBoardView = fragment.findViewById(R.id.scoreBoardView)
-        quitView = fragment.findViewById(R.id.quitView)
-        flagView = fragment.findViewById(R.id.flagImage)
-
-        startGameView.setOnClickListener { onStartPress() }
-        scoreBoardView.setOnClickListener { onScoreBoardPress() }
-        quitView.setOnClickListener { onQuitPress() }
-        flagView.setOnClickListener{ onFlagPress() }
-
-
-
-        return fragment
+        val fragment = inflater.inflate(R.layout.fragment_choose_player, container, false)
+        backImageView = fragment.findViewById<ImageView>(R.id.backImageView)
+        backImageView.setOnClickListener{ onBackPress() }
+            return fragment
     }
 
-    fun changeFragment(fragment: Fragment){
+    fun onBackPress(){
         val fragmentManager = requireActivity().supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
-
-        fragmentTransaction.commit()
-    }
-
-    fun onStartPress(){
-        val fragment = ChoosePlayerFragment()
-        changeFragment(fragment)
-
-    }
-
-    fun onFlagPress(){
-        Log.d("!!!", "Flag pressed")
-    }
-
-    fun onScoreBoardPress(){
-        Log.d("!!!", "ScoreBoard pressed")
-    }
-
-    fun onQuitPress(){
-        Log.d("!!!", "ScoreBoard pressed")
-        requireActivity().finish();
+        fragmentManager.popBackStack()
     }
 
     companion object {
@@ -90,12 +55,12 @@ class MainMenuFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MainMenuFragment.
+         * @return A new instance of fragment ChoosePlayerFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MainMenuFragment().apply {
+            ChoosePlayerFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
