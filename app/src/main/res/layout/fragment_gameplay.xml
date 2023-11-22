@@ -27,7 +27,7 @@
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_marginStart="5dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/btn_hit"
         android:fontFamily="@font/poppins_bold_italic"
         android:text="Hit"
@@ -41,7 +41,7 @@
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/btn_stand"
         android:fontFamily="@font/poppins_bold_italic"
         android:text="Stand"
@@ -153,16 +153,17 @@
         android:layout_height="wrap_content"
         android:text="CardValue"
         app:layout_constraintBottom_toTopOf="@+id/second_card_dealer"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="176dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/bet_amount_player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="260dp"
         android:text="BetAmount"
-        app:layout_constraintBottom_toTopOf="@+id/second_card_player"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
