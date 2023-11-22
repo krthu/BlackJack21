@@ -2,21 +2,28 @@ package com.example.blackjack21
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.FrameLayout
+import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity() {
+    lateinit var fragmentContainer: FrameLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val deck = Deck(1)
-        val player = Player("Kalle")
-        val bjPlayer = BlackJackPlayer("Nils", 2000)
-        Log.d("!!!", "${bjPlayer.name}")
-        deck.shuffle()
-        Log.d("!!!", "${deck.decklist[0]}" )
-        Log.d("!!!", "${deck.decklist[0]}" )
-        Log.d("!!!", "${deck.drawACard()}" )
-        Log.d("!!!", "${deck.decklist[0]}" )
-        Log.d("!!!", "${deck.decklist.size}" )
+        fragmentContainer = findViewById(R.id.fragmentContainer)
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        val fragment: Fragment = MainMenuFragment()
+
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+        fragmentTransaction.commit()
     }
+
+
+
+
+
+
+
 }

@@ -24,6 +24,12 @@ class Game {
          }
     }
 
+    fun playDealerHand(){
+        while (getBlackJackValue(dealerCards) < 17){
+            dealerCards.add(deck.drawACard())
+        }
+    }
+
     fun getBlackJackValue(cards: List<Card>): Int{
         var value = 0
         var numberOfAces = 0
