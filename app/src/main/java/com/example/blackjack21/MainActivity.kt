@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 
-class MainActivity : AppCompatActivity(), MenuFragmentListner {
+class MainActivity : AppCompatActivity() {
     lateinit var fragmentContainer: FrameLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,9 +20,7 @@ class MainActivity : AppCompatActivity(), MenuFragmentListner {
         fragmentTransaction.commit()
     }
 
-    override fun onButtonClick() {
 
-    }
 
 
 
