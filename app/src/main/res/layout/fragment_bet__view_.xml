@@ -87,7 +87,7 @@
         app:layout_constraintStart_toStartOf="@+id/vertical_guideline_bet" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/value10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
@@ -97,7 +97,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bet_value10" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/value20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -107,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bet_value20" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/value50"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
@@ -117,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bet_value50" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/value100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -127,7 +127,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bet_value100" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/betAmountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="260dp"
