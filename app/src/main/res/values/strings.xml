@@ -4,5 +4,5 @@
     <string name="scoreboard">ScoreBoard</string>
     <string name="quit">Quit</string>
     <string name="choosePlayer">Choose Player</string>
-    <string name="newUser">New User</string>
+    <string name="newUser">New User</string> 
 </resources>
