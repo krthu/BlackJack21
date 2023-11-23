@@ -1,5 +1,6 @@
 package com.example.blackjack21
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,15 +22,35 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class GameplayFragment : Fragment() {
+    interface GamePlayListener {
+        fun getActivePlayer(): BlackJackPlayer
+        fun getBlackJackValue(cards: List<Card>): Int
+
+        fun onHitPress()
+
+        fun getActiveDeck(): Deck
+
+    }
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var listener: GamePlayListener? = null
     lateinit var hitButton: Button
     lateinit var playerCardValueTextView: TextView
     private val playerCardImages = mutableListOf<ImageView>()
-    val game = Game()
+    var currentPlayer: BlackJackPlayer? = null
+    var deck: Deck? = null
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is GamePlayListener) {
+            listener = context
 
+        } else {
+            throw RuntimeException("$context must implement GameplayListener")
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +61,7 @@ class GameplayFragment : Fragment() {
         }
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,17 +69,21 @@ class GameplayFragment : Fragment() {
         // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_gameplay, container, false)
         setReferances(fragment)
-        game.deck.shuffle()
-        game.addPlayer("Nils", 100)
-        game.players[0].makeBet(10)
-        game.dealInitialCards()
-        updatePlayerCards(game.players[0].hands[0].cards)
-        updatePlayerCardValue(game.getBlackJackValue(game.players[0].hands[0].cards))
-        hitButton.setOnClickListener{
-            onHitPress()
+
+        currentPlayer = listener?.getActivePlayer()
+        deck = listener?.getActiveDeck()
+
+        if (currentPlayer != null) {
+            Toast.makeText(requireContext(), "In",Toast.LENGTH_SHORT)
+            updatePlayerCards(currentPlayer!!.hands[0].cards)
+            listener?.let { updatePlayerCardValue(it.getBlackJackValue(currentPlayer!!.hands[0].cards)) }
+
         }
 
 
+        hitButton.setOnClickListener{
+            onHitPress()
+        }
         return fragment
 
     }
@@ -75,10 +102,13 @@ class GameplayFragment : Fragment() {
     }
 
     fun onHitPress(){
-        game.players[0].addCard(0, game.deck.drawACard())
-        val cards = game.players[0].hands[0].cards
-        updatePlayerCards(cards)
-        updatePlayerCardValue(game.getBlackJackValue(cards))
+        deck?.drawACard()?.let { currentPlayer?.hands?.get(0)?.addCard(it) }
+        val cards = currentPlayer?.hands?.get(0)?.cards
+        if (cards != null) {
+            updatePlayerCards(cards)
+        }
+        listener?.let { cards?.let { it1 -> it.getBlackJackValue(it1) }
+            ?.let { it2 -> updatePlayerCardValue(it2) } }
     }
 
     fun updatePlayerCardValue(value: Int){
