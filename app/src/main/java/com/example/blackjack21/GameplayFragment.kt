@@ -14,28 +14,18 @@ import android.widget.TextView
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [GameplayFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class GameplayFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var totalBet = 0
     lateinit var hitButton: Button
     lateinit var playerCardValueTextView: TextView
     private val playerCardImages = mutableListOf<ImageView>()
     val game = Game()
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            totalBet = it.getInt("totalBet")
         }
     }
 
@@ -55,10 +45,13 @@ class GameplayFragment : Fragment() {
         hitButton.setOnClickListener{
             onHitPress()
         }
-
-
         return fragment
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val betAmountTextView: TextView = view.findViewById(R.id.bet_amount_player)
+        betAmountTextView.text = "$totalBet"
     }
 
     fun setReferances(fragment: View){
@@ -73,27 +66,21 @@ class GameplayFragment : Fragment() {
 
 
     }
-
     fun onHitPress(){
         game.players[0].addCard(0, game.deck.drawACard())
         val cards = game.players[0].hands[0].cards
         updatePlayerCards(cards)
         updatePlayerCardValue(game.getBlackJackValue(cards))
     }
-
     fun updatePlayerCardValue(value: Int){
         playerCardValueTextView.text = value.toString()
     }
-
-
     fun updatePlayerCards(cards:List<Card>){
         cards.forEachIndexed{index, card ->
             val imageId = resources.getIdentifier(getImageId(card), "drawable", requireActivity().packageName)
             playerCardImages[index].setImageResource(imageId)
         }
-
     }
-
     fun getImageId(card: Card): String{
         val builder = StringBuilder()
         when (card.suit){
@@ -118,22 +105,13 @@ class GameplayFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GameplayFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GameplayFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance(totalBet: Int): GameplayFragment {
+            val fragment = GameplayFragment()
+            val args = Bundle()
+            args.putInt("totalBet", totalBet)
+            fragment.arguments = args
+            return fragment
+        }
     }
+
 }
