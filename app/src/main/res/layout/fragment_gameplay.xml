@@ -77,12 +77,13 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_double"
         app:layout_constraintStart_toEndOf="@+id/second_card_player" />
 
+
     <ImageView
         android:id="@+id/first_card_player"
         android:layout_width="80dp"
         android:layout_height="112dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
         android:background="@drawable/card_placeholder"
         android:rotation="175"
@@ -90,22 +91,52 @@
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment" />
 
     <ImageView
+        android:id="@+id/fourth_card_player"
+        android:layout_width="80dp"
+        android:layout_height="112dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/card_placeholder"
+        android:rotation="175"
+        app:layout_constraintBottom_toTopOf="@+id/btn_stand"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment" />
+
+    <ImageView
+        android:id="@+id/fifth_card_player"
+        android:layout_width="80dp"
+        android:layout_height="112dp"
+        android:layout_marginBottom="16dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/card_placeholder"
+        android:rotation="175"
+        app:layout_constraintBottom_toTopOf="@+id/btn_stand"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
         android:id="@+id/second_card_player"
         android:layout_width="80dp"
         android:layout_height="112dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="12dp"
         android:adjustViewBounds="true"
         android:background="@drawable/card_placeholder"
         android:rotation="5"
         app:layout_constraintBottom_toTopOf="@+id/btn_stand"
         app:layout_constraintStart_toStartOf="@+id/vertical_guideline_playFragment" />
 
-
-
-
-
-
+    <ImageView
+        android:id="@+id/third_card_player"
+        android:layout_width="80dp"
+        android:layout_height="112dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="20dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/card_placeholder"
+        android:rotation="5"
+        app:layout_constraintBottom_toTopOf="@+id/btn_stand"
+        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_playFragment" />
 
     <TextView
         android:id="@+id/card_value_player"
