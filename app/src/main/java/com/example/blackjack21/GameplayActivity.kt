@@ -15,7 +15,9 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         addPlayer("Nils", 100) // Byt mot info from intent
         players[0].makeBet(10)
+        deck.shuffle()
         dealInitialCards()
+
         if (savedInstanceState == null) {
             val fragment = BetViewFragment()
 
@@ -81,17 +83,13 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
         return value
     }
-
-    override fun getActivePlayer(): BlackJackPlayer {
-        return players[0]
+  override fun updatePlayerCards(){
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+        fragment?.updatePlayerCards(players[0].hands[0].cards)
+        fragment?.updatePlayerCardValue(getBlackJackValue(players[0].hands[0].cards))
     }
-
-    override fun getActiveDeck(): Deck {
-       return deck
-    }
-
     override fun onHitPress() {
         players[0].hands[0].addCard(deck.drawACard())
-        //val cards = players[0].hands[0].cards
+        updatePlayerCards()
     }
 }
