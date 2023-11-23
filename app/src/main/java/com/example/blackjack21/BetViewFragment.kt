@@ -6,22 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import android.widget.ImageView
+import android.widget.TextView
+import org.w3c.dom.Text
 
 class BetViewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+
+    private var totalBet = 0
+    private lateinit var placeBetButton: Button
+    private lateinit var removeBetButton: Button
+    private lateinit var betAmountTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
     override fun onCreateView(
@@ -35,34 +34,60 @@ class BetViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val placeBetButton: Button = view.findViewById(R.id.btn_placeBet)
+        placeBetButton = view.findViewById(R.id.btn_placeBet)
+        removeBetButton = view.findViewById(R.id.btn_removeBet)
+        betAmountTextView = view.findViewById(R.id.betAmountTextView)
+
 
         placeBetButton.setOnClickListener {
             onPlaceBetClicked()
         }
-    }
 
+        removeBetButton.setOnClickListener {
+            removeBet()
+        }
+
+        updateBetButtonState()
+
+        val betValues = mapOf(
+            R.id.bet_value10 to 10,
+            R.id.bet_value20 to 20,
+            R.id.bet_value50 to 50,
+            R.id.bet_value100 to 100
+        )
+
+        betValues.forEach { (imageViewId, beValue) ->
+            setBetValue(imageViewId, beValue)
+        }
+    }
+    private fun setBetValue(imageViewId: Int, beValue: Int) {
+        val imageView: ImageView = requireView().findViewById(imageViewId)
+        imageView.setOnClickListener {
+            addBetValue(beValue)
+        }
+    }
+    private fun addBetValue(value: Int) {
+        totalBet += value
+        updateBetButtonState()
+        betAmountTextView.text = "$totalBet"
+    }
+    private fun removeBet() {
+        totalBet = 0
+        updateBetButtonState()
+        betAmountTextView.text = "$totalBet"
+    }
     private fun onPlaceBetClicked() {
-        (activity as? GameplayActivity)?.replaceFragment(GameplayFragment())
+        val gameplayFragment = GameplayFragment.newInstance(totalBet)
+        (activity as? GameplayActivity)?.replaceFragment(gameplayFragment)
+    }
+    private fun updateBetButtonState() {
+        if (totalBet == 0) {
+            placeBetButton.alpha = 0.5f
+            placeBetButton.isEnabled = false
+        } else {
+            placeBetButton.alpha = 1.0f
+            placeBetButton.isEnabled = true
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Bet_View_Fragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BetViewFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
