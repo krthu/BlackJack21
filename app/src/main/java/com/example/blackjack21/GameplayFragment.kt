@@ -24,11 +24,6 @@ class GameplayFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var hitButton: Button
-    lateinit var playerCard1: ImageView
-    lateinit var playerCard2: ImageView
-    lateinit var playerCard3: ImageView
-    lateinit var playerCard4: ImageView
-    lateinit var playerCard5: ImageView
     lateinit var playerCardValueTextView: TextView
     private val playerCardImages = mutableListOf<ImageView>()
     val game = Game()
@@ -67,19 +62,14 @@ class GameplayFragment : Fragment() {
     }
 
     fun setReferances(fragment: View){
-        playerCard1 = fragment.findViewById(R.id.first_card_player)
-        playerCard2 = fragment.findViewById(R.id.second_card_player)
-        playerCard3 = fragment.findViewById(R.id.third_card_player)
-        playerCard4 = fragment.findViewById(R.id.fourth_card_player)
-        playerCard5 = fragment.findViewById(R.id.fifth_card_player)
         hitButton = fragment.findViewById(R.id.btn_hit)
         playerCardValueTextView = fragment.findViewById(R.id.card_value_player)
 
-        playerCardImages.add(playerCard1)
-        playerCardImages.add(playerCard2)
-        playerCardImages.add(playerCard3)
-        playerCardImages.add(playerCard4)
-        playerCardImages.add(playerCard5)
+        playerCardImages.add(fragment.findViewById(R.id.first_card_player))
+        playerCardImages.add(fragment.findViewById(R.id.second_card_player))
+        playerCardImages.add(fragment.findViewById(R.id.third_card_player))
+        playerCardImages.add(fragment.findViewById(R.id.fourth_card_player))
+        playerCardImages.add(fragment.findViewById(R.id.fifth_card_player))
 
 
     }
@@ -100,7 +90,6 @@ class GameplayFragment : Fragment() {
         cards.forEachIndexed{index, card ->
             val imageId = resources.getIdentifier(getImageId(card), "drawable", requireActivity().packageName)
             playerCardImages[index].setImageResource(imageId)
-
         }
 
     }
