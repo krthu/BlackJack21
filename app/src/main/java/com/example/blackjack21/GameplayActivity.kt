@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.widget.Button
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
-    val players = mutableListOf<BlackJackPlayer>()
-    val deck = Deck(7)
-    val dealerCards = mutableListOf<Card>()
+    private val players = mutableListOf<BlackJackPlayer>()
+    private val deck = Deck(7)
+    private val dealerCards = mutableListOf<Card>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +35,11 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             .commit()
     }
 
-    fun addPlayer(name: String, money: Int){
+    private fun addPlayer(name: String, money: Int){
         players.add(BlackJackPlayer(name, money))
     }
 
-    fun dealInitialCards(){
+    private fun dealInitialCards(){
         for (i in 1..2){
             players.forEach { player ->
                 player.addCard(0, deck.drawACard())
@@ -48,13 +48,13 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
     }
 
-    fun getPlayerBets(){
+    private fun getPlayerBets(){
         players.forEach { player ->
             player.makeBet(50)
         }
     }
 
-    fun playDealerHand(){
+    private fun playDealerHand(){
         while (getBlackJackValue(dealerCards) < 17){
             dealerCards.add(deck.drawACard())
         }
