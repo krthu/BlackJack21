@@ -20,6 +20,16 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5"/>
 
+    <FrameLayout
+        android:id="@+id/fragment_BetFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/vertical_guideline_bet"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
     <ImageView
         android:id="@+id/bet_value10"
         android:layout_width="60dp"
@@ -28,7 +38,7 @@
         android:layout_marginBottom="60dp"
         android:src="@drawable/poker_chip"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bet_value20" />
+        app:layout_constraintEnd_toStartOf="@+id/bet_value20"/>
 
     <ImageView
         android:id="@+id/bet_value20"
@@ -38,7 +48,7 @@
         android:layout_marginBottom="60dp"
         android:src="@drawable/poker_chip"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet" />
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet"/>
 
     <ImageView
         android:id="@+id/bet_value50"
@@ -135,6 +145,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,17 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BetViewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BetViewFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -28,13 +24,26 @@ class BetViewFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_bet__view_, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val placeBetButton: Button = view.findViewById(R.id.btn_placeBet)
+
+        placeBetButton.setOnClickListener {
+            onPlaceBetClicked()
+        }
+    }
+
+    private fun onPlaceBetClicked() {
+        (activity as? GameplayActivity)?.replaceFragment(GameplayFragment())
     }
 
     companion object {
