@@ -35,27 +35,27 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/poker_chip"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bet_value20"/>
+        app:layout_constraintEnd_toStartOf="@+id/bet_value20" />
 
     <ImageView
         android:id="@+id/bet_value20"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/poker_chip"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet"/>
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet" />
 
     <ImageView
         android:id="@+id/bet_value50"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="5dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/poker_chip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/vertical_guideline_bet" />
@@ -65,7 +65,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/poker_chip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bet_value50" />
@@ -74,7 +74,7 @@
         android:id="@+id/btn_removeBet"
         android:layout_width="80dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/btn_stand"
         android:text="Remove bet"
@@ -87,7 +87,7 @@
         android:id="@+id/btn_placeBet"
         android:layout_width="80dp"
         android:layout_height="48dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="5dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/btn_hit"
         android:text="Place bet"
@@ -101,7 +101,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="5dp"
         android:text="10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bet_value10" />
@@ -110,7 +109,6 @@
         android:id="@+id/value20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="27dp"
         android:text="20"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet"
@@ -121,7 +119,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="5dp"
         android:text="50"
         app:layout_constraintStart_toStartOf="@+id/vertical_guideline_bet"
         app:layout_constraintTop_toBottomOf="@+id/bet_value50" />
@@ -130,7 +127,6 @@
         android:id="@+id/value100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="90dp"
         android:text="100"
         app:layout_constraintEnd_toEndOf="parent"
@@ -141,8 +137,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="200dp"
-        android:text="BetAmount"
+        tools:text="BetAmount"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/placeYourBetView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
+        android:fontFamily="@font/poppins_bold_italic"
+        android:text="Place Your Bet"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/bet_value50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

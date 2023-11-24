@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
+
     val players = mutableListOf<BlackJackPlayer>()
     val deck = Deck(7)
     val dealerCards = mutableListOf<Card>()
@@ -15,12 +16,16 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     var isDealerTurn = false
     lateinit var cardValueDealerTextView: TextView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay)
         setReferances()
         addPlayer("Nils", 100) // Byt mot info from intent
         players[0].makeBet(10)
+        deck.shuffle()
+        dealInitialCards()
+
 
         if (savedInstanceState == null) {
             val fragment = BetViewFragment()
@@ -44,6 +49,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             .commit()
     }
 
+
     fun setReferances() {
         dealerCardsImageViews.add(findViewById(R.id.first_card_dealer))
         dealerCardsImageViews.add(findViewById(R.id.second_card_dealer))
@@ -62,12 +68,21 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
     fun dealInitialCards() {
         for (i in 1..2) {
+
+    private fun addPlayer(name: String, money: Int){
+        players.add(BlackJackPlayer(name, money))
+    }
+
+    private fun dealInitialCards(){
+        for (i in 1..2){
+
             players.forEach { player ->
                 player.addCard(0, deck.drawACard())
             }
             dealerCards.add(deck.drawACard())
         }
     }
+
 
     fun updateDealerCardImages(cards: List<Card>) {
         cards.forEachIndexed { index, card ->
@@ -117,14 +132,17 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         return builder.toString()
     }
 
-    fun getPlayerBets() {
+    fun getPlayerBets() {   
+
         players.forEach { player ->
             player.makeBet(50)
         }
     }
 
+
     fun playDealerHand() {
         while (getBlackJackValue(dealerCards) < 17) {
+
             dealerCards.add(deck.drawACard())
             if (dealerCards.size == dealerCardsImageViews.size) {
                 // To protect from dealer from running out of imageViews
@@ -136,8 +154,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             updateDealerCardImages(dealerCards)
         }
     }
-
-
 
 
     override fun getBlackJackValue(cards: List<Card>): Int{
@@ -163,17 +179,13 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
         return value
     }
-
-    override fun getActivePlayer(): BlackJackPlayer {
-        return players[0]
+  override fun updatePlayerCards(){
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+        fragment?.updatePlayerCards(players[0].hands[0].cards)
+        fragment?.updatePlayerCardValue(getBlackJackValue(players[0].hands[0].cards))
     }
-
-    override fun getActiveDeck(): Deck {
-       return deck
-    }
-
     override fun onHitPress() {
         players[0].hands[0].addCard(deck.drawACard())
-        //val cards = players[0].hands[0].cards
+        updatePlayerCards()
     }
 }

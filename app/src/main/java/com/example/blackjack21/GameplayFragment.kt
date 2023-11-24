@@ -17,21 +17,15 @@ class GameplayFragment : Fragment() {
     private var totalBet = 0
 
     interface GamePlayListener {
-        fun getActivePlayer(): BlackJackPlayer
         fun getBlackJackValue(cards: List<Card>): Int
-
         fun onHitPress()
-
-        fun getActiveDeck(): Deck
-
+        fun updatePlayerCards()
     }
     
     private var listener: GamePlayListener? = null
     lateinit var hitButton: Button
     lateinit var playerCardValueTextView: TextView
     private val playerCardImages = mutableListOf<ImageView>()
-    var currentPlayer: BlackJackPlayer? = null
-    var deck: Deck? = null
 
 
     override fun onAttach(context: Context) {
@@ -61,19 +55,7 @@ class GameplayFragment : Fragment() {
         val fragment = inflater.inflate(R.layout.fragment_gameplay, container, false)
         setReferances(fragment)
 
-        currentPlayer = listener?.getActivePlayer()
-        deck = listener?.getActiveDeck()
 
-        if (currentPlayer != null) {
-            Toast.makeText(requireContext(), "In",Toast.LENGTH_SHORT)
-            updatePlayerCards(currentPlayer!!.hands[0].cards)
-            listener?.let { updatePlayerCardValue(it.getBlackJackValue(currentPlayer!!.hands[0].cards)) }
-
-        }
-
-        hitButton.setOnClickListener{
-            onHitPress()
-        }
 
         return fragment
     }
@@ -82,6 +64,11 @@ class GameplayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val betAmountTextView: TextView = view.findViewById(R.id.bet_amount_player)
         betAmountTextView.text = "$totalBet"
+        listener?.updatePlayerCards()
+        hitButton.setOnClickListener{
+          listener?.onHitPress()
+
+        }
     }
 
     fun setReferances(fragment: View){
@@ -95,15 +82,6 @@ class GameplayFragment : Fragment() {
         playerCardImages.add(fragment.findViewById(R.id.fifth_card_player))
 
 
-    }
-    fun onHitPress(){
-        deck?.drawACard()?.let { currentPlayer?.hands?.get(0)?.addCard(it) }
-        val cards = currentPlayer?.hands?.get(0)?.cards
-        if (cards != null) {
-            updatePlayerCards(cards)
-        }
-        listener?.let { cards?.let { it1 -> it.getBlackJackValue(it1) }
-            ?.let { it2 -> updatePlayerCardValue(it2) } }
     }
     fun updatePlayerCardValue(value: Int){
         playerCardValueTextView.text = value.toString()
