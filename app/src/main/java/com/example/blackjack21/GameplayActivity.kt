@@ -80,7 +80,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     fun updateDealerCardImages(cards: List<Card>) {
         cards.forEachIndexed { index, card ->
             val imageName =
-                if (!isDealerTurn && index == 1) "card_back" else getImageId(card)
+                if (!isDealerTurn && index == 1) "card_back" else card.imageString
             val imageId = resources.getIdentifier(imageName, "drawable", packageName)
             dealerCardsImageViews[index].setImageResource(imageId)
         }
@@ -97,33 +97,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
 
         cardValueDealerTextView.text = value.toString()
-    }
-
-    // Den här kan vi nog göra något annat med. Den finns på två ställen nu. Kanske lägga den i Card?
-    fun getImageId(card: Card): String {
-        val builder = StringBuilder()
-        when (card.suit) {
-            "Hearts" -> {
-                builder.append("h")
-            }
-
-            "Diamonds" -> {
-                builder.append("d")
-            }
-
-            "Clubs" -> {
-                builder.append("c")
-            }
-
-            "Spades" -> {
-                builder.append("s")
-            }
-        }
-        if (card.number < 10) {
-            builder.append(0)
-        }
-        builder.append(card.number)
-        return builder.toString()
     }
 
     fun getPlayerBets() {
