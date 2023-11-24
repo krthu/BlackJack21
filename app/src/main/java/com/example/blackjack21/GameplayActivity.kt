@@ -2,20 +2,26 @@ package com.example.blackjack21
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
     val players = mutableListOf<BlackJackPlayer>()
     val deck = Deck(7)
     val dealerCards = mutableListOf<Card>()
+    val dealerCardsImageViews = mutableListOf<ImageView>()
+    var isDealerTurn = false
+    lateinit var cardValueDealerTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay)
-
+        setReferances()
         addPlayer("Nils", 100) // Byt mot info from intent
         players[0].makeBet(10)
-        dealInitialCards()
+
         if (savedInstanceState == null) {
             val fragment = BetViewFragment()
 
@@ -27,18 +33,41 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
 
     fun replaceFragment(gameplayFragment: GameplayFragment) {
+        deck.shuffle()
+        setupDeckForDealerImageviewCrash()
+        dealInitialCards()
+        updateDealerCardImages(dealerCards)
+
+        // remove this later testing dealer play
+        isDealerTurn = true
+
+        playDealerHand()
+
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_gameplay_container, gameplayFragment)
             .addToBackStack(null)
             .commit()
     }
 
-    fun addPlayer(name: String, money: Int){
+    fun setReferances() {
+        dealerCardsImageViews.add(findViewById(R.id.first_card_dealer))
+        dealerCardsImageViews.add(findViewById(R.id.second_card_dealer))
+        dealerCardsImageViews.add(findViewById(R.id.third_card_dealer))
+        dealerCardsImageViews.add(findViewById(R.id.fourth_card_dealer))
+        dealerCardsImageViews.add(findViewById(R.id.fifth_card_dealer))
+        dealerCardsImageViews.add(findViewById(R.id.sixth_card_dealer))
+        cardValueDealerTextView = findViewById(R.id.card_value_dealer)
+
+
+    }
+
+    fun addPlayer(name: String, money: Int) {
         players.add(BlackJackPlayer(name, money))
     }
 
-    fun dealInitialCards(){
-        for (i in 1..2){
+    fun dealInitialCards() {
+        for (i in 1..2) {
             players.forEach { player ->
                 player.addCard(0, deck.drawACard())
             }
@@ -46,17 +75,82 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
     }
 
-    fun getPlayerBets(){
+    fun updateDealerCardImages(cards: List<Card>) {
+        cards.forEachIndexed { index, card ->
+            val imageName = if (!isDealerTurn && index == 1) "card_back" else getImageId(card)
+            val imageId = resources.getIdentifier(imageName, "drawable", packageName)
+            dealerCardsImageViews[index].setImageResource(imageId)
+        }
+        updateDealerCardsValue(cards)
+    }
+
+    fun setupDeckForDealerImageviewCrash(){
+        for (i in 1..12){
+            deck.decklist.add(0, Card("Hearts", 14))
+        }
+
+    }
+
+    fun updateDealerCardsValue(cards: List<Card>) {
+        var value = 0
+        if (!isDealerTurn) {
+            value = getBlackJackValue(listOf(cards[0]))
+        } else {
+            value = getBlackJackValue(cards)
+        }
+
+        cardValueDealerTextView.text = value.toString()
+    }
+
+    // Den här kan vi nog göra något annat med. Den finns på två ställen nu. Kanske lägga den i Card?
+    fun getImageId(card: Card): String {
+        val builder = StringBuilder()
+        when (card.suit) {
+            "Hearts" -> {
+                builder.append("h")
+            }
+
+            "Diamonds" -> {
+                builder.append("d")
+            }
+
+            "Clubs" -> {
+                builder.append("c")
+            }
+
+            "Spades" -> {
+                builder.append("s")
+            }
+        }
+        if (card.number < 10) {
+            builder.append(0)
+        }
+        builder.append(card.number)
+        return builder.toString()
+    }
+
+    fun getPlayerBets() {
         players.forEach { player ->
             player.makeBet(50)
         }
     }
 
-    fun playDealerHand(){
-        while (getBlackJackValue(dealerCards) < 17){
+    fun playDealerHand() {
+        while (getBlackJackValue(dealerCards) < 17) {
             dealerCards.add(deck.drawACard())
+            if (dealerCards.size == dealerCardsImageViews.size) {
+                // To protect from dealer from running out of imageViews
+                if (getBlackJackValue(dealerCards) < 17) {
+                    val card = dealerCards.removeLast()
+                    Log.d("!!!", "Card removed to not crash! $card")
+                }
+            }
+            updateDealerCardImages(dealerCards)
         }
     }
+
+
+
 
     override fun getBlackJackValue(cards: List<Card>): Int{
         var value = 0
