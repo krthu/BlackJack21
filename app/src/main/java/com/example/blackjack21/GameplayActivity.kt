@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.widget.Button
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
-    val players = mutableListOf<BlackJackPlayer>()
-    val deck = Deck(7)
-    val dealerCards = mutableListOf<Card>()
+    private val players = mutableListOf<BlackJackPlayer>()
+    private val deck = Deck(7)
+    private val dealerCards = mutableListOf<Card>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,7 +15,9 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         addPlayer("Nils", 100) // Byt mot info from intent
         players[0].makeBet(10)
+        deck.shuffle()
         dealInitialCards()
+
         if (savedInstanceState == null) {
             val fragment = BetViewFragment()
 
@@ -33,11 +35,11 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             .commit()
     }
 
-    fun addPlayer(name: String, money: Int){
+    private fun addPlayer(name: String, money: Int){
         players.add(BlackJackPlayer(name, money))
     }
 
-    fun dealInitialCards(){
+    private fun dealInitialCards(){
         for (i in 1..2){
             players.forEach { player ->
                 player.addCard(0, deck.drawACard())
@@ -46,13 +48,13 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
     }
 
-    fun getPlayerBets(){
+    private fun getPlayerBets(){
         players.forEach { player ->
             player.makeBet(50)
         }
     }
 
-    fun playDealerHand(){
+    private fun playDealerHand(){
         while (getBlackJackValue(dealerCards) < 17){
             dealerCards.add(deck.drawACard())
         }
@@ -81,17 +83,13 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
         return value
     }
-
-    override fun getActivePlayer(): BlackJackPlayer {
-        return players[0]
+  override fun updatePlayerCards(){
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+        fragment?.updatePlayerCards(players[0].hands[0].cards)
+        fragment?.updatePlayerCardValue(getBlackJackValue(players[0].hands[0].cards))
     }
-
-    override fun getActiveDeck(): Deck {
-       return deck
-    }
-
     override fun onHitPress() {
         players[0].hands[0].addCard(deck.drawACard())
-        //val cards = players[0].hands[0].cards
+        updatePlayerCards()
     }
 }
