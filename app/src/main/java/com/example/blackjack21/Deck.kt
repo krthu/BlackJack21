@@ -24,9 +24,39 @@ class Deck(private var numberOfDecks: Int) {
         for (i in 1..numberOfDecks){
             suits.forEach{ suit ->
                 numbers.forEach{ number ->
-                    decklist.add(Card(suit, number))
+                    val imageString = getImageId(suit, number)
+
+                    decklist.add(Card(suit, number, imageString))
                 }
             }
         }
     }
+
+
+    private fun getImageId(suit: String, number: Int): String     {
+        val builder = StringBuilder()
+        when (suit) {
+            "Hearts" -> {
+                builder.append("h")
+            }
+
+            "Diamonds" -> {
+                builder.append("d")
+            }
+
+            "Clubs" -> {
+                builder.append("c")
+            }
+
+            "Spades" -> {
+                builder.append("s")
+            }
+        }
+        if (number < 10) {
+            builder.append(0)
+        }
+        builder.append(number)
+        return builder.toString()
+    }
+
 }
