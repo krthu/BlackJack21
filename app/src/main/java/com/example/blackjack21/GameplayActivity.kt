@@ -34,15 +34,9 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
     fun replaceFragment(gameplayFragment: GameplayFragment) {
         deck.shuffle()
-        setupDeckForDealerImageviewCrash()
+
         dealInitialCards()
         updateDealerCardImages(dealerCards)
-
-        // remove this later testing dealer play
-        isDealerTurn = true
-
-        playDealerHand()
-
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_gameplay_container, gameplayFragment)
@@ -84,12 +78,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         updateDealerCardsValue(cards)
     }
 
-    fun setupDeckForDealerImageviewCrash(){
-        for (i in 1..12){
-            deck.decklist.add(0, Card("Hearts", 14))
-        }
-
-    }
 
     fun updateDealerCardsValue(cards: List<Card>) {
         var value = 0
