@@ -117,6 +117,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
 
 
+
     // Den här kan vi nog göra något annat med. Den finns på två ställen nu. Kanske lägga den i Card?
     fun getImageId(card: Card): String {
         val builder = StringBuilder()
@@ -143,6 +144,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         builder.append(card.number)
         return builder.toString()
     }
+
 
     fun getPlayerBets() {
 

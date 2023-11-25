@@ -93,31 +93,9 @@ class GameplayFragment : Fragment() {
     }
     fun updatePlayerCards(cards:List<Card>){
         cards.forEachIndexed{index, card ->
-            val imageId = resources.getIdentifier(getImageId(card), "drawable", requireActivity().packageName)
+            val imageId = resources.getIdentifier(card.imageString, "drawable", requireActivity().packageName)
             playerCardImages[index].setImageResource(imageId)
         }
-    }
-    fun getImageId(card: Card): String{
-        val builder = StringBuilder()
-        when (card.suit){
-            "Hearts" -> {
-                builder.append("h")
-            }
-            "Diamonds" -> {
-                builder.append("d")
-            }
-            "Clubs" -> {
-                builder.append("c")
-            }
-            "Spades" -> {
-                builder.append("s")
-            }
-        }
-        if (card.number < 10){
-            builder.append(0)
-        }
-        builder.append(card.number)
-        return builder.toString()
     }
 
     companion object {
