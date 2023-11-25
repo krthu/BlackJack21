@@ -2,6 +2,8 @@ package com.example.blackjack21
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
@@ -67,37 +69,53 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
 
     private fun dealInitialCards() {
-        for (i in 1..2) {
+        val handler = Handler(Looper.getMainLooper())
+        val delayBetweenCards = 500L
 
-            players.forEach { player ->
-                player.addCard(0, deck.drawACard())
-            }
-            dealerCards.add(deck.drawACard())
+        for (i in 0 until 2) {
+            handler.postDelayed({
+                val card = deck.drawACard()
+                players[0].addCard(0, card)
+
+                val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+                fragment?.updatePlayerCards(players[0].hands[0].cards)
+                fragment?.updatePlayerCardValue(getBlackJackValue(players[0].hands[0].cards))
+            }, delayBetweenCards * (2 * i))
+
+
+
+            handler.postDelayed({
+                val dealerCard = deck.drawACard()
+                dealerCards.add(dealerCard)
+                updateDealerCardImages(dealerCards)
+            }, delayBetweenCards * (2 * i + 1))
         }
     }
 
-
     fun updateDealerCardImages(cards: List<Card>) {
-        cards.forEachIndexed { index, card ->
-            val imageName =
-                if (!isDealerTurn && index == 1) "card_back" else getImageId(card)
-            val imageId = resources.getIdentifier(imageName, "drawable", packageName)
-            dealerCardsImageViews[index].setImageResource(imageId)
+        if (cards.isNotEmpty()) {
+            cards.forEachIndexed { index, card ->
+                val imageName = if (!isDealerTurn && index == 1) "card_back" else getImageId(card)
+                val imageId = resources.getIdentifier(imageName, "drawable", packageName)
+                dealerCardsImageViews.getOrNull(index)?.setImageResource(imageId)
+            }
         }
-        updateDealerCardsValue(cards)
     }
 
 
     fun updateDealerCardsValue(cards: List<Card>) {
         var value = 0
-        if (!isDealerTurn) {
-            value = getBlackJackValue(listOf(cards[0]))
-        } else {
-            value = getBlackJackValue(cards)
+        if (cards.isNotEmpty()) {
+            if (!isDealerTurn) {
+                value = getBlackJackValue(listOf(cards[0]))
+            } else {
+                value = getBlackJackValue(cards)
+            }
         }
 
         cardValueDealerTextView.text = value.toString()
     }
+
 
     // Den här kan vi nog göra något annat med. Den finns på två ställen nu. Kanske lägga den i Card?
     fun getImageId(card: Card): String {
@@ -135,18 +153,23 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
 
     fun playDealerHand() {
-        while (getBlackJackValue(dealerCards) < 17) {
+        isDealerTurn = true
+        updateDealerCardImages(dealerCards)
+        updateDealerCardsValue(dealerCards)
 
-            dealerCards.add(deck.drawACard())
-            if (dealerCards.size == dealerCardsImageViews.size) {
-                // To protect from dealer from running out of imageViews
-                if (getBlackJackValue(dealerCards) < 17) {
-                    val card = dealerCards.removeLast()
-                    Log.d("!!!", "Card removed to not crash! $card")
-                }
+        val handler = Handler(Looper.getMainLooper())
+        val delayBetweenDealerCards = 500L
+
+        fun drawDealerCard() {
+            if (getBlackJackValue(dealerCards) < 17) {
+                dealerCards.add(deck.drawACard())
+                updateDealerCardImages(dealerCards)
+                updateDealerCardsValue(dealerCards)
+                handler.postDelayed(::drawDealerCard, delayBetweenDealerCards)
             }
-            updateDealerCardImages(dealerCards)
         }
+
+        handler.postDelayed(::drawDealerCard, delayBetweenDealerCards)
     }
 
 
@@ -186,6 +209,10 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     override fun onHitPress() {
         players[0].hands[0].addCard(deck.drawACard())
         updatePlayerCards()
+    }
+
+    override fun onStandPress() {
+        playDealerHand()
     }
 }
 

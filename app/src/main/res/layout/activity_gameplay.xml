@@ -54,25 +54,39 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/first_card_dealer"
+        android:layout_width="80dp"
+        android:layout_height="112dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/second_card_dealer"
         android:layout_width="80dp"
         android:layout_height="112dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="80dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/card_placeholder"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_activityGameplay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/third_card_dealer"
+        android:layout_width="80dp"
+        android:layout_height="112dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/fourth_card_dealer"
         android:layout_width="80dp"
         android:layout_height="112dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="116dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/card_placeholder"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_activityGameplay"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -81,42 +95,17 @@
         android:layout_height="112dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="148dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/card_placeholder"
         app:layout_constraintStart_toStartOf="@+id/vertical_guideline_activityGameplay"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/first_card_dealer"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="3dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/card_placeholder"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_activityGameplay"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/third_card_dealer"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="8dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/card_placeholder"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_activityGameplay"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/fifth_card_dealer"
         android:layout_width="80dp"
         android:layout_height="112dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="3dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/card_placeholder"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_activityGameplay"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
