@@ -19,11 +19,13 @@ class GameplayFragment : Fragment() {
     interface GamePlayListener {
         fun getBlackJackValue(cards: List<Card>): Int
         fun onHitPress()
+        fun onStandPress()
         fun updatePlayerCards()
     }
     
     private var listener: GamePlayListener? = null
     lateinit var hitButton: Button
+    lateinit var standButton : Button
     lateinit var playerCardValueTextView: TextView
     private val playerCardImages = mutableListOf<ImageView>()
 
@@ -65,14 +67,17 @@ class GameplayFragment : Fragment() {
         val betAmountTextView: TextView = view.findViewById(R.id.bet_amount_player)
         betAmountTextView.text = "$totalBet"
         listener?.updatePlayerCards()
+        standButton.setOnClickListener {
+            listener?.onStandPress()
+        }
         hitButton.setOnClickListener{
           listener?.onHitPress()
-
         }
     }
 
     fun setReferances(fragment: View){
         hitButton = fragment.findViewById(R.id.btn_hit)
+        standButton = fragment.findViewById(R.id.btn_stand)
         playerCardValueTextView = fragment.findViewById(R.id.card_value_player)
 
         playerCardImages.add(fragment.findViewById(R.id.first_card_player))
