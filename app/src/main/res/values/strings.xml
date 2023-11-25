@@ -6,5 +6,6 @@
     <string name="quit">Quit</string>
     <string name="choosePlayer">Choose Player</string>
     <string name="newUser">New User</string>
+    <string name="cogwheel_quit">Quit</string>
 
 </resources>

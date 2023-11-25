@@ -4,22 +4,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import android.widget.Button
+import android.view.View
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.os.postDelayed
-import androidx.fragment.app.Fragment
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
 
+    lateinit var cardValueDealerTextView: TextView
+    lateinit var cogWheelMenu: ImageView
     val players = mutableListOf<BlackJackPlayer>()
     val deck = Deck(7)
     val dealerCards = mutableListOf<Card>()
     val dealerCardsImageViews = mutableListOf<ImageView>()
     var isDealerTurn = false
-    lateinit var cardValueDealerTextView: TextView
     var gameIsActive = true
 
 
@@ -27,11 +26,9 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay)
         setReferances()
-        addPlayer("Nils", 100) // Byt mot info from intent
+        addPlayer("Nils", 1000) // Byt mot info from intent
         players[0].makeBet(10)
         deck.shuffle()
-
-
 
         if (savedInstanceState == null) {
             val fragment = BetViewFragment()
@@ -39,6 +36,11 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_gameplay_container, fragment)
                 .commit()
+        }
+
+        cogWheelMenu = findViewById(R.id.cogwheel_gameplay)
+        cogWheelMenu.setOnClickListener{ view ->
+            showPopUpMenu(view)
         }
 
     }
@@ -127,7 +129,21 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
 
     }
-
+    private fun showPopUpMenu(view: View) {
+        val popup = PopupMenu(this, view)
+        val inflater = popup.menuInflater
+        inflater.inflate(R.menu.gameplay_menu, popup.menu)
+        popup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_quit -> {
+                    finish()
+                    true
+                }
+                else -> false
+            }
+        }
+        popup.show()
+    }
     fun replaceFragment(gameplayFragment: GameplayFragment) {
         deck.shuffle()
 
