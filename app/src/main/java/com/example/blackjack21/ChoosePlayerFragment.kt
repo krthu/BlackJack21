@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-private var playerData = listOf<PlayerData>()
+private var playerData = mutableListOf<BlackJackPlayer>()
 
 /**
  * A simple [Fragment] subclass.
@@ -48,29 +48,39 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         backImageView = fragment.findViewById(R.id.backImageView)
         newUserTextView.setOnClickListener{ Toast.makeText(requireContext(), "Need to fix click on New user", Toast.LENGTH_SHORT).show() }
         backImageView.setOnClickListener { onBackPress() }
+        //savePlayerData()
         playerData = getPlayerData()
         val recyclerView: RecyclerView = fragment.findViewById(R.id.playerRecyclerView)
         recyclerView.adapter = PlayerAdapter(playerData, this)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
         return fragment
     }
 
-    fun getPlayerData(): List<PlayerData> {
-        val data = mutableListOf<PlayerData>()
-        data.add(PlayerData("Linus"))
-        data.add(PlayerData("Kalle"))
-        data.add(PlayerData("Nils"))
-        data.add(PlayerData("Kristian"))
-        data.add(PlayerData("Linus"))
-        data.add(PlayerData("Kalle"))
-        data.add(PlayerData("Nils"))
-        data.add(PlayerData("Kristian"))
-        data.add(PlayerData("Linus"))
-        data.add(PlayerData("Kalle"))
-        data.add(PlayerData("Nils"))
-        data.add(PlayerData("Kristian"))
+    fun savePlayerData(): MutableList<BlackJackPlayer> {
+
+        val data = mutableListOf<BlackJackPlayer>()
+        data.add(BlackJackPlayer("Linus", 1000))
+        data.add(BlackJackPlayer("Kalle", 500))
+        data.add(BlackJackPlayer("Nils", 300))
+        data.add(BlackJackPlayer("Kristian", 300))
+        data.add(BlackJackPlayer("Olle", 300))
+        data.add(BlackJackPlayer("Sigvard", 300))
+        data.add(BlackJackPlayer("Stefan", 300))
+        data.add(BlackJackPlayer("Linda", 300))
+        data.add(BlackJackPlayer("Josefin", 300))
+        data.add(BlackJackPlayer("Frida", 300))
+        data.add(BlackJackPlayer("Amanda", 300))
+        data.add(BlackJackPlayer("Klara", 300))
+        val saveDataManager = saveDataManager(requireContext())
+        saveDataManager.saveUsers("users", data)
         return data
+    }
+
+    fun getPlayerData(): MutableList<BlackJackPlayer> {
+
+        val saveDataManager = saveDataManager(requireContext())
+        val users = saveDataManager.loadUsers("users")
+        return users
     }
 
     fun onBackPress() {

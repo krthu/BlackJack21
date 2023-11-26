@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class PlayerAdapter(
-    private val data: List<PlayerData>,
+    private val data: MutableList<BlackJackPlayer>,
     private val lister: RecyclerViewEvent
 ) : RecyclerView.Adapter<PlayerAdapter.ItemViewHoler>() {
 
@@ -41,7 +41,7 @@ class PlayerAdapter(
 
     // Assign values on rows
     override fun onBindViewHolder(holder: ItemViewHoler, position: Int) {
-        val player: PlayerData = data[position]
+        val player: BlackJackPlayer = data[position]
         holder.nameTextView.text = player.name
     }
 }
