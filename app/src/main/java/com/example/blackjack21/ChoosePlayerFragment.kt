@@ -48,8 +48,8 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         newUserTextView.setOnClickListener{ Toast.makeText(requireContext(), "Need to fix click on New user", Toast.LENGTH_SHORT).show() }
         backImageView.setOnClickListener { onBackPress() }
 
-       // savePlayerData(BlackJackPlayer("Kurt", 10))
-            updateUser(BlackJackPlayer("Kurt", 20))
+        //savePlayersData(mutableListOf(BlackJackPlayer("Kurt", 10), BlackJackPlayer("Stefan", 100)) )
+        //updateUser(BlackJackPlayer("Kurt", 20))
       //  val saveDataManager = SaveDataManager(requireContext())
      //   saveDataManager.removeKey("users")
      //   savePlayerData("users", mutableListOf<BlackJackPlayer>(BlackJackPlayer("Kaj", 20)))
@@ -64,6 +64,12 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         val saveDataManager = SaveDataManager(requireContext())
 
         saveDataManager.saveNewPlayer(player)
+    }
+
+    fun savePlayersData(players: MutableList<BlackJackPlayer>) {
+        val saveDataManager = SaveDataManager(requireContext())
+
+        saveDataManager.savePlayers(players)
     }
 
     fun updateUser(player: BlackJackPlayer){
