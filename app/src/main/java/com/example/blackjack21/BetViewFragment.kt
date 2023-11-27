@@ -77,10 +77,11 @@ class BetViewFragment : Fragment() {
         placeBetButton.visibility = View.GONE
         removeBetButton.visibility = View.GONE
     }
-    private fun setBetValue(imageViewId: Int, beValue: Int) {
+    private fun setBetValue(imageViewId: Int, betValue: Int) {
         val imageView: ImageView = requireView().findViewById(imageViewId)
         imageView.setOnClickListener {
-            addBetValue(beValue)
+            addBetValue(betValue)
+            updateTotalBetChipImage(betValue)
             // Change visibility upon bet selection and applying animations
             if (isFirstBet) {
                 placeYourBetText.visibility = View.GONE
@@ -91,6 +92,21 @@ class BetViewFragment : Fragment() {
                 isFirstBet = false
             }
         }
+    }
+
+    private fun updateTotalBetChipImage(betValue: Int) {
+        val totalBetChip: ImageView = requireView().findViewById(R.id.total_bet_chip)
+        val resourceID = when(betValue) {
+            10 -> R.drawable.chip_value10
+            20 -> R.drawable.chip_value20
+            50 -> R.drawable.chip_value50
+            100 -> R.drawable.chip_value100
+            else -> 0
+        }
+        if (resourceID != 0) {
+            totalBetChip.setImageResource(resourceID)
+        }
+
     }
 
     private fun applyVisibilityAnimation(view: View, makeVisible: Boolean) {
