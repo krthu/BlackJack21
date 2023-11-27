@@ -27,6 +27,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         setContentView(R.layout.activity_gameplay)
         setReferances()
         addPlayer("Nils", 1000) // Byt mot info from intent
+        updatePlayerInfo(players[0])
         players[0].makeBet(10)
         deck.shuffle()
 
@@ -42,7 +43,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         cogWheelMenu.setOnClickListener{ view ->
             showPopUpMenu(view)
         }
-
     }
 
     override fun getBlackJackValue(cards: List<Card>): Int {
@@ -92,7 +92,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         checkWinner()
     }
-
     private fun dealInitialCards() {
         val handler = Handler(Looper.getMainLooper())
         val delayBetweenCards = 500L
@@ -144,6 +143,13 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
         popup.show()
     }
+    private fun updatePlayerInfo(player: BlackJackPlayer) {
+        val currentPlayerInfoBar: TextView = findViewById(R.id.currentPlayer_infoBar)
+        val totalMoneyInfoBar: TextView = findViewById(R.id.totalMoney_infoBar)
+
+        currentPlayerInfoBar.text = "Current player: ${player.name}"
+        totalMoneyInfoBar.text = "Cash: ${player.getMoney()}"
+    }
     fun replaceFragment(gameplayFragment: GameplayFragment) {
         deck.shuffle()
 
@@ -155,7 +161,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             .addToBackStack(null)
             .commit()
     }
-
     fun setReferances() {
         dealerCardsImageViews.add(findViewById(R.id.first_card_dealer))
         dealerCardsImageViews.add(findViewById(R.id.second_card_dealer))
@@ -167,11 +172,9 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
 
     }
-
     fun addPlayer(name: String, money: Int) {
         players.add(BlackJackPlayer(name, money))
     }
-
     fun updateDealerCardImages(cards: List<Card>) {
         if (cards.isNotEmpty()) {
             cards.forEachIndexed { index, card ->
@@ -181,7 +184,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             }
         }
     }
-
     fun updateDealerCardsValue(cards: List<Card>) {
         var value = 0
         if (cards.isNotEmpty()) {
@@ -194,7 +196,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         cardValueDealerTextView.text = value.toString()
     }
-
     // Den här kan vi nog göra något annat med. Den finns på två ställen nu. Kanske lägga den i Card?
     fun getImageId(card: Card): String {
         val builder = StringBuilder()
@@ -221,14 +222,12 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         builder.append(card.number)
         return builder.toString()
     }
-
     fun getPlayerBets() {
 
         players.forEach { player ->
             player.makeBet(50)
         }
     }
-
     fun playDealerHand() {
         isDealerTurn = true
         updateDealerCardImages(dealerCards)
@@ -252,7 +251,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         handler.postDelayed(::drawDealerCard, delayBetweenDealerCards)
     }
-
     fun checkWinner() {
         val playerValue = getBlackJackValue(players[0].hands[0].cards)
         val dealerValue = getBlackJackValue(dealerCards)
@@ -301,7 +299,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             .replace(R.id.fragment_gameplay_container, BetViewFragment())
             .commit()
     }
-
     fun resetDealerCardValue() {
         cardValueDealerTextView.text = ""
     }
