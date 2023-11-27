@@ -1,7 +1,7 @@
 package com.example.blackjack21
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-private var playerData = listOf<PlayerData>()
-
+private var playerData = mutableListOf<BlackJackPlayer>()
 /**
  * A simple [Fragment] subclass.
  * Use the [ChoosePlayerFragment.newInstance] factory method to
@@ -48,32 +47,20 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         backImageView = fragment.findViewById(R.id.backImageView)
         newUserTextView.setOnClickListener{ Toast.makeText(requireContext(), "Need to fix click on New user", Toast.LENGTH_SHORT).show() }
         backImageView.setOnClickListener { onBackPress() }
-        playerData = getPlayerData()
+
+        playerData = getPlayerList()
         val recyclerView: RecyclerView = fragment.findViewById(R.id.playerRecyclerView)
         recyclerView.adapter = PlayerAdapter(playerData, this)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
         return fragment
     }
 
-    fun getPlayerData(): List<PlayerData> {
-        val data = mutableListOf<PlayerData>()
-        data.add(PlayerData("Linus"))
-        data.add(PlayerData("Kalle"))
-        data.add(PlayerData("Nils"))
-        data.add(PlayerData("Kristian"))
-        data.add(PlayerData("Linus"))
-        data.add(PlayerData("Kalle"))
-        data.add(PlayerData("Nils"))
-        data.add(PlayerData("Kristian"))
-        data.add(PlayerData("Linus"))
-        data.add(PlayerData("Kalle"))
-        data.add(PlayerData("Nils"))
-        data.add(PlayerData("Kristian"))
-        return data
+    private fun getPlayerList(): MutableList<BlackJackPlayer> {
+        val saveDataManager = SaveDataManager(requireContext())
+        return saveDataManager.getListOfPlayers()
     }
 
-    fun onBackPress() {
+    private fun onBackPress() {
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.popBackStack()
     }
@@ -99,6 +86,12 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     }
 
     override fun onRowClick(position: Int) {
-        Toast.makeText(requireContext(), "${playerData[position].name} your playing!", Toast.LENGTH_SHORT).show()
+
+                activity?.let {
+            val intent = Intent(requireActivity(), GameplayActivity::class.java)
+                    intent.putExtra("playerName", playerData[position].name)
+                    intent.putExtra("playerMoney", playerData[position].money)
+                    startActivity(intent)
+        }
     }
 }

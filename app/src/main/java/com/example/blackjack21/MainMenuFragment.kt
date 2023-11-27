@@ -40,22 +40,23 @@ class MainMenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val fragment = inflater.inflate(R.layout.fragment_main_menu, container, false)
-        startGameView = fragment.findViewById(R.id.startGameView)
-        scoreBoardView = fragment.findViewById(R.id.scoreBoardView)
-        quitView = fragment.findViewById(R.id.quitView)
-        flagView = fragment.findViewById(R.id.flagImage)
+        return inflater.inflate(R.layout.fragment_main_menu, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        startGameView = view.findViewById(R.id.startGameView)
+        scoreBoardView = view.findViewById(R.id.scoreBoardView)
+        quitView = view.findViewById(R.id.quitView)
+        flagView = view.findViewById(R.id.flagImage)
 
         startGameView.setOnClickListener { onStartPress() }
         scoreBoardView.setOnClickListener { onScoreBoardPress() }
         quitView.setOnClickListener { onQuitPress() }
         flagView.setOnClickListener{ onFlagPress() }
 
-
-
-        return fragment
     }
-
     fun changeFragment(fragment: Fragment){
         val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -66,10 +67,11 @@ class MainMenuFragment : Fragment() {
     }
 
     fun onStartPress(){
-        activity?.let {
-            val intent = Intent(requireActivity(), GameplayActivity::class.java)
-            startActivity(intent)
-        }
+//        activity?.let {
+//            val intent = Intent(requireActivity(), GameplayActivity::class.java)
+//            startActivity(intent)
+//        }
+        changeFragment(ChoosePlayerFragment())
     }
 
     fun onFlagPress(){
