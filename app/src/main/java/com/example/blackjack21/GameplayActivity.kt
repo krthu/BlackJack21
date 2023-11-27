@@ -153,7 +153,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         val totalMoneyInfoBar: TextView = findViewById(R.id.totalMoney_infoBar)
 
         currentPlayerInfoBar.text = "Current player: ${player.name}"
-        totalMoneyInfoBar.text = "Cash: ${player.getMoney()}"
+        totalMoneyInfoBar.text = "Cash: ${player.money}"
     }
     fun replaceFragment(gameplayFragment: GameplayFragment) {
         deck.shuffle()
