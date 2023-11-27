@@ -1,6 +1,6 @@
 package com.example.blackjack21
 
-class BlackJackPlayer(name: String, private var money: Int): Player(name) {
+class BlackJackPlayer(name: String, var money: Int): Player(name) {
     val hands = mutableListOf<Hand>()
 
     fun makeBet(bet: Int): Boolean{

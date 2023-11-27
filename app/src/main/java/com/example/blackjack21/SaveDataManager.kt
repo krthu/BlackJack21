@@ -20,8 +20,8 @@ class SaveDataManager(context: Context) {
         if (playerDataJson != null){
             val typeToken = object: TypeToken<MutableMap<String, BlackJackPlayer>>() {}.type
             playerMap = gson.fromJson(playerDataJson, typeToken)
-            if (playerMap?.containsKey(playerToSave.name) == true){
-                playerMap?.set(playerToSave.name, playerToSave)
+            if (playerMap?.containsKey(playerToSave.name.lowercase()) == true){
+                playerMap?.set(playerToSave.name.lowercase(), playerToSave)
                 val newPlayerDataJson = gson.toJson(playerMap)
                 sharedPreferences.edit().putString(USER_DATA, newPlayerDataJson).apply()
                 return true
@@ -33,10 +33,10 @@ class SaveDataManager(context: Context) {
     // Used to Save One New player with check for unique name
     fun saveNewPlayer(playerToSave: BlackJackPlayer): Boolean{
         val mapOfPlayers = loadPlayers()
-        if (mapOfPlayers.containsKey(playerToSave.name)){
+        if (mapOfPlayers.containsKey(playerToSave.name.lowercase())){
             return false
         }
-        mapOfPlayers[playerToSave.name] = playerToSave
+        mapOfPlayers[playerToSave.name.lowercase()] = playerToSave
         val playersJson = gson.toJson(mapOfPlayers)
         sharedPreferences.edit().putString(USER_DATA, playersJson).apply()
         return true
@@ -46,14 +46,14 @@ class SaveDataManager(context: Context) {
     fun savePlayers(playersToSave: MutableList<BlackJackPlayer>){
         val mapOfPlayers = loadPlayers()
         playersToSave.forEach{ player ->
-            mapOfPlayers[player.name] = player
+            mapOfPlayers[player.name.lowercase()] = player
         }
         val playersJson = gson.toJson(mapOfPlayers)
         sharedPreferences.edit().putString(USER_DATA, playersJson).apply()
     }
 
     //Used to get a map of all players stored with the name as key
-    fun loadPlayers(): MutableMap<String, BlackJackPlayer>{
+    private fun loadPlayers(): MutableMap<String, BlackJackPlayer>{
         val usersDataJson = sharedPreferences.getString(USER_DATA, null)
         return if (usersDataJson != null){
             val typeToken = object: TypeToken<MutableMap<String, BlackJackPlayer>>() {}.type
@@ -62,16 +62,28 @@ class SaveDataManager(context: Context) {
             return mutableMapOf()
         }
     }
+
     // Used to get a list of all players instead of a map.
-    fun getListOfPlayers(): MutableList<BlackJackPlayer>{
+    fun getListOfPlayers(): MutableList<BlackJackPlayer> {
         val mapOfPlayers = loadPlayers()
-        val listOfPlayers: MutableList<BlackJackPlayer> = mapOfPlayers.values.toMutableList()
-        return listOfPlayers
+        Log.d("!!!", mapOfPlayers.toString())
+        return mapOfPlayers.values.toMutableList()
     }
 
-    fun removeKey(keyToRemove: String){
+    fun deletePlayer(name: String): Boolean{
+        val mapOfPlayers = loadPlayers()
+        if (mapOfPlayers.remove(name.lowercase()) != null) {
+            Log.d("!!!", mapOfPlayers.toString())
+            val playersJson = gson.toJson(mapOfPlayers)
+            sharedPreferences.edit().putString(USER_DATA, playersJson).apply()
+            return true
+        }
+        return false
+    }
+
+    fun removeKey(){
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.remove(keyToRemove)
+        editor.remove(USER_DATA)
         editor.apply()
     }
 

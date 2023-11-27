@@ -1,7 +1,7 @@
 package com.example.blackjack21
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,11 +48,6 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         newUserTextView.setOnClickListener{ Toast.makeText(requireContext(), "Need to fix click on New user", Toast.LENGTH_SHORT).show() }
         backImageView.setOnClickListener { onBackPress() }
 
-        //savePlayersData(mutableListOf(BlackJackPlayer("Kurt", 10), BlackJackPlayer("Stefan", 100)) )
-        //updateUser(BlackJackPlayer("Kurt", 20))
-      //  val saveDataManager = SaveDataManager(requireContext())
-     //   saveDataManager.removeKey("users")
-     //   savePlayerData("users", mutableListOf<BlackJackPlayer>(BlackJackPlayer("Kaj", 20)))
         playerData = getPlayerList()
         val recyclerView: RecyclerView = fragment.findViewById(R.id.playerRecyclerView)
         recyclerView.adapter = PlayerAdapter(playerData, this)
@@ -60,32 +55,12 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         return fragment
     }
 
-    fun savePlayerData(player: BlackJackPlayer) {
+    private fun getPlayerList(): MutableList<BlackJackPlayer> {
         val saveDataManager = SaveDataManager(requireContext())
-
-        saveDataManager.saveNewPlayer(player)
+        return saveDataManager.getListOfPlayers()
     }
 
-    fun savePlayersData(players: MutableList<BlackJackPlayer>) {
-        val saveDataManager = SaveDataManager(requireContext())
-
-        saveDataManager.savePlayers(players)
-    }
-
-    fun updateUser(player: BlackJackPlayer){
-        val saveDataManager = SaveDataManager(requireContext())
-        if (!saveDataManager.updatePlayer(player)){
-            Toast.makeText(requireContext(), "User not created", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun getPlayerList(): MutableList<BlackJackPlayer> {
-        val saveDataManager = SaveDataManager(requireContext())
-        val players = saveDataManager.getListOfPlayers()
-        return players
-    }
-
-    fun onBackPress() {
+    private fun onBackPress() {
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.popBackStack()
     }
@@ -111,6 +86,12 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     }
 
     override fun onRowClick(position: Int) {
-        Toast.makeText(requireContext(), "${playerData[position].name} your playing!", Toast.LENGTH_SHORT).show()
+
+                activity?.let {
+            val intent = Intent(requireActivity(), GameplayActivity::class.java)
+                    intent.putExtra("playerName", playerData[position].name)
+                    intent.putExtra("playerMoney", playerData[position].money)
+                    startActivity(intent)
+        }
     }
 }

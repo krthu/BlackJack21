@@ -26,6 +26,7 @@ class PlayerAdapter(
         }
 
         val nameTextView: TextView = view.findViewById(R.id.nameView)
+        val moneyTextView: TextView = view.findViewById(R.id.moneyView)
     }
 // Inflating the layout of each row
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHoler {
@@ -42,6 +43,7 @@ class PlayerAdapter(
     // Assign values on rows
     override fun onBindViewHolder(holder: ItemViewHoler, position: Int) {
         val player: BlackJackPlayer = data[position]
-        holder.nameTextView.text = player.name
+        holder.nameTextView.text = player.name.replaceFirstChar { it.uppercase() }
+        holder.moneyTextView.text = player.money.toString()
     }
 }

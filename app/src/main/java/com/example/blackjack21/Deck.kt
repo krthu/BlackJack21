@@ -1,5 +1,6 @@
 package com.example.blackjack21
 
+
 class Deck(private var numberOfDecks: Int) {
     private val decklist = mutableListOf<Card>()
     private val numbers = listOf(2,3,4,5,6,7,8,9,10,11,12,13,14)

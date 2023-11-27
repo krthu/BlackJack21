@@ -25,9 +25,12 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay)
-        setReferances()
-        addPlayer("Nils", 1000) // Byt mot info from intent
-        players[0].makeBet(10)
+        val name = intent.getStringExtra("playerName")
+        val money = intent.getIntExtra("playerMoney", 0 )
+        if (name != null){
+            players.add(BlackJackPlayer(name, money))
+            players[0].makeBet(10)
+        }
         deck.shuffle()
 
         if (savedInstanceState == null) {
