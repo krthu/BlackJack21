@@ -3,9 +3,9 @@ package com.example.blackjack21
 class BlackJackPlayer(name: String, var money: Int): Player(name) {
     val hands = mutableListOf<Hand>()
 
-    fun getMoney(): Int {
-        return money
-    }
+//    fun getMoney(): Int {
+//        return money
+//    }
     fun makeBet(bet: Int): Boolean{
         if (money > bet){
             money -= bet
