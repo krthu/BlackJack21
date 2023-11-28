@@ -45,7 +45,7 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         val fragment = inflater.inflate(R.layout.fragment_choose_player, container, false)
         newUserTextView = fragment.findViewById(R.id.newUserTextView)
         backImageView = fragment.findViewById(R.id.backImageView)
-        newUserTextView.setOnClickListener{ Toast.makeText(requireContext(), "Need to fix click on New user", Toast.LENGTH_SHORT).show() }
+        newUserTextView.setOnClickListener{ changeFragment(NewPlayerFragment()) }
         backImageView.setOnClickListener { onBackPress() }
 
         playerData = getPlayerList()
@@ -58,6 +58,15 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     private fun getPlayerList(): MutableList<BlackJackPlayer> {
         val saveDataManager = SaveDataManager(requireContext())
         return saveDataManager.getListOfPlayers()
+    }
+
+    fun changeFragment(fragment: Fragment){
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+
+        fragmentTransaction.commit()
     }
 
     private fun onBackPress() {
@@ -86,12 +95,11 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     }
 
     override fun onRowClick(position: Int) {
-
-                activity?.let {
+        activity?.let {
             val intent = Intent(requireActivity(), GameplayActivity::class.java)
-                    intent.putExtra("playerName", playerData[position].name)
-                    intent.putExtra("playerMoney", playerData[position].money)
-                    startActivity(intent)
+            intent.putExtra("playerName", playerData[position].name)
+            intent.putExtra("playerMoney", playerData[position].money)
+            startActivity(intent)
         }
     }
 }
