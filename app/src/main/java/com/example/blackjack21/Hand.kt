@@ -8,4 +8,8 @@ class Hand(
     fun addCard(card: Card){
         cards.add(card)
     }
+
+    fun getBetAmount(): Int {
+        return bet
+    }
 }

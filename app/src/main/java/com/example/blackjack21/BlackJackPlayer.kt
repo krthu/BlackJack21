@@ -7,7 +7,7 @@ class BlackJackPlayer(name: String, var money: Int): Player(name) {
 //        return money
 //    }
     fun makeBet(bet: Int): Boolean{
-        if (money > bet){
+        if (money >= bet){
             money -= bet
             hands.add(Hand(bet))
             return true

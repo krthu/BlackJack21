@@ -137,6 +137,7 @@ class BetViewFragment : Fragment() {
         isFirstBet = true
     }
     private fun onPlaceBetClicked() {
+        (activity as? GameplayActivity)?.placeBet(totalBet)
         val gameplayFragment = GameplayFragment.newInstance(totalBet)
         (activity as? GameplayActivity)?.replaceFragment(gameplayFragment)
     }
