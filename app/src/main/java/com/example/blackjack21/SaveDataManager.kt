@@ -86,7 +86,7 @@ class SaveDataManager(context: Context) {
         var playerToUpdate = mapOfPlayers.remove(oldName.lowercase())
         if (playerToUpdate != null) {
             playerToUpdate.name = newName
-            mapOfPlayers[playerToUpdate.name] = playerToUpdate
+            mapOfPlayers[playerToUpdate.name.lowercase()] = playerToUpdate
             val playersJson = gson.toJson(mapOfPlayers)
             sharedPreferences.edit().putString(USER_DATA, playersJson).apply()
             return true

@@ -47,7 +47,6 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent, PlayerAdapter.player
         backImageView = fragment.findViewById(R.id.backImageView)
         newUserTextView.setOnClickListener{ changeFragment(NewPlayerFragment()) }
         backImageView.setOnClickListener { onBackPress() }
-
         playerData = getPlayerList()
         val recyclerView: RecyclerView = fragment.findViewById(R.id.playerRecyclerView)
         recyclerView.adapter = PlayerAdapter(this, playerData, this)
