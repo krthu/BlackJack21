@@ -1,7 +1,6 @@
 package com.example.blackjack21
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +19,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [NewPlayerFragment.newInstance] factory method to
+ * Use the [NewAndEditPlayerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class NewPlayerFragment : Fragment() {
+class NewAndEditPlayerFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -63,11 +62,8 @@ class NewPlayerFragment : Fragment() {
         }else {
             saveTextView.setOnClickListener{
                 savePlayer()
-
             }
-
         }
-
         backArrow.setOnClickListener{
             onBackPress()
         }
@@ -76,14 +72,14 @@ class NewPlayerFragment : Fragment() {
 
     private fun updatePlayerName(oldName: String){
         val saveDataManager = SaveDataManager(requireContext())
-        if (saveDataManager.updatePlayerName(nameTextEdit.text.toString(), oldName)) {
+        if (saveDataManager.updatePlayerName(nameTextEdit.text.toString().trim(), oldName)) {
             onBackPress()
         }
     }
 
     private fun savePlayer(){
         if (nameTextEdit.text.toString() != ""){
-            val name = nameTextEdit.text.toString()
+            val name = nameTextEdit.text.toString().trim()
             val saveDataManager = SaveDataManager(requireContext())
           if (saveDataManager.saveNewPlayer(BlackJackPlayer(name, STARTING_MONEY))){
                 onBackPress()
@@ -111,7 +107,7 @@ class NewPlayerFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            NewPlayerFragment().apply {
+            NewAndEditPlayerFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

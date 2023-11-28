@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -45,7 +44,7 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         val fragment = inflater.inflate(R.layout.fragment_choose_player, container, false)
         newUserTextView = fragment.findViewById(R.id.newUserTextView)
         backImageView = fragment.findViewById(R.id.backImageView)
-        newUserTextView.setOnClickListener{ changeFragment(NewPlayerFragment()) }
+        newUserTextView.setOnClickListener{ changeFragment(NewAndEditPlayerFragment()) }
         backImageView.setOnClickListener { onBackPress() }
         playerData = getPlayerList()
         val recyclerView: RecyclerView = fragment.findViewById(R.id.playerRecyclerView)
@@ -103,7 +102,7 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     }
 
     fun onEditClick(name: String) {
-        val fragment = NewPlayerFragment()
+        val fragment = NewAndEditPlayerFragment()
         val bundle = Bundle()
         bundle.putString("name", name)
         fragment.arguments = bundle
