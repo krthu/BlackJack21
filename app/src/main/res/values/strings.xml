@@ -8,7 +8,8 @@
     <string name="newUser">New User</string>
     <string name="cogwheel_quit">Quit</string>
     <string name="newPlayer">New Player</string>
-    <string name="Name">Name</string>
-    <string name="Save">Save</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
 
 </resources>
