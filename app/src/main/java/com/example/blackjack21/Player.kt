@@ -1,5 +1,5 @@
 package com.example.blackjack21
 
-open class Player(val name: String) {
+open class Player(var name: String) {
 
 }

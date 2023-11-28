@@ -1,6 +1,7 @@
 package com.example.blackjack21
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,18 +49,36 @@ class NewPlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Toast.makeText(context, arguments?.getString("name"), Toast.LENGTH_SHORT).show()
         nameTextEdit = view.findViewById(R.id.newPlayerEditTextView)
         saveTextView = view.findViewById(R.id.saveNewPlayerTextView)
+        val name = arguments?.getString("name", "")
         var backArrow = view.findViewById<ImageView>(R.id.backImageView)
+        nameTextEdit.setText(name)
 
-        saveTextView.setOnClickListener{
-            savePlayer()
+        if (name != "" && name != null){
+            saveTextView.setOnClickListener{
+                updatePlayerName(name)
+            }
+        }else {
+            saveTextView.setOnClickListener{
+                savePlayer()
+
+            }
+
         }
 
         backArrow.setOnClickListener{
             onBackPress()
         }
 
+    }
+
+    private fun updatePlayerName(oldName: String){
+        val saveDataManager = SaveDataManager(requireContext())
+        if (saveDataManager.updatePlayerName(nameTextEdit.text.toString(), oldName)) {
+            onBackPress()
+        }
     }
 
     private fun savePlayer(){

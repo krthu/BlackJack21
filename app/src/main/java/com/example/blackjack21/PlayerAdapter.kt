@@ -1,6 +1,8 @@
 package com.example.blackjack21
 
+import android.app.Activity
 import android.content.Context
+import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Im
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -12,10 +14,11 @@ import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class PlayerAdapter(
+    private val fragment: ChoosePlayerFragment,
     private val data: MutableList<BlackJackPlayer>,
     private val lister: RecyclerViewEvent
 ) : RecyclerView.Adapter<PlayerAdapter.ItemViewHolder>() {
-    var isSwipeEnabled = false
+
     // Setup variables to hold instances of views
     // Kind like onCreate
     inner class ItemViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener{
@@ -27,9 +30,8 @@ class PlayerAdapter(
        init {
            view.setOnClickListener(this)
 
-           deleteImageView.setOnClickListener{
-                deletePlayer(adapterPosition, view.context)
-           }
+
+
        }
 
         override fun onClick(v: View?) {
@@ -38,10 +40,11 @@ class PlayerAdapter(
                 lister.onRowClick(position)
             }
         }
-
-
     }
 
+    fun editUser(position: Int, context: Context){
+
+    }
     fun deletePlayer(position: Int, context: Context){
         val name = data[position].name
         val dataManager = SaveDataManager(context)
@@ -49,6 +52,8 @@ class PlayerAdapter(
         data.removeAt(position)
         notifyItemRemoved(position)
     }
+
+
 // Inflating the layout of each row
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflatedView: View = LayoutInflater.from(parent.context)
@@ -65,6 +70,18 @@ class PlayerAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val player: BlackJackPlayer = data[position]
         holder.nameTextView.text = player.name.replaceFirstChar { it.uppercase() }
-        holder.moneyTextView.text = "$${player.money.toString()}"
+        holder.moneyTextView.text = "$${player.money}"
+
+        holder.deleteImageView.setOnClickListener{
+            deletePlayer(position, it.context)
+        }
+        holder.editImageView.setOnClickListener{
+            fragment.onEditClick(data[position].name)
+        }
+
+
+    }
+    interface playerItemsClickListner{
+        fun onEditClick(name: String)
     }
 }

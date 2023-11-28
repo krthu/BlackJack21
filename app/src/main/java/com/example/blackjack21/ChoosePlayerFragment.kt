@@ -22,7 +22,7 @@ private var playerData = mutableListOf<BlackJackPlayer>()
  * Use the [ChoosePlayerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
+class ChoosePlayerFragment : Fragment(), RecyclerViewEvent, PlayerAdapter.playerItemsClickListner {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -50,7 +50,7 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
 
         playerData = getPlayerList()
         val recyclerView: RecyclerView = fragment.findViewById(R.id.playerRecyclerView)
-        recyclerView.adapter = PlayerAdapter(playerData, this)
+        recyclerView.adapter = PlayerAdapter(this, playerData, this)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         return fragment
     }
@@ -74,6 +74,10 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         fragmentManager.popBackStack()
     }
 
+    private fun editPlayer(position: Int){
+
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -94,6 +98,8 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
             }
     }
 
+
+
     override fun onRowClick(position: Int) {
         activity?.let {
             val intent = Intent(requireActivity(), GameplayActivity::class.java)
@@ -101,5 +107,18 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
             intent.putExtra("playerMoney", playerData[position].money)
             startActivity(intent)
         }
+    }
+
+    override fun onEditClick(name: String) {
+        val fragment = NewPlayerFragment()
+        val bundle = Bundle()
+        bundle.putString("name", name)
+        fragment.arguments = bundle
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+
+        fragmentTransaction.commit()
     }
 }
