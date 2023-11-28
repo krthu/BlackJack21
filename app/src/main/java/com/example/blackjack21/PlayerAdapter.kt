@@ -19,33 +19,29 @@ class PlayerAdapter(
     private val lister: RecyclerViewEvent
 ) : RecyclerView.Adapter<PlayerAdapter.ItemViewHolder>() {
 
-    // Setup variables to hold instances of views
-    // Kind like onCreate
-    inner class ItemViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener{
+    inner class ItemViewHolder(view: View): RecyclerView.ViewHolder(view){
 
         val nameTextView: TextView = view.findViewById(R.id.nameView)
         val moneyTextView: TextView = view.findViewById(R.id.moneyView)
         val editImageView: ImageView = view.findViewById(R.id.editImageView)
         val deleteImageView: ImageView = view.findViewById(R.id.deleteImageView)
        init {
-           view.setOnClickListener(this)
-
-
-
+                itemView.setOnClickListener{
+               if (adapterPosition != RecyclerView.NO_POSITION) {
+                   lister.onRowClick(adapterPosition)
+               }
+           }
        }
 
-        override fun onClick(v: View?) {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                lister.onRowClick(position)
-            }
-        }
+//        override fun onClick(v: View?) {
+//            val position = adapterPosition
+//            if (position != RecyclerView.NO_POSITION) {
+//                lister.onRowClick(position)
+//            }
+//        }
     }
 
-    fun editUser(position: Int, context: Context){
-
-    }
-    fun deletePlayer(position: Int, context: Context){
+    private fun deletePlayer(position: Int, context: Context){
         val name = data[position].name
         val dataManager = SaveDataManager(context)
         dataManager.deletePlayer(name)
@@ -69,6 +65,8 @@ class PlayerAdapter(
     // Assign values on rows
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val player: BlackJackPlayer = data[position]
+
+
         holder.nameTextView.text = player.name.replaceFirstChar { it.uppercase() }
         holder.moneyTextView.text = "$${player.money}"
 
@@ -78,10 +76,5 @@ class PlayerAdapter(
         holder.editImageView.setOnClickListener{
             fragment.onEditClick(data[position].name)
         }
-
-
-    }
-    interface playerItemsClickListner{
-        fun onEditClick(name: String)
     }
 }

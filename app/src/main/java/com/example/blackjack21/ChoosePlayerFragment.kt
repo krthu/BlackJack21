@@ -22,7 +22,7 @@ private var playerData = mutableListOf<BlackJackPlayer>()
  * Use the [ChoosePlayerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ChoosePlayerFragment : Fragment(), RecyclerViewEvent, PlayerAdapter.playerItemsClickListner {
+class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -73,10 +73,6 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent, PlayerAdapter.player
         fragmentManager.popBackStack()
     }
 
-    private fun editPlayer(position: Int){
-
-    }
-
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -97,8 +93,6 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent, PlayerAdapter.player
             }
     }
 
-
-
     override fun onRowClick(position: Int) {
         activity?.let {
             val intent = Intent(requireActivity(), GameplayActivity::class.java)
@@ -108,7 +102,7 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent, PlayerAdapter.player
         }
     }
 
-    override fun onEditClick(name: String) {
+    fun onEditClick(name: String) {
         val fragment = NewPlayerFragment()
         val bundle = Bundle()
         bundle.putString("name", name)

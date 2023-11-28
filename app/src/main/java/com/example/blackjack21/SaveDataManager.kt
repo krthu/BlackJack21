@@ -94,11 +94,10 @@ class SaveDataManager(context: Context) {
         return false
     }
 
+    // Deletes all user data
     fun removeKey(){
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.remove(USER_DATA)
         editor.apply()
     }
-
-
 }
