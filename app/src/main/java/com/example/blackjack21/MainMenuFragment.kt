@@ -79,11 +79,11 @@ class MainMenuFragment : Fragment() {
     }
 
     fun onScoreBoardPress(){
-        Log.d("!!!", "ScoreBoard pressed")
+        changeFragment(ScoreBoardFragment())
     }
 
     fun onQuitPress(){
-        Log.d("!!!", "ScoreBoard pressed")
+
         requireActivity().finish();
     }
 
