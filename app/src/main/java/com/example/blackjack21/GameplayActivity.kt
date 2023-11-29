@@ -88,6 +88,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         playerHand.addCard(deck.drawACard())
         updatePlayerCards()
 
+
         val playerValue = getBlackJackValue(playerHand.cards)
         if (playerValue > 21) {
             val handler = Handler(Looper.getMainLooper())
@@ -397,7 +398,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         dealerCards.clear()
         updateDealerCardImages(dealerCards)
-
+        GameManager.savePlayersToSharedPref(this)
         returnToBetFragment()
     }
 

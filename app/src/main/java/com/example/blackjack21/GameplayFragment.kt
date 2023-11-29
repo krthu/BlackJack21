@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 
 
 class GameplayFragment : Fragment() {
@@ -74,7 +75,8 @@ class GameplayFragment : Fragment() {
             listener?.onStandPress()
         }
         hitButton.setOnClickListener{
-          listener?.onHitPress()
+            doubleButton.isVisible = false
+            listener?.onHitPress()
         }
 
         doubleButton.setOnClickListener{
