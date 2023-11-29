@@ -38,11 +38,7 @@ class PlayerAdapter(
 
     private fun deletePlayer(position: Int, name: String, context: Context){
 
-
-        val dataManager = SaveDataManager(context)
-
-
-        dataManager.deletePlayer(name)
+        GameManager.deletePlayer(name, context)
         data.removeAt(position)
         notifyItemRemoved(position)
     }

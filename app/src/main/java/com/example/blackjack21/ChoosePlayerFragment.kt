@@ -54,8 +54,8 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     }
 
     private fun getPlayerList(): MutableList<BlackJackPlayer> {
-        val saveDataManager = SaveDataManager(requireContext())
-        return saveDataManager.getListOfPlayers()
+        val listOfPlayers = GameManager.players.values.toMutableList()
+        return listOfPlayers
     }
 
     fun changeFragment(fragment: Fragment){
@@ -95,8 +95,9 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     override fun onRowClick(position: Int) {
         activity?.let {
             val intent = Intent(requireActivity(), GameplayActivity::class.java)
-            intent.putExtra("playerName", playerData[position].name)
-            intent.putExtra("playerMoney", playerData[position].money)
+            GameManager.setActivePlayer(playerData[position].name)
+            intent.putExtra("playerName", playerData[position].name) // Borde kunna tas bort
+            intent.putExtra("playerMoney", playerData[position].money) // Borde kunna tas bort
             startActivity(intent)
         }
     }
