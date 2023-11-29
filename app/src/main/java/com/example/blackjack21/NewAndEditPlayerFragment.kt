@@ -11,7 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
-private const val STARTING_MONEY = 1000
+private const val STARTING_MONEY = 1000.0
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
