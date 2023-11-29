@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 
 
 class GameplayFragment : Fragment() {
@@ -21,12 +20,16 @@ class GameplayFragment : Fragment() {
         fun onHitPress()
         fun onStandPress()
         fun updatePlayerCards()
+
+        fun onDoublePress()
     }
     
     private var listener: GamePlayListener? = null
     lateinit var hitButton: Button
     lateinit var standButton : Button
+    lateinit var doubleButton: Button
     lateinit var playerCardValueTextView: TextView
+    lateinit var betValueTextView: TextView
     private val playerCardImages = mutableListOf<ImageView>()
 
 
@@ -73,12 +76,20 @@ class GameplayFragment : Fragment() {
         hitButton.setOnClickListener{
           listener?.onHitPress()
         }
+
+        doubleButton.setOnClickListener{
+            listener?.onDoublePress()
+        }
+
+
     }
 
     fun setReferances(fragment: View){
         hitButton = fragment.findViewById(R.id.btn_hit)
         standButton = fragment.findViewById(R.id.btn_stand)
+        doubleButton = fragment.findViewById(R.id.btn_double)
         playerCardValueTextView = fragment.findViewById(R.id.card_value_player)
+        betValueTextView = fragment.findViewById(R.id.bet_amount_player)
 
         playerCardImages.add(fragment.findViewById(R.id.first_card_player))
         playerCardImages.add(fragment.findViewById(R.id.second_card_player))
@@ -96,6 +107,10 @@ class GameplayFragment : Fragment() {
             val imageId = resources.getIdentifier(card.imageString, "drawable", requireActivity().packageName)
             playerCardImages[index].setImageResource(imageId)
         }
+    }
+
+    fun updateBetValueText(betAmount: Int){
+        betValueTextView.text = betAmount.toString()
     }
 
     companion object {

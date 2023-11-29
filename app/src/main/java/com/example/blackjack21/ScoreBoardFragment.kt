@@ -46,7 +46,6 @@ class ScoreBoardFragment : Fragment() {
         val playerList = GameManager.players.values.toMutableList()
 
         playerList.sortByDescending { it.money }
-        Log.d("!!!", playerList.toString())
         val recyclerView: RecyclerView = view.findViewById(R.id.scoreBoardRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = ScoreBoardAdapter(playerList, requireContext())
@@ -55,10 +54,7 @@ class ScoreBoardFragment : Fragment() {
 
         backImageValue.setOnClickListener{
             onBackPress()
-
         }
-
-
     }
 
     private fun onBackPress() {

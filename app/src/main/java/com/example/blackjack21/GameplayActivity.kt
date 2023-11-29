@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
-import org.w3c.dom.Text
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
 
@@ -102,6 +101,25 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         checkWinner()
     }
 
+    override fun onDoublePress(){
+        val indexOfActiveHand = 0
+        val currentPlayer = GameManager.activePlayer
+
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+        if (GameManager.activePlayer?.doubleBetInHand(indexOfActiveHand) == true){
+            updatePlayerInfo()
+            if (currentPlayer != null){
+                fragment?.updateBetValueText(currentPlayer.hands[indexOfActiveHand].bet.toInt())
+                onHitPress()
+                onStandPress()
+            }
+        }else{
+            Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT)
+        }
+
+    }
+
+
     private fun dealInitialCards() {
         val currentPlayer = GameManager.activePlayer
         if (currentPlayer == null) {
@@ -139,7 +157,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 }
             }, delayBetweenCards * (2 * i + 1))
         }
-
     }
 
 
@@ -351,9 +368,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     fun clearTable() {
         dealerCards.clear()
         players.forEach { player ->
-            player.hands.forEach { hand ->
-                hand.cards.clear()
-            }
+            player.clearHands()
         }
 
         dealerCardsImageViews.forEach { imageView ->
@@ -378,15 +393,15 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         isDealerTurn = false
         clearTable()
 
-        currentPlayer?.hands?.forEach { hand ->
-            hand.cards.clear()
-        }
+        currentPlayer?.clearHands()
 
         dealerCards.clear()
         updateDealerCardImages(dealerCards)
 
         returnToBetFragment()
     }
+
+
 
 
 }
