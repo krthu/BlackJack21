@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -45,12 +44,11 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         val fragment = inflater.inflate(R.layout.fragment_choose_player, container, false)
         newUserTextView = fragment.findViewById(R.id.newUserTextView)
         backImageView = fragment.findViewById(R.id.backImageView)
-        newUserTextView.setOnClickListener{ changeFragment(NewPlayerFragment()) }
+        newUserTextView.setOnClickListener{ changeFragment(NewAndEditPlayerFragment()) }
         backImageView.setOnClickListener { onBackPress() }
-
         playerData = getPlayerList()
         val recyclerView: RecyclerView = fragment.findViewById(R.id.playerRecyclerView)
-        recyclerView.adapter = PlayerAdapter(playerData, this)
+        recyclerView.adapter = PlayerAdapter(this, playerData, this)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         return fragment
     }
@@ -101,5 +99,18 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
             intent.putExtra("playerMoney", playerData[position].money)
             startActivity(intent)
         }
+    }
+
+    fun onEditClick(name: String) {
+        val fragment = NewAndEditPlayerFragment()
+        val bundle = Bundle()
+        bundle.putString("name", name)
+        fragment.arguments = bundle
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+
+        fragmentTransaction.commit()
     }
 }

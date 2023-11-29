@@ -66,14 +66,14 @@ class SaveDataManager(context: Context) {
     // Used to get a list of all players instead of a map.
     fun getListOfPlayers(): MutableList<BlackJackPlayer> {
         val mapOfPlayers = loadPlayers()
-        Log.d("!!!", mapOfPlayers.toString())
+
         return mapOfPlayers.values.toMutableList()
     }
 
     fun deletePlayer(name: String): Boolean{
         val mapOfPlayers = loadPlayers()
         if (mapOfPlayers.remove(name.lowercase()) != null) {
-            Log.d("!!!", mapOfPlayers.toString())
+
             val playersJson = gson.toJson(mapOfPlayers)
             sharedPreferences.edit().putString(USER_DATA, playersJson).apply()
             return true
@@ -81,11 +81,23 @@ class SaveDataManager(context: Context) {
         return false
     }
 
+    fun updatePlayerName(newName: String, oldName: String): Boolean {
+        val mapOfPlayers = loadPlayers()
+        var playerToUpdate = mapOfPlayers.remove(oldName.lowercase())
+        if (playerToUpdate != null) {
+            playerToUpdate.name = newName
+            mapOfPlayers[playerToUpdate.name.lowercase()] = playerToUpdate
+            val playersJson = gson.toJson(mapOfPlayers)
+            sharedPreferences.edit().putString(USER_DATA, playersJson).apply()
+            return true
+        }
+        return false
+    }
+
+    // Deletes all user data
     fun removeKey(){
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.remove(USER_DATA)
         editor.apply()
     }
-
-
 }

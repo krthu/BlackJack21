@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 
 private const val STARTING_MONEY = 1000
 
@@ -19,16 +20,17 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [NewPlayerFragment.newInstance] factory method to
+ * Use the [NewAndEditPlayerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class NewPlayerFragment : Fragment() {
+class NewAndEditPlayerFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     lateinit var nameTextEdit: EditText
     lateinit var saveTextView: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,27 +50,45 @@ class NewPlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         nameTextEdit = view.findViewById(R.id.newPlayerEditTextView)
         saveTextView = view.findViewById(R.id.saveNewPlayerTextView)
+        val name = arguments?.getString("name", "")
         var backArrow = view.findViewById<ImageView>(R.id.backImageView)
 
-        saveTextView.setOnClickListener{
-            savePlayer()
+        if (name != "" && name != null){
+            val title = view.findViewById<TextView>(R.id.headlineTextView)
+            title.text = "Edit Player"
+            nameTextEdit.setText(name)
+            saveTextView.setOnClickListener{
+                updatePlayerName(name)
+            }
+        }else {
+            saveTextView.setOnClickListener{
+                savePlayer()
+            }
         }
-
         backArrow.setOnClickListener{
             onBackPress()
         }
 
     }
 
+    private fun updatePlayerName(oldName: String){
+        val saveDataManager = SaveDataManager(requireContext())
+        if (saveDataManager.updatePlayerName(nameTextEdit.text.toString().trim(), oldName)) {
+            onBackPress()
+        }
+    }
+
     private fun savePlayer(){
         if (nameTextEdit.text.toString() != ""){
-            val name = nameTextEdit.text.toString()
+            val name = nameTextEdit.text.toString().trim()
             val saveDataManager = SaveDataManager(requireContext())
           if (saveDataManager.saveNewPlayer(BlackJackPlayer(name, STARTING_MONEY))){
                 onBackPress()
           }else{
+
               Toast.makeText(requireContext(),"Name is taken!", Toast.LENGTH_SHORT).show()
           }
         }
@@ -92,7 +112,7 @@ class NewPlayerFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            NewPlayerFragment().apply {
+            NewAndEditPlayerFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
