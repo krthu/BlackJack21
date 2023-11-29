@@ -1,6 +1,7 @@
 package com.example.blackjack21
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Im
@@ -33,20 +34,34 @@ class PlayerAdapter(
            }
        }
 
-//        override fun onClick(v: View?) {
-//            val position = adapterPosition
-//            if (position != RecyclerView.NO_POSITION) {
-//                lister.onRowClick(position)
-//            }
-//        }
     }
 
-    private fun deletePlayer(position: Int, context: Context){
-        val name = data[position].name
+    private fun deletePlayer(position: Int, name: String, context: Context){
+
+
         val dataManager = SaveDataManager(context)
+
+
         dataManager.deletePlayer(name)
         data.removeAt(position)
         notifyItemRemoved(position)
+    }
+
+    private fun confirmDialog( position: Int, context: Context){
+        val name = data[position].name
+
+        val dialogBuilder = AlertDialog.Builder(context)
+        dialogBuilder.setTitle("Delete $name?")
+
+        dialogBuilder.setPositiveButton("Delete") {dialog, _ ->
+            deletePlayer(position, name, context)
+            dialog.dismiss()
+        }
+        dialogBuilder.setNegativeButton("Cancel") {dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = dialogBuilder.create()
+        dialog.show()
     }
 
 
@@ -71,7 +86,7 @@ class PlayerAdapter(
         holder.moneyTextView.text = "$${player.money}"
 
         holder.deleteImageView.setOnClickListener{
-            deletePlayer(position, it.context)
+            confirmDialog(position, it.context)
         }
         holder.editImageView.setOnClickListener{
             fragment.onEditClick(data[position].name)

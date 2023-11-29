@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 
 private const val STARTING_MONEY = 1000
 
@@ -30,6 +31,7 @@ class NewAndEditPlayerFragment : Fragment() {
     lateinit var nameTextEdit: EditText
     lateinit var saveTextView: TextView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -48,14 +50,16 @@ class NewAndEditPlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Toast.makeText(context, arguments?.getString("name"), Toast.LENGTH_SHORT).show()
+
         nameTextEdit = view.findViewById(R.id.newPlayerEditTextView)
         saveTextView = view.findViewById(R.id.saveNewPlayerTextView)
         val name = arguments?.getString("name", "")
         var backArrow = view.findViewById<ImageView>(R.id.backImageView)
-        nameTextEdit.setText(name)
 
         if (name != "" && name != null){
+            val title = view.findViewById<TextView>(R.id.headlineTextView)
+            title.text = "Edit Player"
+            nameTextEdit.setText(name)
             saveTextView.setOnClickListener{
                 updatePlayerName(name)
             }
@@ -84,6 +88,7 @@ class NewAndEditPlayerFragment : Fragment() {
           if (saveDataManager.saveNewPlayer(BlackJackPlayer(name, STARTING_MONEY))){
                 onBackPress()
           }else{
+
               Toast.makeText(requireContext(),"Name is taken!", Toast.LENGTH_SHORT).show()
           }
         }
