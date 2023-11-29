@@ -96,8 +96,6 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         activity?.let {
             val intent = Intent(requireActivity(), GameplayActivity::class.java)
             GameManager.setActivePlayer(playerData[position].name)
-            intent.putExtra("playerName", playerData[position].name) // Borde kunna tas bort
-            intent.putExtra("playerMoney", playerData[position].money) // Borde kunna tas bort
             startActivity(intent)
         }
     }

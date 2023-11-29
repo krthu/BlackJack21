@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import org.w3c.dom.Text
 
 class BetViewFragment : Fragment() {
@@ -137,10 +138,18 @@ class BetViewFragment : Fragment() {
         isFirstBet = true
     }
     private fun onPlaceBetClicked() {
-        (activity as? GameplayActivity)?.placeBet(totalBet)
-        val gameplayFragment = GameplayFragment.newInstance(totalBet)
-        (activity as? GameplayActivity)?.replaceFragment(gameplayFragment)
+        val player = GameManager.activePlayer
+        if (player != null && player.makeBet(totalBet.toDouble())) {
+            val gameplayFragment = GameplayFragment.newInstance(totalBet)
+            (activity as? GameplayActivity)?.apply {
+                replaceFragment(gameplayFragment)
+                updatePlayerInfo()  // Uppdatera spelarinformationen efter att satsningen har gjorts
+            }
+        } else {
+            Toast.makeText(context, "Not enough money to make this bet", Toast.LENGTH_SHORT).show()
+        }
     }
+
     private fun updateBetButtonState() {
         if (totalBet == 0) {
             placeBetButton.alpha = 0.5f
