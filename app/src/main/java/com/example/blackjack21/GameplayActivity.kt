@@ -35,7 +35,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
         setReferances()
         deck.shuffle()
-
         if (savedInstanceState == null) {
             val fragment = BetViewFragment()
 

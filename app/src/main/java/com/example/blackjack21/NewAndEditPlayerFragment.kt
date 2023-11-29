@@ -75,8 +75,8 @@ class NewAndEditPlayerFragment : Fragment() {
     }
 
     private fun updatePlayerName(oldName: String){
-        val saveDataManager = SaveDataManager(requireContext())
-        if (saveDataManager.updatePlayerName(nameTextEdit.text.toString().trim(), oldName)) {
+
+        if (GameManager.updatePlayerName(nameTextEdit.text.toString().trim(), oldName, requireContext())) {
             onBackPress()
         }
     }
@@ -84,8 +84,7 @@ class NewAndEditPlayerFragment : Fragment() {
     private fun savePlayer(){
         if (nameTextEdit.text.toString() != ""){
             val name = nameTextEdit.text.toString().trim()
-            val saveDataManager = SaveDataManager(requireContext())
-          if (saveDataManager.saveNewPlayer(BlackJackPlayer(name, STARTING_MONEY))){
+          if (GameManager.saveNewPlayer(BlackJackPlayer(name, STARTING_MONEY), requireContext())){
                 onBackPress()
           }else{
 
