@@ -56,13 +56,13 @@ object GameManager {
     }
 
     fun setActivePlayer(playerName: String){
-        activePlayer = players[playerName]
+        activePlayer = players[playerName.lowercase()]
     }
-        fun removeKey(context: Context){
-            val sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-            editor.remove(USER_DATA)
-            editor.apply()
+    fun removeKey(context: Context){
+        val sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.remove(USER_DATA)
+        editor.apply()
     }
 
 
