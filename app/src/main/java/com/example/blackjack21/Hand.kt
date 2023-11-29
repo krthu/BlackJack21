@@ -1,7 +1,7 @@
 package com.example.blackjack21
 
 class Hand(
-    val bet: Double
+    var bet: Double
 ) {
     val cards = mutableListOf<Card>()
 
@@ -11,5 +11,9 @@ class Hand(
 
     fun getBetAmount(): Double {
         return bet
+    }
+
+    fun doubleBet(){
+        bet *= 2
     }
 }

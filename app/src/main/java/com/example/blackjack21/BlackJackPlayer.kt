@@ -25,6 +25,17 @@ class BlackJackPlayer(name: String, var money: Double) : Player(name) {
         hands.clear()
     }
 
+    fun doubleBetInHand(handIndex: Int): Boolean{
+        if (money > hands[handIndex].bet)
+        {
+            money -= hands[handIndex].bet
+            hands[handIndex].doubleBet()
+            return true
+        }
+        return false
+    }
+
+
     fun addCard(indexOfHand: Int, card: Card) {
         hands[indexOfHand].addCard(card)
     }
