@@ -120,8 +120,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
     }
 
-
-    private fun dealInitialCards() {
+private fun dealInitialCards() {
         val currentPlayer = GameManager.activePlayer ?: return
         val handler = Handler(Looper.getMainLooper())
         val delayBetweenCards = 500L //
@@ -159,7 +158,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 checkBlackJack()
             }
         }, delayBetweenCards * 4)
-    }
+
     private fun updatePlayerUI() {
         val fragment =
             supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
@@ -176,17 +175,32 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         when {
             playerHasBlackJack && dealerHasBlackJack -> {
-                // Logik för när både spelaren och dealern har Blackjack
+                val handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    currentPlayer.addMoney(playerBetAmount)
+
+                    isDealerTurn = true
+
+                    updateDealerCardImages(dealerCards)
+                    updateDealerCardsValue(dealerCards)
+                    cleanUpGame()
+                }, 500)
+
             }
 
             playerHasBlackJack -> {
-                // Spelaren har Blackjack och vinner
-                currentPlayer.addMoney(playerBetAmount * 2)
+                currentPlayer.addMoney(playerBetAmount * 2.5)
+
+                cleanUpGame()
             }
 
-            dealerHasBlackJack -> {
-                // Dealern har Blackjack
-            }
+//            dealerHasBlackJack -> {
+//                Log.d("!!!", "DealerBJ")
+//                isDealerTurn = true
+//                updateDealerCardImages(dealerCards)
+//                updateDealerCardsValue(dealerCards)
+//                cleanUpGame()
+//            }
 
             else -> {
                 // Ingen har Blackjack, spelet fortsätter
@@ -257,7 +271,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     private fun updateDealerCardImages(cards: List<Card>) {
         if (cards.isNotEmpty()) {
             cards.forEachIndexed { index, card ->
-                val imageName = if (!isDealerTurn && index == 1) "card_back" else getImageId(card)
+                val imageName = if (!isDealerTurn && index == 1) "card_back" else card.imageString
                 val imageId = resources.getIdentifier(imageName, "drawable", packageName)
                 dealerCardsImageViews.getOrNull(index)?.setImageResource(imageId)
             }
@@ -277,32 +291,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         cardValueDealerTextView.text = value.toString()
     }
 
-    // Den här kan vi nog göra något annat med. Den finns på två ställen nu. Kanske lägga den i Card?
-    private fun getImageId(card: Card): String {
-        val builder = StringBuilder()
-        when (card.suit) {
-            "Hearts" -> {
-                builder.append("h")
-            }
-
-            "Diamonds" -> {
-                builder.append("d")
-            }
-
-            "Clubs" -> {
-                builder.append("c")
-            }
-
-            "Spades" -> {
-                builder.append("s")
-            }
-        }
-        if (card.number < 10) {
-            builder.append(0)
-        }
-        builder.append(card.number)
-        return builder.toString()
-    }
 
     /* fun getPlayerBets() {
 
@@ -311,7 +299,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
     } */
 
-    private fun playDealerHand() {
+    
+        fun playDealerHand() {
         isDealerTurn = true
         updateDealerCardImages(dealerCards)
         updateDealerCardsValue(dealerCards)
@@ -326,13 +315,12 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 updateDealerCardsValue(dealerCards)
                 handler.postDelayed(::drawDealerCard, delayBetweenDealerCards)
             } else {
-                checkWinner()
                 handler.postDelayed({
                 }, 2000)
             }
         }
 
-        checkWinner()
+        handler.postDelayed(::drawDealerCard, delayBetweenDealerCards)
     }
 
     private fun checkWinner() {
@@ -345,6 +333,11 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             playerValue > 21 -> {
                 Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Bust")
             }
+
+            dealerValue == 21 && dealerCards.size == 2 -> {
+
+            }
+
             dealerValue > 21 || playerValue > dealerValue -> {
 
                 currentPlayer.addMoney(betAmount * 2)
@@ -358,6 +351,13 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Dealer wins")
             }
         }
+
+        cleanUpGame()
+    }
+
+    private fun cleanUpGame(){
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({ resetGame() }, 3000)
         updatePlayerInfo()
         resetGame()
     }

@@ -33,6 +33,14 @@ class Deck(private var numberOfDecks: Int) {
         }
     }
 
+    fun stackDeck (){
+        decklist.add(0,Card("Heart", 14, "h14"))
+        decklist.add(1,Card("Heart", 13, "h13"))
+        decklist.add(2,Card("Heart", 13, "h13"))
+        decklist.add(3,Card("Heart", 13, "h13"))
+        decklist.add(4,Card("Heart", 14, "h14"))
+    }
+
 
     private fun getImageId(suit: String, number: Int): String     {
         val builder = StringBuilder()
