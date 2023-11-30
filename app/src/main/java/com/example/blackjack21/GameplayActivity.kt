@@ -86,6 +86,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     override fun onHitPress() {
         val currentPlayer = GameManager.activePlayer ?: return
         val playerHand = currentPlayer.hands[0]
+        buttonsEnabled(false)
         playerHand.addCard(deck.drawACard())
         updatePlayerCards()
 
@@ -99,6 +100,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
 
     override fun onStandPress() {
+        buttonsEnabled(false)
         playDealerHand()
     }
 
@@ -118,6 +120,15 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         } else {
             Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT)
         }
+
+    }
+
+    fun buttonsEnabled(enabled: Boolean){
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+        fragment?.doubleButton?.isEnabled = enabled
+        fragment?.hitButton?.isEnabled = enabled
+        fragment?.standButton?.isEnabled = enabled
+        //fragment?.splitButton?.isActivated = active
 
     }
 
@@ -153,10 +164,11 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             dealerCards.add(dealerSecondCard)
             dealerCardsImageViews.getOrNull(1)?.setImageResource(R.drawable.card_back)
             updateDealerCardImages(dealerCards)
-
+            buttonsEnabled(true)
 
             if (getBlackJackValue(currentPlayer.hands[0].cards) == 21) {
                 checkBlackJack()
+
             }
         }, delayBetweenCards * 4)
     }
