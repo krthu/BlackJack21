@@ -129,16 +129,31 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_stand"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/value_holder"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginBottom="165dp"
+        android:background="@drawable/value_holder"
+        android:rotation="320"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/card_value_player"
-        android:layout_width="wrap_content"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginBottom="22dp"
+        android:fontFamily="@font/poppins_bold_italic"
+        android:letterSpacing="0.1"
         android:rotation="320"
-        android:text="CardValue"
+        android:textColor="@color/white"
+        android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/first_card_player"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="20" />
 
 
     <TextView

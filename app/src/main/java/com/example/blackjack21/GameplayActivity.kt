@@ -14,6 +14,7 @@ import android.widget.Toast
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
 
     lateinit var cardValueDealerTextView: TextView
+    lateinit var cardValueDealerHolder: ImageView
     lateinit var cogWheelMenu: ImageView
     val players = mutableListOf<BlackJackPlayer>()
     val deck = Deck(7)
@@ -27,9 +28,10 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay)
 
+        setReferences()
+        cardValueDealerHolder.visibility = View.INVISIBLE
         updatePlayerInfo()  // Uppdatera spelarinfo utan argument
 
-        setReferences()
         deck.shuffle()
         if (savedInstanceState == null) {
             val fragment = BetViewFragment()
@@ -92,8 +94,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         val playerValue = getBlackJackValue(playerHand.cards)
         if (playerValue > 21) {
-            Log.d("!!!", "Player is Bust")
-            resetGame()
+            checkWinner()
         }
     }
 
@@ -270,6 +271,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         dealerCardsImageViews.add(findViewById(R.id.fifth_card_dealer))
         dealerCardsImageViews.add(findViewById(R.id.sixth_card_dealer))
         cardValueDealerTextView = findViewById(R.id.card_value_dealer)
+        cardValueDealerHolder = findViewById(R.id.dealer_valueHolder)
 
 
     }
@@ -299,6 +301,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         }
 
         cardValueDealerTextView.text = value.toString()
+        cardValueDealerHolder.visibility = View.VISIBLE
     }
 
 
@@ -370,10 +373,9 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
 
     private fun cleanUpGame() {
+        updatePlayerInfo()
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({ resetGame() }, 3000)
-        updatePlayerInfo()
-        resetGame()
     }
 
 
@@ -402,6 +404,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
     private fun resetDealerCardValue() {
         cardValueDealerTextView.text = ""
+        cardValueDealerHolder.visibility = View.INVISIBLE
     }
 
     private fun resetGame() {
