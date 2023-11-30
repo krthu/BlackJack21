@@ -123,27 +123,42 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
     private fun dealInitialCards() {
         val currentPlayer = GameManager.activePlayer ?: return
+        val handler = Handler(Looper.getMainLooper())
+        val delayBetweenCards = 500L //
 
-        val playerFirstCard = deck.drawACard()
-        currentPlayer.addCard(0, playerFirstCard)
-        updatePlayerUI()
 
-        val dealerFirstCard = deck.drawACard()
-        dealerCards.add(dealerFirstCard)
-        updateDealerCardImages(dealerCards)
+        handler.postDelayed({
+            val playerFirstCard = deck.drawACard()
+            currentPlayer.addCard(0, playerFirstCard)
+            updatePlayerUI()
+        }, delayBetweenCards)
 
-        val playerSecondCard = deck.drawACard()
-        currentPlayer.addCard(0, playerSecondCard)
-        updatePlayerUI()
 
-        val dealerSecondCard = deck.drawACard()
-        dealerCards.add(dealerSecondCard)
+        handler.postDelayed({
+            val dealerFirstCard = deck.drawACard()
+            dealerCards.add(dealerFirstCard)
+            updateDealerCardImages(dealerCards)
+        }, delayBetweenCards * 2)
 
-        dealerCardsImageViews.getOrNull(1)?.setImageResource(R.drawable.card_back)
 
-        if (getBlackJackValue(currentPlayer.hands[0].cards) == 21) {
-            checkWinner()
-        }
+        handler.postDelayed({
+            val playerSecondCard = deck.drawACard()
+            currentPlayer.addCard(0, playerSecondCard)
+            updatePlayerUI()
+        }, delayBetweenCards * 3)
+
+
+        handler.postDelayed({
+            val dealerSecondCard = deck.drawACard()
+            dealerCards.add(dealerSecondCard)
+            dealerCardsImageViews.getOrNull(1)?.setImageResource(R.drawable.card_back)
+            updateDealerCardImages(dealerCards)
+
+
+            if (getBlackJackValue(currentPlayer.hands[0].cards) == 21) {
+                checkBlackJack()
+            }
+        }, delayBetweenCards * 4)
     }
     private fun updatePlayerUI() {
         val fragment =
