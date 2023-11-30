@@ -322,8 +322,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 updateDealerCardsValue(dealerCards)
                 handler.postDelayed(::drawDealerCard, delayBetweenDealerCards)
             } else {
+                checkWinner()
                 handler.postDelayed({
-                    checkWinner()
                 }, 2000)
             }
         }
