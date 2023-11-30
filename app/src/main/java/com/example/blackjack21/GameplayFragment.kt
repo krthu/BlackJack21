@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 
@@ -23,12 +24,16 @@ class GameplayFragment : Fragment() {
         fun updatePlayerCards()
 
         fun onDoublePress()
+
+        fun onSplitPress()
     }
     
     private var listener: GamePlayListener? = null
     lateinit var hitButton: Button
     lateinit var standButton : Button
     lateinit var doubleButton: Button
+    lateinit var handsContainer: LinearLayout
+    lateinit var splitButton: Button
 
     lateinit var playerCardValueTextView: TextView
     lateinit var betValueTextView: TextView
@@ -84,9 +89,21 @@ class GameplayFragment : Fragment() {
             listener?.onDoublePress()
         }
 
+        splitButton.setOnClickListener{
+            listener?.onSplitPress()
+        }
+
         standButton.isEnabled = false
         hitButton.isEnabled = false
         doubleButton.isEnabled = false
+        val firstHand = view.findViewById<PlayerHandView>(R.id.first_hand)
+
+
+
+        firstHand.setImage(Card("Hearts", 14, "h14"))
+        firstHand.setImage(Card("Spades", 14, "s14"))
+        firstHand.setImage(Card("Hearts", 2, "h02"))
+
 
 
     }
@@ -95,9 +112,10 @@ class GameplayFragment : Fragment() {
         hitButton = fragment.findViewById(R.id.btn_hit)
         standButton = fragment.findViewById(R.id.btn_stand)
         doubleButton = fragment.findViewById(R.id.btn_double)
+        splitButton = fragment.findViewById(R.id.btn_split)
         playerCardValueTextView = fragment.findViewById(R.id.card_value_player)
         betValueTextView = fragment.findViewById(R.id.bet_amount_player)
-
+        handsContainer = fragment.findViewById(R.id.handsContainer)
         playerCardImages.add(fragment.findViewById(R.id.first_card_player))
         playerCardImages.add(fragment.findViewById(R.id.second_card_player))
         playerCardImages.add(fragment.findViewById(R.id.third_card_player))

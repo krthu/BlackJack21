@@ -6,7 +6,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
@@ -121,6 +123,21 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT)
         }
 
+    }
+
+    override fun onSplitPress() {
+        val newHand = PlayerHandView(this)
+        newHand.id = View.generateViewId()
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            1f
+        )
+        newHand.layoutParams = layoutParams
+        val fragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+        fragment?.handsContainer?.addView(newHand)
+        fragment?.handsContainer?.requestLayout()
     }
 
     fun buttonsEnabled(enabled: Boolean){

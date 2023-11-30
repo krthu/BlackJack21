@@ -11,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_begin="206dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_guideline_playFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.53" />
 
 
     <Button
@@ -47,8 +47,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment"
-        tools:visibility="visible" />
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment" />
 
 
     <Button
@@ -79,76 +78,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_stand" />
 
-    <ImageView
-        android:id="@+id/first_card_player"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
+
+    <LinearLayout
+        android:id="@+id/handsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:layout_marginStart="5dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/btn_stand"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/second_card_player"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toTopOf="@+id/btn_stand"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.example.blackjack21.PlayerHandView
+            android:id="@+id/first_hand"
+            android:layout_width="match_parent"
 
-    <ImageView
-        android:id="@+id/third_card_player"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toTopOf="@+id/btn_stand"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/fourth_card_player"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
-        android:layout_marginStart="190dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toTopOf="@+id/btn_stand"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/fifth_card_player"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toTopOf="@+id/btn_stand"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/card_value_player"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:rotation="320"
-        android:text="CardValue"
-        app:layout_constraintBottom_toTopOf="@+id/first_card_player"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <TextView
-        android:id="@+id/bet_amount_player"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
-        android:text="BetAmount"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
