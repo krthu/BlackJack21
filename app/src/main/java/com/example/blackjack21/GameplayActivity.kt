@@ -316,10 +316,20 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         updateDealerCardImages(dealerCards)
         updateDealerCardsValue(dealerCards)
 
-        while (gameIsActive && getBlackJackValue(dealerCards) < 17) {
-            dealerCards.add(deck.drawACard())
-            updateDealerCardImages(dealerCards)
-            updateDealerCardsValue(dealerCards)
+        val handler = Handler(Looper.getMainLooper())
+        val delayBetweenDealerCards = 500L
+
+        fun drawDealerCard() {
+            if (gameIsActive && getBlackJackValue(dealerCards) < 17) {
+                dealerCards.add(deck.drawACard())
+                updateDealerCardImages(dealerCards)
+                updateDealerCardsValue(dealerCards)
+                handler.postDelayed(::drawDealerCard, delayBetweenDealerCards)
+            } else {
+                checkWinner()
+                handler.postDelayed({
+                }, 2000)
+            }
         }
 
         checkWinner()
