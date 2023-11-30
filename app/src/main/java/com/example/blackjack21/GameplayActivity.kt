@@ -187,7 +187,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             }
 
             playerHasBlackJack -> {
-                // Spelaren har Blackjack och vinner
+                currentPlayer.addMoney(playerBetAmount * 2.5)
 
                 cleanUpGame()
             }
