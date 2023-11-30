@@ -102,25 +102,26 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         playDealerHand()
     }
 
-    override fun onDoublePress(){
+    override fun onDoublePress() {
         val indexOfActiveHand = 0
         val currentPlayer = GameManager.activePlayer
 
-        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
-        if (GameManager.activePlayer?.doubleBetInHand(indexOfActiveHand) == true){
+        val fragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+        if (GameManager.activePlayer?.doubleBetInHand(indexOfActiveHand) == true) {
             updatePlayerInfo()
-            if (currentPlayer != null){
+            if (currentPlayer != null) {
                 fragment?.updateBetValueText(currentPlayer.hands[indexOfActiveHand].bet.toInt())
                 onHitPress()
                 onStandPress()
             }
-        }else{
+        } else {
             Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT)
         }
 
     }
 
-private fun dealInitialCards() {
+    private fun dealInitialCards() {
         val currentPlayer = GameManager.activePlayer ?: return
         val handler = Handler(Looper.getMainLooper())
         val delayBetweenCards = 500L //
@@ -158,19 +159,29 @@ private fun dealInitialCards() {
                 checkBlackJack()
             }
         }, delayBetweenCards * 4)
+    }
 
     private fun updatePlayerUI() {
         val fragment =
             supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
-        fragment?.updatePlayerCards(GameManager.activePlayer?.hands?.getOrNull(0)?.cards ?: emptyList())
-        fragment?.updatePlayerCardValue(getBlackJackValue(GameManager.activePlayer?.hands?.getOrNull(0)?.cards ?: emptyList()))
+        fragment?.updatePlayerCards(
+            GameManager.activePlayer?.hands?.getOrNull(0)?.cards ?: emptyList()
+        )
+        fragment?.updatePlayerCardValue(
+            getBlackJackValue(
+                GameManager.activePlayer?.hands?.getOrNull(
+                    0
+                )?.cards ?: emptyList()
+            )
+        )
     }
 
 
     private fun checkBlackJack() {
         val currentPlayer = GameManager.activePlayer ?: return
         val playerBetAmount = currentPlayer.hands[0].getBetAmount()
-        val playerHasBlackJack = getBlackJackValue(currentPlayer.hands[0].cards) == 21 && currentPlayer.hands[0].cards.size == 2
+        val playerHasBlackJack =
+            getBlackJackValue(currentPlayer.hands[0].cards) == 21 && currentPlayer.hands[0].cards.size == 2
         val dealerHasBlackJack = getBlackJackValue(dealerCards) == 21 && dealerCards.size == 2
 
         when {
@@ -207,7 +218,6 @@ private fun dealInitialCards() {
             }
         }
     }
-
 
 
     private fun showPopUpMenu(view: View) {
@@ -299,8 +309,8 @@ private fun dealInitialCards() {
         }
     } */
 
-    
-        fun playDealerHand() {
+
+    fun playDealerHand() {
         isDealerTurn = true
         updateDealerCardImages(dealerCards)
         updateDealerCardsValue(dealerCards)
@@ -315,7 +325,9 @@ private fun dealInitialCards() {
                 updateDealerCardsValue(dealerCards)
                 handler.postDelayed(::drawDealerCard, delayBetweenDealerCards)
             } else {
+
                 handler.postDelayed({
+                    checkWinner()
                 }, 2000)
             }
         }
@@ -343,10 +355,12 @@ private fun dealInitialCards() {
                 currentPlayer.addMoney(betAmount * 2)
                 Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Wins")
             }
+
             playerValue == dealerValue -> {
                 Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Tie")
                 currentPlayer.addMoney(betAmount)
             }
+
             else -> {
                 Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Dealer wins")
             }
@@ -355,13 +369,12 @@ private fun dealInitialCards() {
         cleanUpGame()
     }
 
-    private fun cleanUpGame(){
+    private fun cleanUpGame() {
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({ resetGame() }, 3000)
         updatePlayerInfo()
         resetGame()
     }
-
 
 
     // Help method for the dealer to check for BJ if the visible card is Ace or 10
@@ -404,8 +417,6 @@ private fun dealInitialCards() {
         GameManager.savePlayersToSharedPref(this)
         returnToBetFragment()
     }
-
-
 
 
 }
