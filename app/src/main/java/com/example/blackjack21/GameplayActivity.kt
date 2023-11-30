@@ -99,7 +99,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
     override fun onStandPress() {
         playDealerHand()
-        checkWinner()
+
     }
 
     override fun onDoublePress(){
@@ -323,6 +323,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 handler.postDelayed(::drawDealerCard, delayBetweenDealerCards)
             } else {
                 handler.postDelayed({
+                    checkWinner()
                 }, 2000)
             }
         }
