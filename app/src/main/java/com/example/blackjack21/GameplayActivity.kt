@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.PopupMenu
@@ -126,6 +127,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         if (currentPlayer == null) {
             return
         }
+        //deck.stackDeck()
         val handler = Handler(Looper.getMainLooper())
         val delayBetweenCards = 500L
 
@@ -140,9 +142,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 fragment?.updatePlayerCardValue(getBlackJackValue(currentPlayer.hands[0].cards))
 
                 // Check for blackjack after second card
-                if (i == 1 && getBlackJackValue(currentPlayer.hands[0].cards) == 21) {
-                    checkWinner()
-                }
+
             }, delayBetweenCards * (2 * i))
 
 
@@ -155,6 +155,9 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                     dealerCardsImageViews.getOrNull(i)?.setImageResource(R.drawable.card_back)
                 } else {
                     updateDealerCardImages(dealerCards)
+                }
+                if (i == 1 ){
+                    checkBlackJack()
                 }
             }, delayBetweenCards * (2 * i + 1))
         }
@@ -170,17 +173,32 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         when {
             playerHasBlackJack && dealerHasBlackJack -> {
-                // Logik för när både spelaren och dealern har Blackjack
+                val handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    currentPlayer.addMoney(playerBetAmount)
+
+                    isDealerTurn = true
+
+                    updateDealerCardImages(dealerCards)
+                    updateDealerCardsValue(dealerCards)
+                    cleanUpGame()
+                }, 500)
+
             }
 
             playerHasBlackJack -> {
                 // Spelaren har Blackjack och vinner
-                currentPlayer.addMoney(playerBetAmount * 2)
+
+                cleanUpGame()
             }
 
-            dealerHasBlackJack -> {
-                // Dealern har Blackjack
-            }
+//            dealerHasBlackJack -> {
+//                Log.d("!!!", "DealerBJ")
+//                isDealerTurn = true
+//                updateDealerCardImages(dealerCards)
+//                updateDealerCardsValue(dealerCards)
+//                cleanUpGame()
+//            }
 
             else -> {
                 // Ingen har Blackjack, spelet fortsätter
@@ -314,6 +332,11 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             playerValue > 21 -> {
 
             }
+
+            dealerValue == 21 && dealerCards.size == 2 -> {
+
+            }
+
             dealerValue > 21 || playerValue > dealerValue -> {
 
                 currentPlayer.addMoney(betAmount * 2)
@@ -326,7 +349,10 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
             }
         }
+        cleanUpGame()
+    }
 
+    private fun cleanUpGame(){
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({ resetGame() }, 3000)
 
