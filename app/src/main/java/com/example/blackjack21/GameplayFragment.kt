@@ -29,6 +29,7 @@ class GameplayFragment : Fragment() {
     lateinit var hitButton: Button
     lateinit var standButton : Button
     lateinit var doubleButton: Button
+
     lateinit var playerCardValueTextView: TextView
     lateinit var betValueTextView: TextView
     private val playerCardImages = mutableListOf<ImageView>()
@@ -82,6 +83,10 @@ class GameplayFragment : Fragment() {
         doubleButton.setOnClickListener{
             listener?.onDoublePress()
         }
+
+        standButton.isEnabled = false
+        hitButton.isEnabled = false
+        doubleButton.isEnabled = false
 
 
     }
