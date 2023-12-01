@@ -159,12 +159,9 @@ class GameplayFragment : Fragment() {
         activeHandView.setValueText(value)
        // playerCardValueTextView.text = value.toString()
     }
-    fun updatePlayerCards(cards:List<Card>){
-        activeHandView.setImage(cards)
-//        cards.forEachIndexed{index, card ->
-//            val imageId = resources.getIdentifier(card.imageString, "drawable", requireActivity().packageName)
-//            playerCardImages[index].setImageResource(imageId)
-//        }
+    fun updatePlayerCards(cards:List<Card>, handView: PlayerHandView = activeHandView){
+        handView.setImage(cards)
+
     }
 
     fun updateBetValueText(betAmount: Int){

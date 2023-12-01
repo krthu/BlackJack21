@@ -162,6 +162,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
                 val secondHand = fragment?.handsContainer?.getChildAt(1) as? PlayerHandView
                 if (secondHand != null) {
+                    fragment.updatePlayerCards(GameManager.activePlayer!!.hands[1].cards, secondHand)
                     secondHand.setImage(GameManager.activePlayer!!.hands[1].cards)
                     secondHand.setValueText(getBlackJackValue(GameManager.activePlayer!!.hands[1].cards))
                 }
