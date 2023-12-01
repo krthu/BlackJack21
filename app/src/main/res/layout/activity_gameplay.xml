@@ -43,15 +43,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/dealer_valueHolder"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/value_holder"
+        app:layout_constraintBottom_toTopOf="@+id/third_card_dealer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/card_value_dealer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="CardValue"
+        android:layout_marginBottom="13dp"
+        android:fontFamily="@font/poppins_bold_italic"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/second_card_dealer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:text="20" />
 
     <ImageView
         android:id="@+id/first_card_dealer"

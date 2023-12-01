@@ -1,5 +1,6 @@
 package com.example.blackjack21
 
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,25 +12,29 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import org.w3c.dom.Text
 
 class BetViewFragment : Fragment() {
 
     private lateinit var fadeInAnimation: Animation
     private lateinit var fadeOutAnimation: Animation
 
-    private var totalBet = 0
+    private lateinit var downArrowBet10: ImageView
+    private lateinit var downArrowBet20: ImageView
+    private lateinit var downArrowBet50: ImageView
+    private lateinit var downArrowBet100: ImageView
     private lateinit var placeBetButton: Button
     private lateinit var removeBetButton: Button
     private lateinit var betAmountTextView: TextView
     private lateinit var placeYourBetText: TextView
     private var isFirstBet = true
+    private var totalBet = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +54,10 @@ class BetViewFragment : Fragment() {
         removeBetButton = view.findViewById(R.id.btn_removeBet)
         betAmountTextView = view.findViewById(R.id.betAmountTextView)
         placeYourBetText = view.findViewById(R.id.placeYourBetView)
+        downArrowBet10 = view.findViewById(R.id.downArrowBet10)
+        downArrowBet20 = view.findViewById(R.id.downArrowBet20)
+        downArrowBet50 = view.findViewById(R.id.downArrowBet50)
+        downArrowBet100 = view.findViewById(R.id.downArrowBet100)
 
 
         placeBetButton.setOnClickListener {
@@ -73,11 +82,16 @@ class BetViewFragment : Fragment() {
         }
 
         // Initial visibility setup
+        Animations.pulse(downArrowBet10)
+        Animations.pulse(downArrowBet20)
+        Animations.pulse(downArrowBet50)
+        Animations.pulse(downArrowBet100)
         placeYourBetText.visibility = View.VISIBLE
         betAmountTextView.visibility = View.GONE
         placeBetButton.visibility = View.GONE
         removeBetButton.visibility = View.GONE
     }
+
     private fun setBetValue(imageViewId: Int, betValue: Int) {
         val imageView: ImageView = requireView().findViewById(imageViewId)
         imageView.setOnClickListener {
@@ -97,7 +111,7 @@ class BetViewFragment : Fragment() {
 
     private fun updateTotalBetChipImage(betValue: Int) {
         val totalBetChip: ImageView = requireView().findViewById(R.id.total_bet_chip)
-        val resourceID = when(betValue) {
+        val resourceID = when (betValue) {
             10 -> R.drawable.chip_value10
             20 -> R.drawable.chip_value20
             50 -> R.drawable.chip_value50
@@ -126,6 +140,7 @@ class BetViewFragment : Fragment() {
         updateBetButtonState()
         betAmountTextView.text = "$totalBet"
     }
+
     private fun removeBet() {
         totalBet = 0
         updateBetButtonState()
@@ -137,6 +152,7 @@ class BetViewFragment : Fragment() {
         removeBetButton.visibility = View.GONE
         isFirstBet = true
     }
+
     private fun onPlaceBetClicked() {
         val player = GameManager.activePlayer
         if (player != null && player.makeBet(totalBet.toDouble())) {
