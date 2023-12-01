@@ -166,16 +166,15 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             }, delayBetweenCards)
 
             handler.postDelayed({
-                val cardForSecondHand = deck.drawACard()
-                GameManager.activePlayer?.addCard(currentHandIndex+1, cardForSecondHand)
+//                val cardForSecondHand = deck.drawACard()
+//                GameManager.activePlayer?.addCard(currentHandIndex+1, cardForSecondHand)
                 val secondHand = fragment?.handsContainer?.getChildAt(1) as? PlayerHandView
                 if (secondHand != null) {
                     secondHand.setImage(GameManager.activePlayer!!.hands[1].cards)
-
+                    secondHand.setValueText(getBlackJackValue(GameManager.activePlayer!!.hands[1].cards))
+//
                 }
             }, delayBetweenCards)
-
-
         }
     }
 
