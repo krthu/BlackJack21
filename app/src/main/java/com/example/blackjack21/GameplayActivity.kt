@@ -114,9 +114,13 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             currentHandIndex = 1
             val fragment =
                 supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+
             if (fragment != null) {
+                fragment.activeHandView.alpha = 0.5f
                 fragment.activeHandView = (fragment.handsContainer.getChildAt(1) as? PlayerHandView)!!
+                fragment.activeHandView.alpha = 1f
             }
+
             buttonsEnabled(true)
         }
     }
@@ -371,6 +375,11 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
 
     fun playDealerHand() {
+        if (currentHandIndex == 1){
+            val fragment =
+                supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+            fragment?.handsContainer?.getChildAt(0)?.alpha = 1f
+        }
         isDealerTurn = true
         updateDealerCardImages(dealerCards)
         updateDealerCardsValue(dealerCards)
