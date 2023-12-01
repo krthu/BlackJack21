@@ -86,6 +86,7 @@ class GameplayFragment : Fragment() {
         }
         hitButton.setOnClickListener{
             doubleButton.isVisible = false
+            splitButton.isVisible = false
             listener?.onHitPress()
         }
 
@@ -99,9 +100,10 @@ class GameplayFragment : Fragment() {
 
         }
 
-//        standButton.isEnabled = false
-//        hitButton.isEnabled = false
-//        doubleButton.isEnabled = false
+        standButton.isEnabled = false
+        hitButton.isEnabled = false
+        doubleButton.isEnabled = false
+        splitButton.isVisible = false
 
 
 

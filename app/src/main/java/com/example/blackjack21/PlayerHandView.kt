@@ -34,9 +34,7 @@ class PlayerHandView @JvmOverloads constructor(
          cards.forEachIndexed{index,  card ->
             val imageId = resources.getIdentifier(card.imageString, "drawable", context.packageName)
             cardImageViews[index].setImageResource(imageId)
-
          }
-
     }
 
     fun setBetText(text: String) {

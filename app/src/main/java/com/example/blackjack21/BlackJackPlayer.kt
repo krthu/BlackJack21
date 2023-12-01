@@ -48,4 +48,11 @@ class BlackJackPlayer(name: String, var money: Double) : Player(name) {
         }
         return false
     }
+
+    fun ableToSplit():Boolean{
+        if(hands[0].cards[0].number == hands[0].cards[1].number){
+            return true
+        }
+        return false
+    }
 }

@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
 
@@ -140,21 +141,12 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     override fun onSplitPress() {
         if (GameManager.activePlayer?.split() == true){
 
-//            val newHand = PlayerHandView(this)
-//            newHand.id = View.generateViewId()
-//
-//            val layoutParams = LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                1f
-//            )
-//            newHand.layoutParams = layoutParams
             val fragment =
                 supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
-//            fragment?.handsContainer?.addView(newHand)
-//            fragment?.handsContainer?.requestLayout()
-            hasSplit = true
 
+            hasSplit = true
+            updatePlayerInfo()
+            fragment?.splitButton?.isVisible = false
             val handler = Handler(Looper.getMainLooper())
             val delayBetweenCards = 500L //
 
@@ -166,13 +158,11 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             }, delayBetweenCards)
 
             handler.postDelayed({
-//                val cardForSecondHand = deck.drawACard()
-//                GameManager.activePlayer?.addCard(currentHandIndex+1, cardForSecondHand)
+
                 val secondHand = fragment?.handsContainer?.getChildAt(1) as? PlayerHandView
                 if (secondHand != null) {
                     secondHand.setImage(GameManager.activePlayer!!.hands[1].cards)
                     secondHand.setValueText(getBlackJackValue(GameManager.activePlayer!!.hands[1].cards))
-//
                 }
             }, delayBetweenCards)
         }
@@ -181,11 +171,11 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
 
     fun buttonsEnabled(enabled: Boolean){
-//        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
-//        fragment?.doubleButton?.isEnabled = enabled
-//        fragment?.hitButton?.isEnabled = enabled
-//        fragment?.standButton?.isEnabled = enabled
-        //fragment?.splitButton?.isEnabled = enabled
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+        fragment?.doubleButton?.isEnabled = enabled
+        fragment?.hitButton?.isEnabled = enabled
+        fragment?.standButton?.isEnabled = enabled
+        fragment?.splitButton?.isEnabled = enabled
 
     }
 
@@ -214,6 +204,12 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             val playerSecondCard = deck.drawACard()
             currentPlayer.addCard(currentHandIndex, playerSecondCard)
             updatePlayerUI()
+            if (currentPlayer.ableToSplit()){
+                val fragment =
+                    supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+
+                fragment?.splitButton?.isVisible = true
+            }
         }, delayBetweenCards * 3)
 
 
@@ -224,11 +220,13 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             updateDealerCardImages(dealerCards)
             buttonsEnabled(true)
 
+
             if (getBlackJackValue(currentPlayer.hands[currentHandIndex].cards) == 21) {
                 checkBlackJack()
 
             }
         }, delayBetweenCards * 4)
+
     }
 
     private fun updatePlayerUI() {
