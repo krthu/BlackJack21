@@ -101,6 +101,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         if (playerValue > 21) {
            checkWinner()
         }
+        buttonsEnabled(true)
     }
 
 
@@ -116,6 +117,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             if (fragment != null) {
                 fragment.activeHandView = (fragment.handsContainer.getChildAt(1) as? PlayerHandView)!!
             }
+            buttonsEnabled(true)
         }
     }
 
@@ -272,14 +274,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
                 cleanUpGame()
             }
-
-//            dealerHasBlackJack -> {
-//                Log.d("!!!", "DealerBJ")
-//                isDealerTurn = true
-//                updateDealerCardImages(dealerCards)
-//                updateDealerCardsValue(dealerCards)
-//                cleanUpGame()
-//            }
 
             else -> {
                 // Ingen har Blackjack, spelet fortsätter
