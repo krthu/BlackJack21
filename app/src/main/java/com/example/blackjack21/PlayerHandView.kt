@@ -5,7 +5,9 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.forEach
 
 class PlayerHandView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -13,6 +15,8 @@ class PlayerHandView @JvmOverloads constructor(
 
     val cardImageViews = mutableListOf<ImageView>()
     var currentImageIndex = 0
+    lateinit var betTextView: TextView
+    lateinit var cardValuePlayerTextView: TextView
     init {
         LayoutInflater.from(context).inflate(R.layout.player_hand, this, true)
         cardImageViews.add(findViewById(R.id.first_card_player))
@@ -20,20 +24,26 @@ class PlayerHandView @JvmOverloads constructor(
         cardImageViews.add(findViewById(R.id.third_card_player))
         cardImageViews.add(findViewById(R.id.fourth_card_player))
         cardImageViews.add(findViewById(R.id.fifth_card_player))
+        betTextView.findViewById<TextView>(R.id.betAmountTextView)
+        cardValuePlayerTextView.findViewById<TextView>(R.id.card_value_player)
 
     }
 
     // Funktioner för att sätta dynamiskt innehåll
     fun setImage(cards: List<Card>) {
-        if (cards.size > 0){
-            val card = cards[currentImageIndex]
+         cards.forEachIndexed{index,  card ->
             val imageId = resources.getIdentifier(card.imageString, "drawable", context.packageName)
-            cardImageViews[currentImageIndex].setImageResource(imageId)
-            currentImageIndex++
-        }
+            cardImageViews[index].setImageResource(imageId)
+
+         }
+
     }
 
-    fun setTexts(texts: List<String>) {
-        // Implementera logiken för att sätta texter
+    fun setBetText(text: String) {
+        betTextView.text = text
+    }
+
+    fun setValueText(value: Int){
+        cardValuePlayerTextView.text = value.toString()
     }
 }

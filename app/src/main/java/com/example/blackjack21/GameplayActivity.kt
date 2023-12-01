@@ -105,7 +105,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
     override fun onStandPress() {
         buttonsEnabled(false)
-        if (!hasSplit){
+        if (!hasSplit || currentHandIndex == 1){
             playDealerHand()
         } else{
             hasSplit == false
@@ -405,33 +405,35 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
 
     private fun checkWinner() {
-        val currentPlayer = GameManager.activePlayer ?: return
-        val playerValue = getBlackJackValue(currentPlayer.hands[currentHandIndex].cards)
-        val dealerValue = getBlackJackValue(dealerCards)
-        val betAmount = currentPlayer.hands[currentHandIndex].getBetAmount()
-        Log.d("!!!", "Player: $playerValue Dealer: $dealerValue")
-        when {
-            playerValue > 21 -> {
-                Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Bust")
-            }
+        for (i in 0..currentHandIndex){
+            val currentPlayer = GameManager.activePlayer ?: return
+            val playerValue = getBlackJackValue(currentPlayer.hands[currentHandIndex].cards)
+            val dealerValue = getBlackJackValue(dealerCards)
+            val betAmount = currentPlayer.hands[currentHandIndex].getBetAmount()
+            Log.d("!!!", "Player: $playerValue Dealer: $dealerValue")
+            when {
+                playerValue > 21 -> {
+                    Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Bust")
+                }
 
-            dealerValue == 21 && dealerCards.size == 2 -> {
+                dealerValue == 21 && dealerCards.size == 2 -> {
 
-            }
+                }
 
-            dealerValue > 21 || playerValue > dealerValue -> {
+                dealerValue > 21 || playerValue > dealerValue -> {
 
-                currentPlayer.addMoney(betAmount * 2)
-                Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Wins")
-            }
+                    currentPlayer.addMoney(betAmount * 2)
+                    Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Wins")
+                }
 
-            playerValue == dealerValue -> {
-                Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Tie")
-                currentPlayer.addMoney(betAmount)
-            }
+                playerValue == dealerValue -> {
+                    Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Tie")
+                    currentPlayer.addMoney(betAmount)
+                }
 
-            else -> {
-                Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Dealer wins")
+                else -> {
+                    Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Dealer wins")
+                }
             }
         }
 
