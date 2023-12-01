@@ -67,7 +67,7 @@ class GameplayFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val fragment = inflater.inflate(R.layout.fragment_gameplay, container, false)
-        setReferances(fragment)
+
 
 
 
@@ -76,8 +76,9 @@ class GameplayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val betAmountTextView: TextView = view.findViewById(R.id.bet_amount_player)
-        betAmountTextView.text = "$totalBet"
+        setReferances(view)
+        //val betAmountTextView: TextView = view.findViewById(R.id.bet_amount_player)
+        //betAmountTextView.text = "$totalBet"
         listener?.updatePlayerCards()
         standButton.setOnClickListener {
             listener?.onStandPress()

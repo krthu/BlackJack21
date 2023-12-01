@@ -15,8 +15,8 @@ class PlayerHandView @JvmOverloads constructor(
 
     val cardImageViews = mutableListOf<ImageView>()
     var currentImageIndex = 0
-    lateinit var betTextView: TextView
-    lateinit var cardValuePlayerTextView: TextView
+    var betTextView: TextView
+    var cardValuePlayerTextView: TextView
     init {
         LayoutInflater.from(context).inflate(R.layout.player_hand, this, true)
         cardImageViews.add(findViewById(R.id.first_card_player))
@@ -24,8 +24,8 @@ class PlayerHandView @JvmOverloads constructor(
         cardImageViews.add(findViewById(R.id.third_card_player))
         cardImageViews.add(findViewById(R.id.fourth_card_player))
         cardImageViews.add(findViewById(R.id.fifth_card_player))
-        betTextView.findViewById<TextView>(R.id.betAmountTextView)
-        cardValuePlayerTextView.findViewById<TextView>(R.id.card_value_player)
+        betTextView = findViewById(R.id.bet_amount_player)
+        cardValuePlayerTextView = findViewById(R.id.card_value_player)
 
     }
 
