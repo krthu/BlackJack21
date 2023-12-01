@@ -23,6 +23,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     val dealerCardsImageViews = mutableListOf<ImageView>()
     var isDealerTurn = false
     var gameIsActive = true
+    var currentHandIndex = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,16 +79,16 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         val fragment =
             supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
         if (currentPlayer != null) {
-            fragment?.updatePlayerCards(currentPlayer.hands[0].cards)
+            fragment?.updatePlayerCards(currentPlayer.hands[currentHandIndex].cards)
         }
         if (currentPlayer != null) {
-            fragment?.updatePlayerCardValue(getBlackJackValue(currentPlayer.hands[0].cards))
+            fragment?.updatePlayerCardValue(getBlackJackValue(currentPlayer.hands[currentHandIndex].cards))
         }
     }
 
     override fun onHitPress() {
         val currentPlayer = GameManager.activePlayer ?: return
-        val playerHand = currentPlayer.hands[0]
+        val playerHand = currentPlayer.hands[currentHandIndex]
         buttonsEnabled(false)
         playerHand.addCard(deck.drawACard())
         updatePlayerCards()
@@ -106,15 +107,15 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
 
     override fun onDoublePress() {
-        val indexOfActiveHand = 0
+       // val indexOfActiveHand = 0
         val currentPlayer = GameManager.activePlayer
 
         val fragment =
             supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
-        if (GameManager.activePlayer?.doubleBetInHand(indexOfActiveHand) == true) {
+        if (GameManager.activePlayer?.doubleBetInHand(currentHandIndex) == true) {
             updatePlayerInfo()
             if (currentPlayer != null) {
-                fragment?.updateBetValueText(currentPlayer.hands[indexOfActiveHand].bet.toInt())
+                fragment?.updateBetValueText(currentPlayer.hands[currentHandIndex].bet.toInt())
                 onHitPress()
                 onStandPress()
             }
@@ -156,7 +157,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         handler.postDelayed({
             val playerFirstCard = deck.drawACard()
-            currentPlayer.addCard(0, playerFirstCard)
+            currentPlayer.addCard(currentHandIndex, playerFirstCard)
             updatePlayerUI()
         }, delayBetweenCards)
 
@@ -170,7 +171,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         handler.postDelayed({
             val playerSecondCard = deck.drawACard()
-            currentPlayer.addCard(0, playerSecondCard)
+            currentPlayer.addCard(currentHandIndex, playerSecondCard)
             updatePlayerUI()
         }, delayBetweenCards * 3)
 
@@ -182,7 +183,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             updateDealerCardImages(dealerCards)
             buttonsEnabled(true)
 
-            if (getBlackJackValue(currentPlayer.hands[0].cards) == 21) {
+            if (getBlackJackValue(currentPlayer.hands[currentHandIndex].cards) == 21) {
                 checkBlackJack()
 
             }
@@ -193,12 +194,12 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         val fragment =
             supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
         fragment?.updatePlayerCards(
-            GameManager.activePlayer?.hands?.getOrNull(0)?.cards ?: emptyList()
+            GameManager.activePlayer?.hands?.getOrNull(currentHandIndex)?.cards ?: emptyList()
         )
         fragment?.updatePlayerCardValue(
             getBlackJackValue(
                 GameManager.activePlayer?.hands?.getOrNull(
-                    0
+                    currentHandIndex
                 )?.cards ?: emptyList()
             )
         )
@@ -207,9 +208,9 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
     private fun checkBlackJack() {
         val currentPlayer = GameManager.activePlayer ?: return
-        val playerBetAmount = currentPlayer.hands[0].getBetAmount()
+        val playerBetAmount = currentPlayer.hands[currentHandIndex].getBetAmount()
         val playerHasBlackJack =
-            getBlackJackValue(currentPlayer.hands[0].cards) == 21 && currentPlayer.hands[0].cards.size == 2
+            getBlackJackValue(currentPlayer.hands[currentHandIndex].cards) == 21 && currentPlayer.hands[currentHandIndex].cards.size == 2
         val dealerHasBlackJack = getBlackJackValue(dealerCards) == 21 && dealerCards.size == 2
 
         when {
