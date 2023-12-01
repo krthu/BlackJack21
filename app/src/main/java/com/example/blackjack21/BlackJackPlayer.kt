@@ -39,4 +39,13 @@ class BlackJackPlayer(name: String, var money: Double) : Player(name) {
     fun addCard(indexOfHand: Int, card: Card) {
         hands[indexOfHand].addCard(card)
     }
+
+    fun split(): Boolean{
+        if (makeBet(hands[0].bet)){
+            val cardToMove = hands[0].cards.removeAt(1)
+            hands[1].cards.add(cardToMove)
+            return true
+        }
+        return false
+    }
 }
