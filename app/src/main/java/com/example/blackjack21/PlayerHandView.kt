@@ -19,7 +19,7 @@ class PlayerHandView @JvmOverloads constructor(
         cardImageViews.add(findViewById(R.id.second_card_player))
         cardImageViews.add(findViewById(R.id.third_card_player))
         cardImageViews.add(findViewById(R.id.fourth_card_player))
-        cardImageViews.add(findViewById(R.id.first_card_player))
+        cardImageViews.add(findViewById(R.id.fifth_card_player))
 
     }
 
