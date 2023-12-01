@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
+import androidx.core.view.isEmpty
 
 class PlayerHandView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -35,6 +36,10 @@ class PlayerHandView @JvmOverloads constructor(
             val imageId = resources.getIdentifier(card.imageString, "drawable", context.packageName)
             cardImageViews[index].setImageResource(imageId)
          }
+    }
+
+    fun removeSecondCardImage(){
+        cardImageViews[0].setImageResource(0)
     }
 
     fun setBetText(text: String) {

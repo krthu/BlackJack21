@@ -151,13 +151,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             fragment?.splitButton?.isVisible = false
             val handler = Handler(Looper.getMainLooper())
             val delayBetweenCards = 500L //
-
-
-            handler.postDelayed({
-                val cardForFirstHand = deck.drawACard()
-                GameManager.activePlayer?.addCard(currentHandIndex, cardForFirstHand)
-                updatePlayerUI()
-            }, delayBetweenCards)
+            fragment?.activeHandView?.cardImageViews?.get(1)?.setImageResource(0)
+            // Card for the old hand
 
             handler.postDelayed({
 
@@ -166,7 +161,19 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                     secondHand.setImage(GameManager.activePlayer!!.hands[1].cards)
                     secondHand.setValueText(getBlackJackValue(GameManager.activePlayer!!.hands[1].cards))
                 }
+
             }, delayBetweenCards)
+            handler.postDelayed({
+                val cardForFirstHand = deck.drawACard()
+                GameManager.activePlayer?.addCard(currentHandIndex, cardForFirstHand)
+                updatePlayerUI()
+            }, delayBetweenCards * 2 )
+
+
+
+            handler.postDelayed({
+                fragment?.handsContainer?.getChildAt(1)?.alpha = 0.5f
+            }, delayBetweenCards*3)
         }
     }
 
@@ -362,15 +369,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         cardValueDealerTextView.text = value.toString()
     }
-
-
-    /* fun getPlayerBets() {
-
-        players.forEach { player ->
-            player.makeBet(50)
-        }
-    } */
-
 
     fun playDealerHand() {
         isDealerTurn = true

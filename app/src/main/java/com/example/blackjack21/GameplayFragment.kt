@@ -126,8 +126,10 @@ class GameplayFragment : Fragment() {
             1f
         )
         newHand.layoutParams = layoutParams
+
         handsContainer.addView(newHand)
         handsContainer.requestLayout()
+
 
 //        val fragment =
 //            supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
