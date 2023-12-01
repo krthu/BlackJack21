@@ -77,29 +77,31 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         return value
     }
 
-    override fun updatePlayerCards() {
-        val currentPlayer = GameManager.activePlayer
-        val fragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
-        if (currentPlayer != null) {
-            fragment?.updatePlayerCards(currentPlayer.hands[currentHandIndex].cards)
-        }
-        if (currentPlayer != null) {
-            fragment?.updatePlayerCardValue(getBlackJackValue(currentPlayer.hands[currentHandIndex].cards))
-        }
-    }
+//    override fun updatePlayerCards() {
+//        val currentPlayer = GameManager.activePlayer
+//        val fragment =
+//            supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+//        if (currentPlayer != null) {
+//            fragment?.updatePlayerCards(currentPlayer.hands[currentHandIndex].cards)
+//        }
+//        if (currentPlayer != null) {
+//            fragment?.updatePlayerCardValue(getBlackJackValue(currentPlayer.hands[currentHandIndex].cards))
+//        }
+//    }
 
     override fun onHitPress() {
         val currentPlayer = GameManager.activePlayer ?: return
         val playerHand = currentPlayer.hands[currentHandIndex]
         buttonsEnabled(false)
         playerHand.addCard(deck.drawACard())
-        updatePlayerCards()
+       // updatePlayerCards()
+        updatePlayerUI(currentHandIndex)
 
 
         val playerValue = getBlackJackValue(playerHand.cards)
         if (playerValue > 21) {
-           checkWinner()
+           //checkWinner()
+            onStandPress()
         }
         buttonsEnabled(true)
     }
@@ -117,9 +119,17 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
             if (fragment != null) {
                 fragment.activeHandView.alpha = 0.5f
-                fragment.activeHandView = (fragment.handsContainer.getChildAt(1) as? PlayerHandView)!!
+                fragment.activeHandView = fragment.handViewList[1]
                 fragment.activeHandView.alpha = 1f
             }
+            val handler = Handler(Looper.getMainLooper())
+            val delayBetweenCards = 500L
+            handler.postDelayed({
+                val secondCard = deck.drawACard()
+                GameManager.activePlayer?.addCard(currentHandIndex, secondCard)
+                updatePlayerUI()
+            }, delayBetweenCards)
+            fragment?.doubleButton?.isVisible = true
 
             buttonsEnabled(true)
         }
@@ -156,19 +166,20 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             val handler = Handler(Looper.getMainLooper())
             val delayBetweenCards = 500L //
             fragment?.activeHandView?.cardImageViews?.get(1)?.setImageResource(0)
-            // Card for the old hand
+
 
             handler.postDelayed({
-
-                val secondHand = fragment?.handsContainer?.getChildAt(1) as? PlayerHandView
-                if (secondHand != null) {
-                    fragment.updatePlayerCards(GameManager.activePlayer!!.hands[1].cards, secondHand)
-                    secondHand.setImage(GameManager.activePlayer!!.hands[1].cards)
-                    secondHand.setValueText(getBlackJackValue(GameManager.activePlayer!!.hands[1].cards))
-                }
+                updatePlayerUI(1)
+//                val secondHand = fragment?.handsContainer?.getChildAt(1) as? PlayerHandView
+//                if (secondHand != null) {
+//                    fragment.updatePlayerCards(GameManager.activePlayer!!.hands[1].cards, secondHand)
+//                    secondHand.setImage(GameManager.activePlayer!!.hands[1].cards)
+//                    secondHand.setValueText(getBlackJackValue(GameManager.activePlayer!!.hands[1].cards))
+ //               }
 
             }, delayBetweenCards)
             handler.postDelayed({
+                // Card for the old hand
                 val cardForFirstHand = deck.drawACard()
                 GameManager.activePlayer?.addCard(currentHandIndex, cardForFirstHand)
                 updatePlayerUI()
@@ -179,6 +190,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             handler.postDelayed({
                 fragment?.handsContainer?.getChildAt(1)?.alpha = 0.5f
             }, delayBetweenCards*3)
+        }else{
+            Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -243,18 +256,18 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
     }
 
-    private fun updatePlayerUI() {
+    private fun updatePlayerUI(indexOfHandToUpdate: Int = currentHandIndex) {
         val fragment =
             supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
         fragment?.updatePlayerCards(
-            GameManager.activePlayer?.hands?.getOrNull(currentHandIndex)?.cards ?: emptyList()
+            GameManager.activePlayer?.hands?.getOrNull(indexOfHandToUpdate)?.cards ?: emptyList(), indexOfHandToUpdate
         )
         fragment?.updatePlayerCardValue(
             getBlackJackValue(
                 GameManager.activePlayer?.hands?.getOrNull(
-                    currentHandIndex
+                    indexOfHandToUpdate
                 )?.cards ?: emptyList()
-            )
+            ), indexOfHandToUpdate
         )
     }
 

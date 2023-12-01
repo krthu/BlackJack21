@@ -2,6 +2,7 @@ package com.example.blackjack21
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,7 @@ class GameplayFragment : Fragment() {
         fun getBlackJackValue(cards: List<Card>): Int
         fun onHitPress()
         fun onStandPress()
-        fun updatePlayerCards()
+      //  fun updatePlayerCards()
 
         fun onDoublePress()
 
@@ -40,6 +41,7 @@ class GameplayFragment : Fragment() {
     lateinit var firstHand: PlayerHandView
     private val playerCardImages = mutableListOf<ImageView>()
     lateinit var activeHandView: PlayerHandView
+    var handViewList = mutableListOf<PlayerHandView>()
 
 
     override fun onAttach(context: Context) {
@@ -80,7 +82,7 @@ class GameplayFragment : Fragment() {
         //val betAmountTextView: TextView = view.findViewById(R.id.bet_amount_player)
         //betAmountTextView.text = "$totalBet"
         activeHandView.setBetText("$totalBet")
-        listener?.updatePlayerCards()
+        //listener?.updatePlayerCards()
         standButton.setOnClickListener {
             listener?.onStandPress()
         }
@@ -129,6 +131,7 @@ class GameplayFragment : Fragment() {
 
         handsContainer.addView(newHand)
         handsContainer.requestLayout()
+        handViewList.add(newHand)
 
 
 //        val fragment =
@@ -151,16 +154,17 @@ class GameplayFragment : Fragment() {
         playerCardImages.add(fragment.findViewById(R.id.fourth_card_player))
         playerCardImages.add(fragment.findViewById(R.id.fifth_card_player))
         firstHand = fragment.findViewById(R.id.first_hand)
+        handViewList.add(firstHand)
         activeHandView = firstHand
 
 
     }
-    fun updatePlayerCardValue(value: Int){
-        activeHandView.setValueText(value)
+    fun updatePlayerCardValue(value: Int, handIndex: Int){
+        handViewList[handIndex].setValueText(value)
        // playerCardValueTextView.text = value.toString()
     }
-    fun updatePlayerCards(cards:List<Card>, handView: PlayerHandView = activeHandView){
-        handView.setImage(cards)
+    fun updatePlayerCards(cards:List<Card>, handIndex: Int){
+        handViewList[handIndex].setImage(cards)
 
     }
 

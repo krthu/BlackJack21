@@ -50,7 +50,7 @@ class BlackJackPlayer(name: String, var money: Double) : Player(name) {
     }
 
     fun ableToSplit():Boolean{
-        if(hands[0].cards[0].number == hands[0].cards[1].number){
+        if(hands[0].cards[0].number == hands[0].cards[1].number && money >= hands[0].bet){
             return true
         }
         return false

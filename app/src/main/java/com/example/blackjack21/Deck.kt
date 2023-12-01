@@ -49,7 +49,9 @@ class Deck(private var numberOfDecks: Int) {
         decklist.add(6,Card("Heart", 2, "s02"))
         decklist.add(7,Card("Heart", 3, "h03"))
         decklist.add(8,Card("Heart", 3, "c03"))
-        decklist.add(9,Card("Heart", 3, "s03"))
+        decklist.add(9,Card("Heart", 5, "s05"))
+        decklist.add(10,Card("Heart", 10, "s10"))
+        decklist.add(11,Card("Heart", 3, "s03"))
     }
 
 
