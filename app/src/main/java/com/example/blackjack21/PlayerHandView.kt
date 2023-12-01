@@ -25,10 +25,12 @@ class PlayerHandView @JvmOverloads constructor(
 
     // Funktioner för att sätta dynamiskt innehåll
     fun setImage(cards: List<Card>) {
-        val card = cards[currentImageIndex]
-        val imageId = resources.getIdentifier(card.imageString, "drawable", context.packageName)
-        cardImageViews[currentImageIndex].setImageResource(imageId)
-        currentImageIndex++
+        if (cards.size > 0){
+            val card = cards[currentImageIndex]
+            val imageId = resources.getIdentifier(card.imageString, "drawable", context.packageName)
+            cardImageViews[currentImageIndex].setImageResource(imageId)
+            currentImageIndex++
+        }
     }
 
     fun setTexts(texts: List<String>) {

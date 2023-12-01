@@ -37,7 +37,9 @@ class GameplayFragment : Fragment() {
 
     lateinit var playerCardValueTextView: TextView
     lateinit var betValueTextView: TextView
+    lateinit var firstHand: PlayerHandView
     private val playerCardImages = mutableListOf<ImageView>()
+    lateinit var activeHandView: PlayerHandView
 
 
     override fun onAttach(context: Context) {
@@ -96,7 +98,7 @@ class GameplayFragment : Fragment() {
 //        standButton.isEnabled = false
 //        hitButton.isEnabled = false
 //        doubleButton.isEnabled = false
-        val firstHand = view.findViewById<PlayerHandView>(R.id.first_hand)
+
 
 
 //
@@ -121,6 +123,8 @@ class GameplayFragment : Fragment() {
         playerCardImages.add(fragment.findViewById(R.id.third_card_player))
         playerCardImages.add(fragment.findViewById(R.id.fourth_card_player))
         playerCardImages.add(fragment.findViewById(R.id.fifth_card_player))
+        firstHand = fragment.findViewById(R.id.first_hand)
+        activeHandView = firstHand
 
 
     }
@@ -128,10 +132,11 @@ class GameplayFragment : Fragment() {
         playerCardValueTextView.text = value.toString()
     }
     fun updatePlayerCards(cards:List<Card>){
-        cards.forEachIndexed{index, card ->
-            val imageId = resources.getIdentifier(card.imageString, "drawable", requireActivity().packageName)
-            playerCardImages[index].setImageResource(imageId)
-        }
+        activeHandView.setImage(cards)
+//        cards.forEachIndexed{index, card ->
+//            val imageId = resources.getIdentifier(card.imageString, "drawable", requireActivity().packageName)
+//            playerCardImages[index].setImageResource(imageId)
+//        }
     }
 
     fun updateBetValueText(betAmount: Int){
