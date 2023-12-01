@@ -79,6 +79,7 @@ class GameplayFragment : Fragment() {
         setReferances(view)
         //val betAmountTextView: TextView = view.findViewById(R.id.bet_amount_player)
         //betAmountTextView.text = "$totalBet"
+        activeHandView.setBetText("$totalBet")
         listener?.updatePlayerCards()
         standButton.setOnClickListener {
             listener?.onStandPress()
@@ -93,7 +94,9 @@ class GameplayFragment : Fragment() {
         }
 
         splitButton.setOnClickListener{
+            createNewHandView()
             listener?.onSplitPress()
+
         }
 
 //        standButton.isEnabled = false
@@ -109,6 +112,25 @@ class GameplayFragment : Fragment() {
 
 
 
+    }
+
+    fun createNewHandView(){
+        val newHand = PlayerHandView(requireContext())
+        newHand.id = View.generateViewId()
+        newHand.setBetText("$totalBet")
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            1f
+        )
+        newHand.layoutParams = layoutParams
+        handsContainer.addView(newHand)
+        handsContainer.requestLayout()
+
+//        val fragment =
+//            supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+//        fragment?.handsContainer?.addView(newHand)
+//        fragment?.handsContainer?.requestLayout()
     }
 
     fun setReferances(fragment: View){
@@ -130,7 +152,8 @@ class GameplayFragment : Fragment() {
 
     }
     fun updatePlayerCardValue(value: Int){
-        playerCardValueTextView.text = value.toString()
+        activeHandView.setValueText(value)
+       // playerCardValueTextView.text = value.toString()
     }
     fun updatePlayerCards(cards:List<Card>){
         activeHandView.setImage(cards)

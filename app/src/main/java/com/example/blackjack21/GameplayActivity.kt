@@ -140,18 +140,19 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     override fun onSplitPress() {
         if (GameManager.activePlayer?.split() == true){
 
-            val newHand = PlayerHandView(this)
-            newHand.id = View.generateViewId()
-            val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                1f
-            )
-            newHand.layoutParams = layoutParams
+//            val newHand = PlayerHandView(this)
+//            newHand.id = View.generateViewId()
+//
+//            val layoutParams = LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                1f
+//            )
+//            newHand.layoutParams = layoutParams
             val fragment =
                 supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
-            fragment?.handsContainer?.addView(newHand)
-            fragment?.handsContainer?.requestLayout()
+//            fragment?.handsContainer?.addView(newHand)
+//            fragment?.handsContainer?.requestLayout()
             hasSplit = true
 
             val handler = Handler(Looper.getMainLooper())
@@ -170,6 +171,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 val secondHand = fragment?.handsContainer?.getChildAt(1) as? PlayerHandView
                 if (secondHand != null) {
                     secondHand.setImage(GameManager.activePlayer!!.hands[1].cards)
+
                 }
             }, delayBetweenCards)
 
@@ -405,11 +407,12 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
 
     private fun checkWinner() {
+        val moneyBefore = GameManager.activePlayer?.money
         for (i in 0..currentHandIndex){
             val currentPlayer = GameManager.activePlayer ?: return
-            val playerValue = getBlackJackValue(currentPlayer.hands[currentHandIndex].cards)
+            val playerValue = getBlackJackValue(currentPlayer.hands[i].cards)
             val dealerValue = getBlackJackValue(dealerCards)
-            val betAmount = currentPlayer.hands[currentHandIndex].getBetAmount()
+            val betAmount = currentPlayer.hands[i].getBetAmount()
             Log.d("!!!", "Player: $playerValue Dealer: $dealerValue")
             when {
                 playerValue > 21 -> {
@@ -435,6 +438,10 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                     Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Dealer wins")
                 }
             }
+
+        }
+        if (moneyBefore != null) {
+            Log.d("!!!", "Money changed ${GameManager.activePlayer?.money!! - moneyBefore}")
         }
 
         cleanUpGame()
@@ -480,6 +487,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         val currentPlayer = GameManager.activePlayer
         gameIsActive = false
         isDealerTurn = false
+        hasSplit = false
+        currentHandIndex = 0
         clearTable()
 
         currentPlayer?.clearHands()
