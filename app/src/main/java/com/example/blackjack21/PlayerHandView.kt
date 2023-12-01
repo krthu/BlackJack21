@@ -24,7 +24,8 @@ class PlayerHandView @JvmOverloads constructor(
     }
 
     // Funktioner för att sätta dynamiskt innehåll
-    fun setImage(card: Card) {
+    fun setImage(cards: List<Card>) {
+        val card = cards[currentImageIndex]
         val imageId = resources.getIdentifier(card.imageString, "drawable", context.packageName)
         cardImageViews[currentImageIndex].setImageResource(imageId)
         currentImageIndex++
