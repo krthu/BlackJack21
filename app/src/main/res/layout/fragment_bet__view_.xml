@@ -134,9 +134,9 @@
 
     <ImageView
         android:id="@+id/downArrowBet10"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginEnd="100dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="99dp"
         android:layout_marginBottom="3dp"
         android:src="@drawable/down_arrow"
         app:layout_constraintBottom_toTopOf="@+id/bet_value10"
@@ -144,9 +144,9 @@
 
     <ImageView
         android:id="@+id/downArrowBet20"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="29dp"
         android:layout_marginBottom="3dp"
         android:src="@drawable/down_arrow"
         app:layout_constraintBottom_toTopOf="@+id/bet_value20"
@@ -154,9 +154,9 @@
 
     <ImageView
         android:id="@+id/downArrowBet50"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginStart="30dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="29dp"
         android:layout_marginBottom="3dp"
         android:src="@drawable/down_arrow"
         app:layout_constraintBottom_toTopOf="@+id/bet_value50"
@@ -164,9 +164,9 @@
 
     <ImageView
         android:id="@+id/downArrowBet100"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginStart="100dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="99dp"
         android:layout_marginBottom="3dp"
         android:src="@drawable/down_arrow"
         app:layout_constraintBottom_toTopOf="@+id/bet_value100"

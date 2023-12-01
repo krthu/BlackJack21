@@ -34,6 +34,7 @@ class BetViewFragment : Fragment() {
         arguments?.let {
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -90,6 +91,7 @@ class BetViewFragment : Fragment() {
         placeBetButton.visibility = View.GONE
         removeBetButton.visibility = View.GONE
     }
+
     private fun setBetValue(imageViewId: Int, betValue: Int) {
         val imageView: ImageView = requireView().findViewById(imageViewId)
         imageView.setOnClickListener {
@@ -109,7 +111,7 @@ class BetViewFragment : Fragment() {
 
     private fun updateTotalBetChipImage(betValue: Int) {
         val totalBetChip: ImageView = requireView().findViewById(R.id.total_bet_chip)
-        val resourceID = when(betValue) {
+        val resourceID = when (betValue) {
             10 -> R.drawable.chip_value10
             20 -> R.drawable.chip_value20
             50 -> R.drawable.chip_value50
@@ -138,6 +140,7 @@ class BetViewFragment : Fragment() {
         updateBetButtonState()
         betAmountTextView.text = "$totalBet"
     }
+
     private fun removeBet() {
         totalBet = 0
         updateBetButtonState()
@@ -149,6 +152,7 @@ class BetViewFragment : Fragment() {
         removeBetButton.visibility = View.GONE
         isFirstBet = true
     }
+
     private fun onPlaceBetClicked() {
         val player = GameManager.activePlayer
         if (player != null && player.makeBet(totalBet.toDouble())) {
