@@ -95,8 +95,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         val playerValue = getBlackJackValue(playerHand.cards)
         if (playerValue > 21) {
-            Log.d("!!!", "Player is Bust")
-            resetGame()
+           checkWinner()
         }
     }
 
@@ -141,10 +140,10 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
 
     fun buttonsEnabled(enabled: Boolean){
-        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
-        fragment?.doubleButton?.isEnabled = enabled
-        fragment?.hitButton?.isEnabled = enabled
-        fragment?.standButton?.isEnabled = enabled
+//        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+//        fragment?.doubleButton?.isEnabled = enabled
+//        fragment?.hitButton?.isEnabled = enabled
+//        fragment?.standButton?.isEnabled = enabled
         //fragment?.splitButton?.isActivated = active
 
     }
@@ -402,7 +401,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({ resetGame() }, 3000)
         updatePlayerInfo()
-        resetGame()
+
     }
 
 

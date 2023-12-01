@@ -93,16 +93,16 @@ class GameplayFragment : Fragment() {
             listener?.onSplitPress()
         }
 
-        standButton.isEnabled = false
-        hitButton.isEnabled = false
-        doubleButton.isEnabled = false
+//        standButton.isEnabled = false
+//        hitButton.isEnabled = false
+//        doubleButton.isEnabled = false
         val firstHand = view.findViewById<PlayerHandView>(R.id.first_hand)
 
 
-
-        firstHand.setImage(Card("Hearts", 14, "h14"))
-        firstHand.setImage(Card("Spades", 14, "s14"))
-        firstHand.setImage(Card("Hearts", 2, "h02"))
+//
+//        firstHand.setImage(Card("Hearts", 14, "h14"))
+//        firstHand.setImage(Card("Spades", 14, "s14"))
+//        firstHand.setImage(Card("Hearts", 2, "h02"))
 
 
 
