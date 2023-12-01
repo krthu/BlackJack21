@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_weight="1">
+
+    <TextView
+        android:id="@+id/card_value_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:rotation="320"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/first_card_player"
+        app:layout_constraintEnd_toStartOf="@+id/bet_amount_player"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/bet_amount_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/fourth_card_player"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/first_card_player"
+        android:layout_width="80dp"
+        android:layout_height="112dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:adjustViewBounds="true"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline" />
+
+    <ImageView
+        android:id="@+id/second_card_player"
+        android:layout_width="80dp"
+        android:layout_height="112dp"
+        android:layout_marginEnd="-15dp"
+        android:layout_marginBottom="10dp"
+        android:adjustViewBounds="true"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline" />
+
+    <ImageView
+        android:id="@+id/third_card_player"
+        android:layout_width="80dp"
+        android:layout_height="112dp"
+        android:layout_marginEnd="-40dp"
+        android:layout_marginBottom="10dp"
+        android:adjustViewBounds="true"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline" />
+
+    <ImageView
+        android:id="@+id/fourth_card_player"
+        android:layout_width="80dp"
+        android:layout_height="112dp"
+        android:layout_marginEnd="-65dp"
+        android:layout_marginBottom="10dp"
+        android:adjustViewBounds="true"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline" />
+
+    <ImageView
+        android:id="@+id/fifth_card_player"
+        android:layout_width="80dp"
+        android:layout_height="112dp"
+        android:layout_marginEnd="-90dp"
+        android:layout_marginBottom="10dp"
+        android:adjustViewBounds="true"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="192dp"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,11 +34,24 @@ class Deck(private var numberOfDecks: Int) {
     }
 
     fun stackDeck (){
-        decklist.add(0,Card("Heart", 14, "h14"))
-        decklist.add(1,Card("Heart", 13, "h13"))
+//        decklist.add(0,Card("Heart", 14, "h14"))
+//        decklist.add(1,Card("Heart", 13, "h13"))
+//        decklist.add(2,Card("Heart", 13, "h13"))
+//        decklist.add(3,Card("Heart", 13, "h13"))
+//        decklist.add(4,Card("Heart", 14, "h14"))
+
+        decklist.add(0,Card("Heart", 13, "h13"))
+        decklist.add(1,Card("Heart", 10, "h10"))
         decklist.add(2,Card("Heart", 13, "h13"))
-        decklist.add(3,Card("Heart", 13, "h13"))
-        decklist.add(4,Card("Heart", 14, "h14"))
+        decklist.add(3,Card("Heart", 9, "h09"))
+        decklist.add(4,Card("Heart", 14, "d14"))
+        decklist.add(5,Card("Heart", 5, "c05"))
+        decklist.add(6,Card("Heart", 2, "s02"))
+        decklist.add(7,Card("Heart", 3, "h03"))
+        decklist.add(8,Card("Heart", 3, "c03"))
+        decklist.add(9,Card("Heart", 5, "s05"))
+        decklist.add(10,Card("Heart", 10, "s10"))
+        decklist.add(11,Card("Heart", 3, "s03"))
     }
 
 
