@@ -16,7 +16,6 @@ object GameManager {
     fun loadPlayers(context: Context){
         val sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         val usersDataJson = sharedPreferences.getString(USER_DATA, null)
-        val gson = Gson()
         if (usersDataJson != null){
             val typeToken = object: TypeToken<MutableMap<String, BlackJackPlayer>>() {}.type
             players = gson.fromJson(usersDataJson, typeToken)
