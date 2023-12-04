@@ -394,7 +394,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 playerValue > 21 -> {
                     Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Bust")
                 }
-
                 // Someone has Black Jack
                 playerValue == 21 && currentPlayer.hands[i].cards.size == 2 || dealerValue == 21 && dealerCards.size == 2 ->{
                     when{
@@ -413,11 +412,9 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                             Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player has BJ")
                         }
                     }
-
                 }
                 // Dealer bust or player win or player has 5 card charlie
                 dealerValue > 21 || playerValue > dealerValue || playerValue <= 21 && currentPlayer.hands[i].cards.size == 5 -> {
-
                     currentPlayer.addMoney(betAmount * 2)
                     Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Wins")
                 }
@@ -435,7 +432,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         if (moneyBefore != null) {
             Log.d("!!!", "Money changed ${GameManager.activePlayer?.money!! - moneyBefore}")
         }
-
         cleanUpGame()
     }
 
