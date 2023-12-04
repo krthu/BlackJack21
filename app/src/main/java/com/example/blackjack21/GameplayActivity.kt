@@ -134,6 +134,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 updatePlayerUI()
             }, delayBetweenCards)
             fragment?.doubleButton?.isVisible = true
+            fragment?.doubleText?.isVisible = true
+            fragment?.doubleIcon?.isVisible = true
 
             buttonsEnabled(true)
         }
@@ -167,6 +169,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             hasSplit = true
             updatePlayerInfo()
             fragment?.splitButton?.isVisible = false
+            fragment?.view?.findViewById<TextView>(R.id.split_text)?.isVisible = false
+            fragment?.view?.findViewById<ImageView>(R.id.split_icon)?.isVisible = false
             val handler = Handler(Looper.getMainLooper())
             val delayBetweenCards = 500L //
             fragment?.activeHandView?.cardImageViews?.get(1)?.setImageResource(0)
@@ -198,8 +202,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
     fun buttonsEnabled(enabled: Boolean){
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
@@ -240,6 +242,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                     supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
 
                 fragment?.splitButton?.isVisible = true
+                fragment?.view?.findViewById<TextView>(R.id.split_text)?.isVisible = true
+                fragment?.view?.findViewById<ImageView>(R.id.split_icon)?.isVisible = true
             }
         }, delayBetweenCards * 3)
 
