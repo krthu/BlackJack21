@@ -11,6 +11,16 @@
     <string name="name">Name</string>
     <string name="save">Save</string>
     <string name="edit">Edit</string>
+    <string name="new_userName">Name</string>
+    <string name="clear_betText">Clear</string>
+    <string name="deal_text">Deal</string>
+    <string name="place_your_bet">Place Your Bet</string>
+    <string name="current_player">Current Player:</string>
+    <string name="cash">Cash:</string>
+    <string name="split_text">Split</string>
+    <string name="stand_text">Stand</string>
+    <string name="hit_text">Hit</string>
+    <string name="double_text">Double</string>
 
 
 </resources>
