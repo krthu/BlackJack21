@@ -23,6 +23,7 @@
     <string name="hit_text">Ta Kort</string>
     <string name="double_text">Dubbla</string>
     <string name="tap_a_name_to_continue">Tryck på ett namn för att fortsätta</string>
+    <string name="not_enough_money">Inte tillräckligt med pengar</string>
 
 
 </resources>
