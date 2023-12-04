@@ -35,6 +35,14 @@ class GameplayFragment : Fragment() {
     lateinit var doubleButton: Button
     lateinit var handsContainer: LinearLayout
     lateinit var splitButton: Button
+    lateinit var splitIcon: ImageView
+    lateinit var standIcon: ImageView
+    lateinit var hitIcon: ImageView
+    lateinit var doubleIcon: ImageView
+    private lateinit var hitText : TextView
+    private lateinit var standText : TextView
+    lateinit var splitText : TextView
+    lateinit var doubleText : TextView
 
     lateinit var playerCardValueTextView: TextView
     lateinit var betValueTextView: TextView
@@ -88,7 +96,11 @@ class GameplayFragment : Fragment() {
         }
         hitButton.setOnClickListener{
             doubleButton.isVisible = false
+            doubleText.isVisible = false
+            doubleIcon.isVisible = false
             splitButton.isVisible = false
+            splitIcon.isVisible = false
+            splitText.isVisible = false
             listener?.onHitPress()
         }
 
@@ -106,6 +118,9 @@ class GameplayFragment : Fragment() {
         hitButton.isEnabled = false
         doubleButton.isEnabled = false
         splitButton.isVisible = false
+        splitText.isVisible = false
+        splitIcon.isVisible = false
+
 
 
 
@@ -145,6 +160,14 @@ class GameplayFragment : Fragment() {
         standButton = fragment.findViewById(R.id.btn_stand)
         doubleButton = fragment.findViewById(R.id.btn_double)
         splitButton = fragment.findViewById(R.id.btn_split)
+        hitText = fragment.findViewById(R.id.hit_text)
+        standText = fragment.findViewById(R.id.stand_text)
+        doubleText = fragment.findViewById(R.id.double_text)
+        splitText = fragment.findViewById(R.id.split_text)
+        splitIcon = fragment.findViewById(R.id.split_icon)
+        standIcon = fragment.findViewById(R.id.stand_icon)
+        hitIcon = fragment.findViewById(R.id.hit_icon)
+        doubleIcon = fragment.findViewById(R.id.double_icon)
         playerCardValueTextView = fragment.findViewById(R.id.card_value_player)
         betValueTextView = fragment.findViewById(R.id.bet_amount_player)
         handsContainer = fragment.findViewById(R.id.handsContainer)

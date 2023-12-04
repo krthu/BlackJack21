@@ -26,6 +26,10 @@ class BetViewFragment : Fragment() {
     private lateinit var removeBetButton: Button
     private lateinit var betAmountTextView: TextView
     private lateinit var placeYourBetText: TextView
+    private lateinit var clearBetText: TextView
+    private lateinit var dealText: TextView
+    private lateinit var clearBetSymbol : ImageView
+    private lateinit var placeBetSymbol : ImageView
     private var isFirstBet = true
     private var totalBet = 0
 
@@ -52,12 +56,17 @@ class BetViewFragment : Fragment() {
 
         placeBetButton = view.findViewById(R.id.btn_placeBet)
         removeBetButton = view.findViewById(R.id.btn_removeBet)
+        clearBetText = view.findViewById(R.id.clear_betText)
+        dealText = view.findViewById(R.id.deal_text)
+        clearBetSymbol = view.findViewById(R.id.symbol_clearBet)
+        placeBetSymbol = view.findViewById(R.id.symbol_placeBet)
         betAmountTextView = view.findViewById(R.id.betAmountTextView)
         placeYourBetText = view.findViewById(R.id.placeYourBetView)
         downArrowBet10 = view.findViewById(R.id.downArrowBet10)
         downArrowBet20 = view.findViewById(R.id.downArrowBet20)
         downArrowBet50 = view.findViewById(R.id.downArrowBet50)
         downArrowBet100 = view.findViewById(R.id.downArrowBet100)
+
 
 
         placeBetButton.setOnClickListener {
@@ -90,6 +99,10 @@ class BetViewFragment : Fragment() {
         betAmountTextView.visibility = View.GONE
         placeBetButton.visibility = View.GONE
         removeBetButton.visibility = View.GONE
+        clearBetText.visibility = View.GONE
+        dealText.visibility = View.GONE
+        placeBetSymbol.visibility = View.GONE
+        clearBetSymbol.visibility = View.GONE
     }
 
     private fun setBetValue(imageViewId: Int, betValue: Int) {
@@ -103,6 +116,10 @@ class BetViewFragment : Fragment() {
                 applyVisibilityAnimation(betAmountTextView, true)
                 applyVisibilityAnimation(placeBetButton, true)
                 applyVisibilityAnimation(removeBetButton, true)
+                applyVisibilityAnimation(clearBetText, true)
+                applyVisibilityAnimation(dealText, true)
+                applyVisibilityAnimation(placeBetSymbol, true)
+                applyVisibilityAnimation(clearBetSymbol, true)
 
                 isFirstBet = false
             }
@@ -146,10 +163,16 @@ class BetViewFragment : Fragment() {
         updateBetButtonState()
         betAmountTextView.text = "$totalBet"
         // Change to the initial visibility
+        val totalBetChip: ImageView = requireView().findViewById(R.id.total_bet_chip)
+        totalBetChip.setImageResource(0)
         placeYourBetText.visibility = View.VISIBLE
         betAmountTextView.visibility = View.GONE
         placeBetButton.visibility = View.GONE
         removeBetButton.visibility = View.GONE
+        clearBetText.visibility = View.GONE
+        dealText.visibility = View.GONE
+        placeBetSymbol.visibility = View.GONE
+        clearBetSymbol.visibility = View.GONE
         isFirstBet = true
     }
 
