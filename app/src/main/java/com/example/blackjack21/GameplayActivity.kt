@@ -98,6 +98,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         // stand of player busts
         if (playerValue > 21 || hasDoubled) {
             onStandPress()
+            hasDoubled = false
 
         // Auto stand on 5 card Charlie and 21
         } else if (playerValue <= 21 && currentPlayer.hands[currentHandIndex].cards.size == 5 || playerValue == 21){
@@ -149,7 +150,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 fragment?.updateBetValueText(currentPlayer.hands[currentHandIndex].bet.toInt(), currentHandIndex)
                 hasDoubled = true
                 onHitPress()
-                onStandPress()
+             //   onStandPress()
             }
         } else {
             Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT)
