@@ -67,10 +67,6 @@ class MainMenuFragment : Fragment() {
     }
 
     fun onStartPress(){
-//        activity?.let {
-//            val intent = Intent(requireActivity(), GameplayActivity::class.java)
-//            startActivity(intent)
-//        }
         changeFragment(ChoosePlayerFragment())
     }
 

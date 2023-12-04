@@ -1,5 +1,6 @@
 package com.example.blackjack21
 
+import android.net.ipsec.ike.ChildSaProposal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -12,7 +13,9 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.core.view.isVisible
+import kotlin.math.log
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
 
@@ -79,33 +82,26 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         return value
     }
 
-//    override fun updatePlayerCards() {
-//        val currentPlayer = GameManager.activePlayer
-//        val fragment =
-//            supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
-//        if (currentPlayer != null) {
-//            fragment?.updatePlayerCards(currentPlayer.hands[currentHandIndex].cards)
-//        }
-//        if (currentPlayer != null) {
-//            fragment?.updatePlayerCardValue(getBlackJackValue(currentPlayer.hands[currentHandIndex].cards))
-//        }
-//    }
 
     override fun onHitPress() {
         val currentPlayer = GameManager.activePlayer ?: return
         val playerHand = currentPlayer.hands[currentHandIndex]
         buttonsEnabled(false)
         playerHand.addCard(deck.drawACard())
-       // updatePlayerCards()
+
         updatePlayerUI(currentHandIndex)
 
 
         val playerValue = getBlackJackValue(playerHand.cards)
+
+        // stand of player busts
         if (playerValue > 21) {
 
-           //checkWinner()
             onStandPress()
 
+        // Auto stand on 5 card Charlie and 21
+        } else if (playerValue <= 21 && currentPlayer.hands[currentHandIndex].cards.size == 5 || playerValue == 21){
+            onStandPress()
         }
         buttonsEnabled(true)
     }
@@ -129,8 +125,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             val handler = Handler(Looper.getMainLooper())
             val delayBetweenCards = 500L
             handler.postDelayed({
-                val secondCard = deck.drawACard()
-                GameManager.activePlayer?.addCard(currentHandIndex, secondCard)
+                onHitPress()
                 updatePlayerUI()
             }, delayBetweenCards)
             fragment?.doubleButton?.isVisible = true
@@ -148,14 +143,13 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         if (GameManager.activePlayer?.doubleBetInHand(currentHandIndex) == true) {
             updatePlayerInfo()
             if (currentPlayer != null) {
-                fragment?.updateBetValueText(currentPlayer.hands[currentHandIndex].bet.toInt())
+                fragment?.updateBetValueText(currentPlayer.hands[currentHandIndex].bet.toInt(), currentHandIndex)
                 onHitPress()
                 onStandPress()
             }
         } else {
             Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT)
         }
-
     }
 
     override fun onSplitPress() {
@@ -174,25 +168,21 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
             handler.postDelayed({
                 updatePlayerUI(1)
-//                val secondHand = fragment?.handsContainer?.getChildAt(1) as? PlayerHandView
-//                if (secondHand != null) {
-//                    fragment.updatePlayerCards(GameManager.activePlayer!!.hands[1].cards, secondHand)
-//                    secondHand.setImage(GameManager.activePlayer!!.hands[1].cards)
-//                    secondHand.setValueText(getBlackJackValue(GameManager.activePlayer!!.hands[1].cards))
- //               }
 
             }, delayBetweenCards)
             handler.postDelayed({
                 // Card for the old hand
-                val cardForFirstHand = deck.drawACard()
-                GameManager.activePlayer?.addCard(currentHandIndex, cardForFirstHand)
+                onHitPress()
+
                 updatePlayerUI()
             }, delayBetweenCards * 2 )
 
 
 
             handler.postDelayed({
-                fragment?.handsContainer?.getChildAt(1)?.alpha = 0.5f
+                if (fragment?.handsContainer?.getChildAt(0)?.alpha == 1f){
+                    fragment?.handsContainer?.getChildAt(1)?.alpha = 0.5f
+                }
             }, delayBetweenCards*3)
         }else{
             Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT).show()
@@ -253,7 +243,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
 
             if (getBlackJackValue(currentPlayer.hands[currentHandIndex].cards) == 21) {
-                checkBlackJack()
+                //checkBlackJack()
+                onStandPress()
 
             }
         }, delayBetweenCards * 4)
@@ -274,42 +265,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             ), indexOfHandToUpdate
         )
     }
-
-
-    private fun checkBlackJack() {
-        val currentPlayer = GameManager.activePlayer ?: return
-        val playerBetAmount = currentPlayer.hands[currentHandIndex].getBetAmount()
-        val playerHasBlackJack =
-            getBlackJackValue(currentPlayer.hands[currentHandIndex].cards) == 21 && currentPlayer.hands[currentHandIndex].cards.size == 2
-        val dealerHasBlackJack = getBlackJackValue(dealerCards) == 21 && dealerCards.size == 2
-
-        when {
-            playerHasBlackJack && dealerHasBlackJack -> {
-                val handler = Handler(Looper.getMainLooper())
-                handler.postDelayed({
-                    currentPlayer.addMoney(playerBetAmount)
-
-                    isDealerTurn = true
-
-                    updateDealerCardImages(dealerCards)
-                    updateDealerCardsValue(dealerCards)
-                    cleanUpGame()
-                }, 500)
-
-            }
-
-            playerHasBlackJack -> {
-                currentPlayer.addMoney(playerBetAmount * 2.5)
-
-                cleanUpGame()
-            }
-
-            else -> {
-                // Ingen har Blackjack, spelet fortsätter
-            }
-        }
-    }
-
 
     private fun showPopUpMenu(view: View) {
         val popup = PopupMenu(this, view)
@@ -365,10 +320,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
 
     }
-
-    /* fun addPlayer(name: String, money: Int) {
-        players.add(BlackJackPlayer(name, money))
-    } */
 
     private fun updateDealerCardImages(cards: List<Card>) {
         if (cards.isNotEmpty()) {
@@ -433,30 +384,47 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             val betAmount = currentPlayer.hands[i].getBetAmount()
             Log.d("!!!", "Player: $playerValue Dealer: $dealerValue")
             when {
+                // Player Bust
                 playerValue > 21 -> {
                     Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Bust")
                 }
 
-                dealerValue == 21 && dealerCards.size == 2 -> {
+                // Someone has Black Jack
+                playerValue == 21 && currentPlayer.hands[i].cards.size == 2 || dealerValue == 21 && dealerCards.size == 2 ->{
+                    when{
+                        // Both have Black Jack
+                        dealerValue == 21 && dealerCards.size == 2 && playerValue == 21 && currentPlayer.hands[i].cards.size == 2 -> {
+                            currentPlayer.addMoney(betAmount)
+                            Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Both BJ")
+                        }
+                        // Dealer has Black Jack
+                        dealerValue == 21 && dealerCards.size == 2 -> {
+                            Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Dealer has BJ")
+                        }
+                        // Player had Black Jack
+                        else -> {
+                            currentPlayer.addMoney(betAmount * 2.5)
+                            Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player has BJ")
+                        }
+                    }
 
                 }
-
-                dealerValue > 21 || playerValue > dealerValue -> {
+                // Dealer bust or player win or player has 5 card charlie
+                dealerValue > 21 || playerValue > dealerValue || playerValue <= 21 && currentPlayer.hands[i].cards.size == 5 -> {
 
                     currentPlayer.addMoney(betAmount * 2)
                     Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Wins")
                 }
-
+                // Tie game
                 playerValue == dealerValue -> {
                     Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Tie")
                     currentPlayer.addMoney(betAmount)
                 }
-
+                // Dealer Win
                 else -> {
                     Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Dealer wins")
                 }
             }
-
         }
         if (moneyBefore != null) {
             Log.d("!!!", "Money changed ${GameManager.activePlayer?.money!! - moneyBefore}")
@@ -464,6 +432,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
         cleanUpGame()
     }
+
 
     private fun cleanUpGame() {
 
