@@ -27,6 +27,7 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     private var param2: String? = null
     private lateinit var backImageView: ImageView
     private lateinit var newUserTextView: TextView
+    private lateinit var tapPlayerName : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,7 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         val fragment = inflater.inflate(R.layout.fragment_choose_player, container, false)
         newUserTextView = fragment.findViewById(R.id.newUserTextView)
         backImageView = fragment.findViewById(R.id.backImageView)
+        tapPlayerName = fragment.findViewById(R.id.tap_name_continue)
         newUserTextView.setOnClickListener{ changeFragment(NewAndEditPlayerFragment()) }
         backImageView.setOnClickListener { onBackPress() }
         playerData = getPlayerList()
@@ -51,6 +53,12 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         recyclerView.adapter = PlayerAdapter(this, playerData, this)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         return fragment
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Animations.pulse2(tapPlayerName)
     }
 
     private fun getPlayerList(): MutableList<BlackJackPlayer> {

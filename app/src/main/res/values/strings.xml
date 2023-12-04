@@ -21,6 +21,7 @@
     <string name="stand_text">Stand</string>
     <string name="hit_text">Hit</string>
     <string name="double_text">Double</string>
+    <string name="tap_a_name_to_continue">Tap a name to continue</string>
 
 
 </resources>
