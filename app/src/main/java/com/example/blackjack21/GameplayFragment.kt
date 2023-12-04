@@ -87,10 +87,7 @@ class GameplayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setReferances(view)
-        //val betAmountTextView: TextView = view.findViewById(R.id.bet_amount_player)
-        //betAmountTextView.text = "$totalBet"
         activeHandView.setBetText("$totalBet")
-        //listener?.updatePlayerCards()
         standButton.setOnClickListener {
             listener?.onStandPress()
         }
@@ -121,16 +118,6 @@ class GameplayFragment : Fragment() {
         splitText.isVisible = false
         splitIcon.isVisible = false
 
-
-
-
-//
-//        firstHand.setImage(Card("Hearts", 14, "h14"))
-//        firstHand.setImage(Card("Spades", 14, "s14"))
-//        firstHand.setImage(Card("Hearts", 2, "h02"))
-
-
-
     }
 
     fun createNewHandView(){
@@ -147,12 +134,6 @@ class GameplayFragment : Fragment() {
         handsContainer.addView(newHand)
         handsContainer.requestLayout()
         handViewList.add(newHand)
-
-
-//        val fragment =
-//            supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
-//        fragment?.handsContainer?.addView(newHand)
-//        fragment?.handsContainer?.requestLayout()
     }
 
     fun setReferances(fragment: View){
@@ -184,15 +165,14 @@ class GameplayFragment : Fragment() {
     }
     fun updatePlayerCardValue(value: Int, handIndex: Int){
         handViewList[handIndex].setValueText(value)
-       // playerCardValueTextView.text = value.toString()
     }
     fun updatePlayerCards(cards:List<Card>, handIndex: Int){
         handViewList[handIndex].setImage(cards)
 
     }
 
-    fun updateBetValueText(betAmount: Int){
-        betValueTextView.text = betAmount.toString()
+    fun updateBetValueText(betAmount: Int, handIndex: Int){
+        handViewList[handIndex].setBetText(betAmount.toString())
     }
 
     companion object {
