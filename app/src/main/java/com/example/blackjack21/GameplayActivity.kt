@@ -280,6 +280,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         popup.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_quit -> {
+                    GameManager.activePlayer?.clearHands()
                     finish()
                     true
                 }

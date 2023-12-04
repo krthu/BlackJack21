@@ -118,6 +118,12 @@ class GameplayFragment : Fragment() {
         splitText.isVisible = false
         splitIcon.isVisible = false
 
+        if (totalBet > GameManager.activePlayer?.money?.toInt() ?: 0){
+            doubleButton.isVisible = false
+            doubleIcon.isVisible = false
+            doubleText.isVisible = false
+        }
+
     }
 
     fun createNewHandView(){

@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 
 class BetViewFragment : Fragment() {
 
@@ -108,20 +109,22 @@ class BetViewFragment : Fragment() {
     private fun setBetValue(imageViewId: Int, betValue: Int) {
         val imageView: ImageView = requireView().findViewById(imageViewId)
         imageView.setOnClickListener {
-            addBetValue(betValue)
-            updateTotalBetChipImage(betValue)
-            // Change visibility upon bet selection and applying animations
-            if (isFirstBet) {
-                placeYourBetText.visibility = View.GONE
-                applyVisibilityAnimation(betAmountTextView, true)
-                applyVisibilityAnimation(placeBetButton, true)
-                applyVisibilityAnimation(removeBetButton, true)
-                applyVisibilityAnimation(clearBetText, true)
-                applyVisibilityAnimation(dealText, true)
-                applyVisibilityAnimation(placeBetSymbol, true)
-                applyVisibilityAnimation(clearBetSymbol, true)
 
-                isFirstBet = false
+            if (addBetValue(betValue)){
+                updateTotalBetChipImage(betValue)
+                // Change visibility upon bet selection and applying animations
+                if (isFirstBet) {
+                    placeYourBetText.visibility = View.GONE
+                    applyVisibilityAnimation(betAmountTextView, true)
+                    applyVisibilityAnimation(placeBetButton, true)
+                    applyVisibilityAnimation(removeBetButton, true)
+                    applyVisibilityAnimation(clearBetText, true)
+                    applyVisibilityAnimation(dealText, true)
+                    applyVisibilityAnimation(placeBetSymbol, true)
+                    applyVisibilityAnimation(clearBetSymbol, true)
+
+                    isFirstBet = false
+                }
             }
         }
     }
@@ -152,10 +155,15 @@ class BetViewFragment : Fragment() {
 
     }
 
-    private fun addBetValue(value: Int) {
-        totalBet += value
-        updateBetButtonState()
-        betAmountTextView.text = "$totalBet"
+    private fun addBetValue(value: Int): Boolean {
+        val playersTotalMoney = GameManager.activePlayer?.money?.toInt() ?: 0
+        if (totalBet + value <= playersTotalMoney){
+            totalBet += value
+            updateBetButtonState()
+            betAmountTextView.text = "$totalBet"
+            return true
+        }
+        return false
     }
 
     private fun removeBet() {
@@ -185,6 +193,7 @@ class BetViewFragment : Fragment() {
                 updatePlayerInfo()  // Uppdatera spelarinformationen efter att satsningen har gjorts
             }
         } else {
+
             Toast.makeText(context, "Not enough money to make this bet", Toast.LENGTH_SHORT).show()
         }
     }
