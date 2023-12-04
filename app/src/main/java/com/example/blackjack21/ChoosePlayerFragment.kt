@@ -46,8 +46,12 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         newUserTextView = fragment.findViewById(R.id.newUserTextView)
         backImageView = fragment.findViewById(R.id.backImageView)
         tapPlayerName = fragment.findViewById(R.id.tap_name_continue)
-        newUserTextView.setOnClickListener{ changeFragment(NewAndEditPlayerFragment()) }
-        backImageView.setOnClickListener { onBackPress() }
+        newUserTextView.setOnClickListener{
+            changeFragment(NewAndEditPlayerFragment())
+        }
+        backImageView.setOnClickListener {
+            onBackPress()
+        }
         playerData = getPlayerList()
         val recyclerView: RecyclerView = fragment.findViewById(R.id.playerRecyclerView)
         recyclerView.adapter = PlayerAdapter(this, playerData, this)
@@ -80,25 +84,7 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         fragmentManager.popBackStack()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ChoosePlayerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ChoosePlayerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 
     override fun onRowClick(position: Int) {
         activity?.let {
@@ -119,5 +105,25 @@ class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
         fragmentTransaction.replace(R.id.fragmentContainer, fragment)
 
         fragmentTransaction.commit()
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment ChoosePlayerFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            ChoosePlayerFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
     }
 }
