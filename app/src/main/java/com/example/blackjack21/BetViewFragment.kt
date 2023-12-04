@@ -2,6 +2,7 @@ package com.example.blackjack21
 
 import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 
 class BetViewFragment : Fragment() {
@@ -31,6 +33,7 @@ class BetViewFragment : Fragment() {
     private lateinit var dealText: TextView
     private lateinit var clearBetSymbol : ImageView
     private lateinit var placeBetSymbol : ImageView
+    private lateinit var notEnoughMoneyTextView: TextView
     private var isFirstBet = true
     private var totalBet = 0
 
@@ -67,6 +70,7 @@ class BetViewFragment : Fragment() {
         downArrowBet20 = view.findViewById(R.id.downArrowBet20)
         downArrowBet50 = view.findViewById(R.id.downArrowBet50)
         downArrowBet100 = view.findViewById(R.id.downArrowBet100)
+        notEnoughMoneyTextView = view.findViewById(R.id.notEnoughMoneyTextView)
 
 
 
@@ -125,6 +129,9 @@ class BetViewFragment : Fragment() {
 
                     isFirstBet = false
                 }
+            }else{
+                Log.d("!!!", "${notEnoughMoneyTextView.isVisible}")
+                Animations.fadeInAndOut(notEnoughMoneyTextView)
             }
         }
     }

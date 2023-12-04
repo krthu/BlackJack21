@@ -22,6 +22,7 @@
     <string name="hit_text">Hit</string>
     <string name="double_text">Double</string>
     <string name="tap_a_name_to_continue">Tap a name to continue</string>
+    <string name="not_enough_money">Not enough money</string>
 
 
 </resources>

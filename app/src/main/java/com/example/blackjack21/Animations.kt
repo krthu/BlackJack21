@@ -4,6 +4,8 @@ package com.example.blackjack21
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.AnimationSet
 
 
 object Animations {
@@ -29,5 +31,21 @@ object Animations {
             this.duration = duration
         }
         animator.start()
+    }
+
+    fun fadeInAndOut (view: View){
+        val fadeIn = AlphaAnimation(0f, 1f)
+        fadeIn.duration = 100
+        fadeIn.fillAfter = true
+
+        val fadeOut = AlphaAnimation(1f, 0f)
+        fadeOut.startOffset = 500
+        fadeOut.duration = 500
+        fadeOut.fillAfter = true
+
+        val fadeInAndOut = AnimationSet(false)
+        fadeInAndOut.addAnimation(fadeIn)
+        fadeInAndOut.addAnimation(fadeOut)
+        view.startAnimation(fadeInAndOut)
     }
 }
