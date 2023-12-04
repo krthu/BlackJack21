@@ -10,6 +10,7 @@ object GameManager {
     var players: MutableMap<String, BlackJackPlayer> = mutableMapOf()
     var activePlayer: BlackJackPlayer? = null
     val gson = Gson()
+    var currentLanguage = "en"
 
 
 
@@ -57,6 +58,7 @@ object GameManager {
     fun setActivePlayer(playerName: String){
         activePlayer = players[playerName.lowercase()]
     }
+
     fun removeKey(context: Context){
         val sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()

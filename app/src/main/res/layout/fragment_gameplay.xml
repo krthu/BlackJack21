@@ -48,45 +48,45 @@
         android:id="@+id/hit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
         android:fontFamily="@font/poppins_bold_italic"
         android:text="@string/hit_text"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_playFragment" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_hit"
+        app:layout_constraintStart_toStartOf="@+id/btn_hit" />
 
     <TextView
         android:id="@+id/double_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="85dp"
         android:fontFamily="@font/poppins_bold_italic"
         android:text="@string/double_text"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_playFragment" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_double"
+        app:layout_constraintStart_toStartOf="@+id/btn_double" />
 
     <TextView
         android:id="@+id/stand_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:fontFamily="@font/poppins_bold_italic"
         android:text="@string/stand_text"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_stand"
+        app:layout_constraintStart_toStartOf="@+id/btn_stand" />
 
     <TextView
         android:id="@+id/split_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="97dp"
         android:fontFamily="@font/poppins_bold_italic"
         android:text="@string/split_text"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_split"
+        app:layout_constraintStart_toStartOf="@+id/btn_split" />
 
     <Button
         android:id="@+id/btn_stand"
@@ -108,7 +108,7 @@
         android:background="@drawable/stophand"
         android:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_stand"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment"
+        app:layout_constraintEnd_toEndOf="@+id/btn_stand"
         app:layout_constraintStart_toStartOf="@+id/btn_stand"
         app:layout_constraintTop_toTopOf="@+id/btn_stand" />
 
