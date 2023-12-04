@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,7 +56,13 @@ class MainMenuFragment : Fragment() {
         startGameView.setOnClickListener { onStartPress() }
         scoreBoardView.setOnClickListener { onScoreBoardPress() }
         quitView.setOnClickListener { onQuitPress() }
-        flagView.setOnClickListener{ onFlagPress() }
+        flagView.setOnClickListener { toggleLanguage() }
+
+        if (GameManager.currentLanguage == "en") {
+            flagView.setImageResource(R.drawable.en_flag)
+        } else {
+            flagView.setImageResource(R.drawable.swe_flag)
+        }
 
     }
     fun changeFragment(fragment: Fragment){
@@ -70,9 +78,35 @@ class MainMenuFragment : Fragment() {
         changeFragment(ChoosePlayerFragment())
     }
 
-    fun onFlagPress(){
-        Log.d("!!!", "Flag pressed")
+    private fun toggleLanguage() {
+        if (GameManager.currentLanguage == "en") {
+            flagView.setImageResource(R.drawable.swe_flag)
+            setLocale("sv")
+            GameManager.currentLanguage = "sv"
+        } else {
+            flagView.setImageResource(R.drawable.en_flag)
+            setLocale("en")
+            GameManager.currentLanguage = "en"
+        }
+        restartActivity()
     }
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val resources = context?.resources
+        val config = resources?.configuration
+        config?.locale = locale
+        resources?.updateConfiguration(config, resources.displayMetrics)
+    }
+
+    fun restartActivity() {
+        val intent = requireActivity().intent
+        requireActivity().finish()
+        startActivity(intent)
+    }
+
+
 
     fun onScoreBoardPress(){
         changeFragment(ScoreBoardFragment())
