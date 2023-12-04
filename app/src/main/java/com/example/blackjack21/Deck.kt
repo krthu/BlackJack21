@@ -50,13 +50,13 @@ class Deck(private var numberOfDecks: Int) {
 
         // Player split and one BJ
 
-//        decklist.add(0,Card("Heart", 13, "h13"))
-//        decklist.add(1,Card("Heart", 5, "h05"))
-//        decklist.add(2,Card("Heart", 13, "h13"))
-//        decklist.add(3,Card("Heart", 13, "h13"))
-//        decklist.add(4, Card("Heart", 13, "h13"))
-//        decklist.add(5, Card("Heart", 14, "h14"))
-//        decklist.add(6, Card("Heart", 6, "h06"))
+        decklist.add(0,Card("Heart", 13, "h13"))
+        decklist.add(1,Card("Heart", 5, "h05"))
+        decklist.add(2,Card("Heart", 13, "h13"))
+        decklist.add(3,Card("Heart", 13, "h13"))
+        decklist.add(4, Card("Heart", 13, "h13"))
+        decklist.add(5, Card("Heart", 14, "h14"))
+        decklist.add(6, Card("Heart", 6, "h06"))
 
         // Player 5 card Charlie
 
