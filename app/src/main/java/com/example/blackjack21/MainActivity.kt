@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var fragmentContainer: FrameLayout
+    lateinit var mainMenuFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,9 +17,18 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         GameManager.loadPlayers(this)
 
-        val fragment: Fragment = MainMenuFragment()
+        mainMenuFragment = MainMenuFragment()
 
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+        fragmentTransaction.replace(R.id.fragmentContainer, mainMenuFragment)
+        fragmentTransaction.commit()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //val fragment: Fragment = MainMenuFragment()
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContainer, mainMenuFragment)
         fragmentTransaction.commit()
     }
 
