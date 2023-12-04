@@ -1,5 +1,7 @@
 package com.example.blackjack21
 
+import android.app.AlertDialog
+import android.content.Context
 import android.net.ipsec.ike.ChildSaProposal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.get
 import androidx.core.view.isVisible
 import kotlin.math.log
@@ -54,7 +57,31 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         cogWheelMenu.setOnClickListener { view ->
             showPopUpMenu(view)
         }
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+            confirmDialog()
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, callback)
+
     }
+    private fun confirmDialog(){
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setTitle("Exit game?")
+
+        dialogBuilder.setPositiveButton("Yes") {dialog, _ ->
+            dialog.dismiss()
+            GameManager.activePlayer?.clearHands()
+            finishAffinity()
+
+        }
+        dialogBuilder.setNegativeButton("No") {dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = dialogBuilder.create()
+        dialog.show()
+    }
+
 
 
     override fun getBlackJackValue(cards: List<Card>): Int {
