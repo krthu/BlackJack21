@@ -130,7 +130,7 @@ class BetViewFragment : Fragment() {
                     isFirstBet = false
                 }
             }else{
-                Log.d("!!!", "${notEnoughMoneyTextView.isVisible}")
+
                 Animations.fadeInAndOut(notEnoughMoneyTextView)
             }
         }

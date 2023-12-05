@@ -29,6 +29,7 @@ class NewAndEditPlayerFragment : Fragment() {
 
     lateinit var nameTextEdit: EditText
     lateinit var saveTextView: TextView
+    lateinit var errorTextView: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +53,7 @@ class NewAndEditPlayerFragment : Fragment() {
 
         nameTextEdit = view.findViewById(R.id.newPlayerEditTextView)
         saveTextView = view.findViewById(R.id.saveNewPlayerTextView)
+        errorTextView = view.findViewById(R.id.errorTextView)
         val name = arguments?.getString("name", "")
         var backArrow = view.findViewById<ImageView>(R.id.backImageView)
 
@@ -81,14 +83,19 @@ class NewAndEditPlayerFragment : Fragment() {
     }
 
     private fun savePlayer(){
-        if (nameTextEdit.text.toString() != ""){
-            val name = nameTextEdit.text.toString().trim()
-          if (GameManager.saveNewPlayer(BlackJackPlayer(name, STARTING_MONEY), requireContext())){
-                onBackPress()
-          }else{
-
-              Toast.makeText(requireContext(),"Name is taken!", Toast.LENGTH_SHORT).show()
-          }
+        if (nameTextEdit.text.toString() != "") {
+            if (nameTextEdit.toString().length < 10){
+                val name = nameTextEdit.text.toString().trim()
+                if (GameManager.saveNewPlayer(BlackJackPlayer(name, STARTING_MONEY), requireContext())){
+                    onBackPress()
+                }else{
+                    errorTextView.text = getString(R.string.name_is_taken)
+                    Animations.fadeInAndOut(errorTextView)
+                }
+            }else{
+                errorTextView.text = getString(R.string.name_is_to_long)
+                Animations.fadeInAndOut(errorTextView)
+            }
         }
     }
 
