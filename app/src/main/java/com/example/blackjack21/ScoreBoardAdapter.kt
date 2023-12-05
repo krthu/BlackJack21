@@ -34,6 +34,7 @@ class ScoreBoardAdapter(
         holder.nameTextView.text = player.name
         holder.moneyTextView.text = player.money.toString()
 
+        Animations.smallToBigAnimation(holder.itemView)
     }
 
 

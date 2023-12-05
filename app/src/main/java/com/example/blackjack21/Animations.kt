@@ -77,4 +77,23 @@ object Animations {
         animationSet.start()
 
     }
+
+    fun smallToBigAnimation(view: View){
+        val scaleX = ObjectAnimator.ofFloat(view, View.SCALE_X, 0f, 1f).apply {
+            duration = 100
+        }
+        val scaleY = ObjectAnimator.ofFloat(view, View.SCALE_Y, 0f, 1f).apply {
+            duration = 100
+        }
+
+        val fadeIn = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f).apply {
+            duration = 100
+        }
+
+        val animationSet = AnimatorSet().apply {
+            playTogether(scaleX, scaleY, fadeIn)
+        }
+        animationSet.start()
+
+    }
 }
