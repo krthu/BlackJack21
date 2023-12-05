@@ -15,7 +15,6 @@ class PlayerHandView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     val cardImageViews = mutableListOf<ImageView>()
-    var currentImageIndex = 0
     var betTextView: TextView
     var cardValuePlayerTextView: TextView
     init {
@@ -38,12 +37,8 @@ class PlayerHandView @JvmOverloads constructor(
          }
     }
 
-    fun removeSecondCardImage(){
-        cardImageViews[0].setImageResource(0)
-    }
-
     fun setBetText(text: String) {
-        betTextView.text = text
+        betTextView.text = "$${text}"
     }
 
     fun setValueText(value: Int){
