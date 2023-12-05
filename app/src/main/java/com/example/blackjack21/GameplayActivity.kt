@@ -325,8 +325,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             val currentPlayerInfoBar: TextView = findViewById(R.id.currentPlayer_infoBar)
             val totalMoneyInfoBar: TextView = findViewById(R.id.totalMoney_infoBar)
 
-            currentPlayerInfoBar.text = "Current player: ${currentPlayer.name}"
-            totalMoneyInfoBar.text = "Cash: ${currentPlayer.money}"
+            currentPlayerInfoBar.text = "${getString(R.string.current_player)} ${currentPlayer.name}"
+            totalMoneyInfoBar.text = "${getString(R.string.cash)} ${currentPlayer.money}"
         }
     }
 
