@@ -9,8 +9,8 @@
 
     <FrameLayout
         android:id="@+id/fragment_gameplay_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@id/horizontal_guideline_activityGameplay"
         app:layout_constraintBottom_toTopOf="@id/info_bar_gameplay"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,8 +122,10 @@
 
     <ImageView
         android:id="@+id/logo_bj_gameplay"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        app:layout_constraintHeight_percent="0.2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
