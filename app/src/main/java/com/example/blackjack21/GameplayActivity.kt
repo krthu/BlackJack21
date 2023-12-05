@@ -68,15 +68,15 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
     private fun confirmDialog(){
         val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setTitle("Exit game?")
+        dialogBuilder.setTitle("${getString(R.string.exit_game)}?")
 
-        dialogBuilder.setPositiveButton("Yes") {dialog, _ ->
+        dialogBuilder.setPositiveButton(getString(R.string.yes)) {dialog, _ ->
             dialog.dismiss()
             GameManager.activePlayer?.clearHands()
             finishAffinity()
 
         }
-        dialogBuilder.setNegativeButton("No") {dialog, _ ->
+        dialogBuilder.setNegativeButton(getString(R.string.no)) {dialog, _ ->
             dialog.dismiss()
         }
         val dialog = dialogBuilder.create()

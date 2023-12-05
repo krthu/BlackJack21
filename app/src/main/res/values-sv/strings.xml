@@ -28,5 +28,8 @@
     <string name="name_is_to_long">Namnet är för långt</string>
     <string name="delete">Radera</string>
     <string name="cancel">Avbryt</string>
+    <string name="exit_game">Avsluta spelet</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nej</string>
 
 </resources>
