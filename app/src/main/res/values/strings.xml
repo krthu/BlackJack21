@@ -25,6 +25,11 @@
     <string name="not_enough_money">Not enough money</string>
     <string name="name_is_taken">Name is taken</string>
     <string name="name_is_to_long">Name is to long</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="exit_game">Exit Game</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
 </resources>

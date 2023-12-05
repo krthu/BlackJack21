@@ -1,6 +1,7 @@
 package com.example.blackjack21
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -76,25 +77,38 @@ class NewAndEditPlayerFragment : Fragment() {
     }
 
     private fun updatePlayerName(oldName: String){
+        if (nameTextEdit.text.toString() != ""){
+            if (nameTextEdit.text.length < 10){
+                if (GameManager.updatePlayerName(nameTextEdit.text.toString().trim(), oldName, requireContext())) {
+                    onBackPress()
+                }
+                else{
+                    showErrorView(getString(R.string.name_is_taken))
+                }
 
-        if (GameManager.updatePlayerName(nameTextEdit.text.toString().trim(), oldName, requireContext())) {
-            onBackPress()
+            }else{
+                showErrorView(getString(R.string.name_is_to_long))
+            }
         }
+    }
+
+    private fun showErrorView(errorText: String){
+        errorTextView.text = errorText
+        Animations.fadeInAndOut(errorTextView)
     }
 
     private fun savePlayer(){
         if (nameTextEdit.text.toString() != "") {
-            if (nameTextEdit.toString().length < 10){
+
+            if (nameTextEdit.text.toString().length < 10){
                 val name = nameTextEdit.text.toString().trim()
                 if (GameManager.saveNewPlayer(BlackJackPlayer(name, STARTING_MONEY), requireContext())){
                     onBackPress()
                 }else{
-                    errorTextView.text = getString(R.string.name_is_taken)
-                    Animations.fadeInAndOut(errorTextView)
+                    showErrorView(getString(R.string.name_is_taken))
                 }
             }else{
-                errorTextView.text = getString(R.string.name_is_to_long)
-                Animations.fadeInAndOut(errorTextView)
+                showErrorView(getString(R.string.name_is_to_long))
             }
         }
     }

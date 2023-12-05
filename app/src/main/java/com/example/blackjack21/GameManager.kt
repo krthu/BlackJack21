@@ -40,12 +40,15 @@ object GameManager {
     }
 
     fun updatePlayerName(newName: String, oldName: String, context: Context): Boolean{
-        val playerToUpdate = players.remove(oldName.lowercase())
-        if (playerToUpdate != null){
-            playerToUpdate.name = newName
-            players[playerToUpdate.name.lowercase().trim()] = playerToUpdate
-            savePlayersToSharedPref(context)
-            return true
+        if (!players.containsKey(newName.lowercase().trim()))
+        {
+            val playerToUpdate = players.remove(oldName.lowercase())
+            if (playerToUpdate != null){
+                playerToUpdate.name = newName
+                players[playerToUpdate.name.lowercase().trim()] = playerToUpdate
+                savePlayersToSharedPref(context)
+                return true
+            }
         }
         return false
     }
