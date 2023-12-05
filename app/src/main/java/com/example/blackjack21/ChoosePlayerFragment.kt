@@ -21,6 +21,10 @@ private var playerData = mutableListOf<BlackJackPlayer>()
  * Use the [ChoosePlayerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+interface RecyclerViewEvent {
+    fun onRowClick(position: Int)
+}
+
 class ChoosePlayerFragment : Fragment(), RecyclerViewEvent {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
