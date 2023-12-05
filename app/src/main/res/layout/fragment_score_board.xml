@@ -9,13 +9,19 @@
     <TextView
         android:id="@+id/titleTextView"
         style="@style/menu_text.large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintHeight_percent="0.1"
         android:layout_marginTop="100dp"
         android:text="@string/scoreboard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeStepGranularity="2sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scoreBoardRecyclerView"
@@ -32,8 +38,10 @@
 
     <ImageView
         android:id="@+id/scoreBoardBackImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.08"
+        app:layout_constraintHeight_percent="0.08"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/back_arrow"
