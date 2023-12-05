@@ -47,13 +47,13 @@ class PlayerAdapter(
         val name = data[position].name
 
         val dialogBuilder = AlertDialog.Builder(context)
-        dialogBuilder.setTitle("Delete $name?")
+        dialogBuilder.setTitle("${context.getString(R.string.delete)} ${name}?")
 
-        dialogBuilder.setPositiveButton("Delete") {dialog, _ ->
+        dialogBuilder.setPositiveButton(context.getString(R.string.delete)) {dialog, _ ->
             deletePlayer(position, name, context)
             dialog.dismiss()
         }
-        dialogBuilder.setNegativeButton("Cancel") {dialog, _ ->
+        dialogBuilder.setNegativeButton(context.getString(R.string.cancel)) {dialog, _ ->
             dialog.dismiss()
         }
         val dialog = dialogBuilder.create()

@@ -26,5 +26,7 @@
     <string name="not_enough_money">Inte tillräckligt med pengar</string>
     <string name="name_is_taken">Namnet är upptaget</string>
     <string name="name_is_to_long">Namnet är för långt</string>
+    <string name="delete">Radera</string>
+    <string name="cancel">Avbryt</string>
 
 </resources>
