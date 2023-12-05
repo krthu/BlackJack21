@@ -1,6 +1,7 @@
 package com.example.blackjack21
 
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.view.View
@@ -47,5 +48,33 @@ object Animations {
         fadeInAndOut.addAnimation(fadeIn)
         fadeInAndOut.addAnimation(fadeOut)
         view.startAnimation(fadeInAndOut)
+    }
+
+    fun winAnimation(view: View){
+        val yAnimation = ObjectAnimator.ofFloat(view, "translationY", 0f , view.height.toFloat()).apply {
+            duration = 2000
+        }
+        val fadeOut = ObjectAnimator.ofFloat(view, "alpha", 1f, 0f ).apply {
+            duration = 2000
+        }
+        val animationSet = AnimatorSet().apply{
+            playTogether(yAnimation, fadeOut)
+        }
+        animationSet.start()
+
+    }
+
+    fun looseAnimation(view: View){
+        val yAnimation = ObjectAnimator.ofFloat(view, "translationY", 0f , -view.height.toFloat()).apply {
+            duration = 2000
+        }
+        val fadeOut = ObjectAnimator.ofFloat(view, "alpha", 1f, 0f ).apply {
+            duration = 2000
+        }
+        val animationSet = AnimatorSet().apply{
+            playTogether(yAnimation, fadeOut)
+        }
+        animationSet.start()
+
     }
 }

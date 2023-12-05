@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.get
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import kotlin.math.log
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
@@ -416,6 +417,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             val playerValue = getBlackJackValue(currentPlayer.hands[i].cards)
             val dealerValue = getBlackJackValue(dealerCards)
             val betAmount = currentPlayer.hands[i].getBetAmount()
+            var winOrLoseMultiplier = -1.0
             Log.d("!!!", "Player: $playerValue Dealer: $dealerValue")
             when {
                 // Player Bust
@@ -428,6 +430,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                         // Both have Black Jack
                         dealerValue == 21 && dealerCards.size == 2 && playerValue == 21 && currentPlayer.hands[i].cards.size == 2 -> {
                             currentPlayer.addMoney(betAmount)
+                            winOrLoseMultiplier = 1.0
                             Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Both BJ")
                         }
                         // Dealer has Black Jack
@@ -437,6 +440,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                         // Player had Black Jack
                         else -> {
                             currentPlayer.addMoney(betAmount * 2.5)
+                            winOrLoseMultiplier = 2.5
                             Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player has BJ")
                         }
                     }
@@ -444,23 +448,36 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 // Dealer bust or player win or player has 5 card charlie
                 dealerValue > 21 || playerValue > dealerValue || playerValue <= 21 && currentPlayer.hands[i].cards.size == 5 -> {
                     currentPlayer.addMoney(betAmount * 2)
+                    winOrLoseMultiplier = 2.0
                     Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Wins")
                 }
                 // Tie game
                 playerValue == dealerValue -> {
                     Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Tie")
                     currentPlayer.addMoney(betAmount)
+                    winOrLoseMultiplier = 1.0
                 }
                 // Dealer Win
                 else -> {
                     Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Dealer wins")
                 }
             }
+            val amountWonOrLost = betAmount * winOrLoseMultiplier
+            startResultAnimation(i, amountWonOrLost )
+
         }
+
+
         if (moneyBefore != null) {
             Log.d("!!!", "Money changed ${GameManager.activePlayer?.money!! - moneyBefore}")
         }
         cleanUpGame()
+    }
+
+    fun startResultAnimation(index: Int, resultMultiplier: Double){
+        val fragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_gameplay_container) as? GameplayFragment
+        fragment?.handViewList?.get(index)?.startResultAnimation(resultMultiplier)
     }
 
 
