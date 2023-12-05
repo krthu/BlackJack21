@@ -87,5 +87,6 @@ class PlayerAdapter(
         holder.editImageView.setOnClickListener{
             fragment.onEditClick(data[position].name)
         }
+        Animations.smallToBigAnimation(holder.itemView)
     }
 }
