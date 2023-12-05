@@ -23,6 +23,8 @@
     <string name="double_text">Double</string>
     <string name="tap_a_name_to_continue">Tap a name to continue</string>
     <string name="not_enough_money">Not enough money</string>
+    <string name="name_is_taken">Name is taken</string>
+    <string name="name_is_to_long">Name is to long</string>
 
 
 </resources>

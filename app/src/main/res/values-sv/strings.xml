@@ -24,6 +24,7 @@
     <string name="double_text">Dubbla</string>
     <string name="tap_a_name_to_continue">Tryck på ett namn för att fortsätta</string>
     <string name="not_enough_money">Inte tillräckligt med pengar</string>
-
+    <string name="name_is_taken">Namnet är upptaget</string>
+    <string name="name_is_to_long">Namnet är för långt</string>
 
 </resources>
