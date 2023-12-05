@@ -1,8 +1,10 @@
 package com.example.blackjack21
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
@@ -43,5 +45,25 @@ class PlayerHandView @JvmOverloads constructor(
 
     fun setValueText(value: Int){
         cardValuePlayerTextView.text = value.toString()
+    }
+
+    fun startResultAnimation(change: Double){
+        var sign = "+"
+        var amount = 0
+        if (change < 0){
+            sign = "-"
+            amount = (change     * -1).toInt()
+            betTextView.text = ("${sign}$${amount.toString()}")
+            betTextView.setTextColor(Color.RED)
+            betTextView.setShadowLayer(2f, 1f, 1f, Color.WHITE)
+            Animations.looseAnimation(betTextView)
+
+        }else{
+            amount = change.toInt()
+            betTextView.text = ("${sign}$${amount.toString()}")
+            betTextView.setTextColor(Color.GREEN)
+            betTextView.setShadowLayer(2f, 1f, 1f, Color.WHITE)
+            Animations.winAnimation(betTextView)
+        }
     }
 }
