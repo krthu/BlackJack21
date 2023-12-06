@@ -1,6 +1,8 @@
 package com.example.blackjack21
 
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
@@ -95,5 +97,24 @@ object Animations {
         }
         animationSet.start()
 
+    }
+
+    fun fadeIn(view: View, duration: Long = 3000) {
+        val fadeIn = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f).apply {
+            this.duration = duration
+        }
+        fadeIn.start()
+    }
+
+    fun fadeOut(view: View, duration: Long = 3000, endAction: () -> Unit = {}) {
+        val fadeOut = ObjectAnimator.ofFloat(view, View.ALPHA, 1f, 0f).apply {
+            this.duration = duration
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    endAction()
+                }
+            })
+        }
+        fadeOut.start()
     }
 }

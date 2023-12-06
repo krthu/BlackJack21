@@ -6,22 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ScoreBoardFragment">
 
-    <TextView
-        android:id="@+id/titleTextView"
-        style="@style/menu_text.large"
+
+
+    <ImageView
+        android:id="@+id/highscore_logo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintHeight_percent="0.1"
-        android:layout_marginTop="100dp"
-        android:text="@string/scoreboard"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/highscore"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeMaxTextSize="100sp"
-        android:autoSizeStepGranularity="2sp" />
+        app:layout_constraintWidth_percent="0.4" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scoreBoardRecyclerView"
@@ -33,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/highscore_logo"
         tools:listitem="@layout/scoreboard_row" />
 
     <ImageView
