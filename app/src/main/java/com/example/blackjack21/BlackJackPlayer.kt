@@ -8,10 +8,6 @@ class BlackJackPlayer(name: String, var money: Double) : Player(name) {
         money += amount
     }
 
-    fun addMoney(amount: Double) {
-        money += amount
-    }
-
     fun makeBet(bet: Double): Boolean {
         if (bet <= money) {
             updateBalance(-bet)  // Dra av satsningen från saldot
