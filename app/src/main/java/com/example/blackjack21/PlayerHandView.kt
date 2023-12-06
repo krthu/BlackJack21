@@ -2,15 +2,11 @@ package com.example.blackjack21
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.forEach
-import androidx.core.view.isEmpty
 
 class PlayerHandView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -31,7 +27,7 @@ class PlayerHandView @JvmOverloads constructor(
 
     }
 
-    // Funktioner för att sätta dynamiskt innehåll
+    // To add card to same index imageView can never over 5 because of 5 card charlie rule
     fun setImage(cards: List<Card>) {
          cards.forEachIndexed{index,  card ->
             val imageId = resources.getIdentifier(card.imageString, "drawable", context.packageName)

@@ -30,7 +30,7 @@ class BlackJackPlayer(var name: String, var money: Double){
         }
         return false
     }
-    
+
     fun addCard(indexOfHand: Int, card: Card) {
         hands[indexOfHand].addCard(card)
     }

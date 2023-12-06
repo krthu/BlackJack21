@@ -1,25 +1,16 @@
 package com.example.blackjack21
 
 import android.app.AlertDialog
-import android.content.Context
-import android.net.ipsec.ike.ChildSaProposal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.get
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import kotlin.math.log
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
 
