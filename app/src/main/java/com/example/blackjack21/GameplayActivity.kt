@@ -49,6 +49,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         cogWheelMenu.setOnClickListener { view ->
             showPopUpMenu(view)
         }
+
         val callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
             confirmDialog()
@@ -184,7 +185,8 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             fragment?.view?.findViewById<TextView>(R.id.split_text)?.isVisible = false
             fragment?.view?.findViewById<ImageView>(R.id.split_icon)?.isVisible = false
             val handler = Handler(Looper.getMainLooper())
-            val delayBetweenCards = 500L //
+            val delayBetweenCards = 500L
+
             fragment?.activeHandView?.cardImageViews?.get(1)?.setImageResource(0)
             handler.postDelayed({
                 updatePlayerUI(1)
@@ -210,10 +212,12 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         fragment?.hitButton?.isEnabled = enabled
         fragment?.standButton?.isEnabled = enabled
         fragment?.splitButton?.isEnabled = enabled
+        cogWheelMenu.isEnabled = enabled
 
     }
 
     private fun dealInitialCards() {
+        cogWheelMenu.isEnabled = false
         val currentPlayer = GameManager.activePlayer ?: return
         val handler = Handler(Looper.getMainLooper())
         val delayBetweenCards = 500L //
@@ -487,6 +491,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         dealerCards.clear()
         updateDealerCardImages(dealerCards)
         GameManager.savePlayersToSharedPref(this)
+        cogWheelMenu.isEnabled = true
         returnToBetFragment()
     }
 }
