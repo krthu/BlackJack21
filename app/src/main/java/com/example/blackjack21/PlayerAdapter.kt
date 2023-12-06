@@ -68,7 +68,7 @@ class PlayerAdapter(
         return ItemViewHolder(inflatedView)
     }
 
-// returns how many item there is
+
     override fun getItemCount(): Int {
         return data.size
     }

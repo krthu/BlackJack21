@@ -76,12 +76,7 @@ class GameplayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val fragment = inflater.inflate(R.layout.fragment_gameplay, container, false)
-
-
-
-
-        return fragment
+        return  inflater.inflate(R.layout.fragment_gameplay, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
