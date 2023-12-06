@@ -46,9 +46,11 @@ class PlayerHandView @JvmOverloads constructor(
     fun startResultAnimation(change: Double){
         var sign = "+"
         var amount = 0
+        //Removes the dollar sign from string and turns it to int
+        var originalBet = betTextView.text.toString().substring(1).toInt()
         if (change < 0){
             sign = "-"
-            amount = (change     * -1).toInt()
+            amount = (change * -1).toInt()
             betTextView.text = ("${sign}$${amount.toString()}")
             betTextView.setTextColor(Color.RED)
             betTextView.setShadowLayer(2f, 1f, 1f, Color.WHITE)
@@ -57,9 +59,13 @@ class PlayerHandView @JvmOverloads constructor(
         }else{
             amount = change.toInt()
             betTextView.text = ("${sign}$${amount.toString()}")
-            betTextView.setTextColor(Color.GREEN)
             betTextView.setShadowLayer(2f, 1f, 1f, Color.WHITE)
             Animations.winAnimation(betTextView)
+            if (originalBet < change){
+                betTextView.setTextColor(Color.GREEN)
+
+            }
+
         }
     }
 }
