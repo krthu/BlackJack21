@@ -45,6 +45,7 @@ class BlackJackPlayer(var name: String, var money: Double){
     }
 
     fun ableToSplit():Boolean{
+        // Only first hand is allowed to split
         if(hands[0].cards[0].number == hands[0].cards[1].number && money >= hands[0].bet){
             return true
         }
