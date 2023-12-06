@@ -2,6 +2,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:layout_weight="1">
@@ -10,44 +11,45 @@ android:layout_weight="1">
         android:id="@+id/card_value_player"
         android:layout_width="65dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="26dp"
         android:fontFamily="@font/poppins_bold_italic"
         android:letterSpacing="0.1"
         android:rotation="340"
         android:textColor="@color/white"
         android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/first_card_player"
-        app:layout_constraintEnd_toStartOf="@+id/guideline" />
+        app:layout_constraintStart_toStartOf="@+id/first_card_player" />
 
     <ImageView
         android:id="@+id/value_holder"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="51dp"
-        android:layout_marginBottom="147dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/value_holder"
         android:rotation="340"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline" />
+        app:layout_constraintBottom_toTopOf="@+id/first_card_player"
+        app:layout_constraintEnd_toEndOf="@+id/first_card_player"
+        app:layout_constraintStart_toStartOf="@+id/first_card_player" />
 
     <TextView
         android:id="@+id/bet_amount_player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/poppins_bold_italic"
         android:letterSpacing="0.1"
-        android:textColor="@color/white"
         android:text="0"
-        app:layout_constraintBottom_toTopOf="@+id/fourth_card_player"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/third_card_player"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/first_card_player"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
+        android:layout_width="70dp"
+        android:layout_height="102dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:adjustViewBounds="true"
@@ -57,8 +59,8 @@ android:layout_weight="1">
 
     <ImageView
         android:id="@+id/second_card_player"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
+        android:layout_width="70dp"
+        android:layout_height="102dp"
         android:layout_marginEnd="-15dp"
         android:layout_marginBottom="10dp"
         android:adjustViewBounds="true"
@@ -68,8 +70,8 @@ android:layout_weight="1">
 
     <ImageView
         android:id="@+id/third_card_player"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
+        android:layout_width="70dp"
+        android:layout_height="102dp"
         android:layout_marginEnd="-40dp"
         android:layout_marginBottom="10dp"
         android:adjustViewBounds="true"
@@ -79,8 +81,8 @@ android:layout_weight="1">
 
     <ImageView
         android:id="@+id/fourth_card_player"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
+        android:layout_width="70dp"
+        android:layout_height="102dp"
         android:layout_marginEnd="-65dp"
         android:layout_marginBottom="10dp"
         android:adjustViewBounds="true"
@@ -90,8 +92,8 @@ android:layout_weight="1">
 
     <ImageView
         android:id="@+id/fifth_card_player"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
+        android:layout_width="70dp"
+        android:layout_height="102dp"
         android:layout_marginEnd="-90dp"
         android:layout_marginBottom="10dp"
         android:adjustViewBounds="true"
