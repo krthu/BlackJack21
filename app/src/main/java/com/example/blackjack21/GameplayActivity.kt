@@ -214,7 +214,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
     }
 
     private fun dealInitialCards() {
-        deck.stackDeck()
         val currentPlayer = GameManager.activePlayer ?: return
         val handler = Handler(Looper.getMainLooper())
         val delayBetweenCards = 500L //
