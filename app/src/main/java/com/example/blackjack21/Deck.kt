@@ -3,28 +3,29 @@ package com.example.blackjack21
 
 class Deck(private var numberOfDecks: Int) {
     private val decklist = mutableListOf<Card>()
-    private val numbers = listOf(2,3,4,5,6,7,8,9,10,11,12,13,14)
+    private val numbers = listOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)
     private val suits = listOf("Hearts", "Diamonds", "Clubs", "Spades")
+
     init {
         createDeckList()
     }
 
-    fun shuffle(){
+    fun shuffle() {
         decklist.shuffle()
     }
 
-    fun drawACard(): Card{
-        if (decklist.isEmpty()){
+    fun drawACard(): Card {
+        if (decklist.isEmpty()) {
             createDeckList()
             decklist.shuffle()
         }
         return decklist.removeAt(0)
     }
 
-    private fun createDeckList(){
-        for (i in 1..numberOfDecks){
-            suits.forEach{ suit ->
-                numbers.forEach{ number ->
+    private fun createDeckList() {
+        for (i in 1..numberOfDecks) {
+            suits.forEach { suit ->
+                numbers.forEach { number ->
                     val imageString = getImageId(suit, number)
 
                     decklist.add(Card(suit, number, imageString))
@@ -33,7 +34,7 @@ class Deck(private var numberOfDecks: Int) {
         }
     }
 
-    fun stackDeck (){
+    fun stackDeck() {
 
         // Stack player BJ
 //        decklist.add(0,Card("Heart", 14, "h14"))
@@ -50,13 +51,13 @@ class Deck(private var numberOfDecks: Int) {
 
         // Player split and one BJ
 
-//        decklist.add(0,Card("Heart", 13, "h13"))
-//        decklist.add(1,Card("Heart", 5, "h05"))
-//        decklist.add(2,Card("Heart", 13, "h13"))
-//        decklist.add(3,Card("Heart", 13, "h13"))
-//        decklist.add(4, Card("Heart", 13, "h13"))
-//        decklist.add(5, Card("Heart", 14, "h14"))
-//        decklist.add(6, Card("Heart", 5, "h05"))
+        decklist.add(0, Card("Heart", 13, "h13"))
+        decklist.add(1, Card("Heart", 5, "h05"))
+        decklist.add(2, Card("Heart", 13, "h13"))
+        decklist.add(3, Card("Heart", 13, "h13"))
+        decklist.add(4, Card("Heart", 13, "h13"))
+        decklist.add(5, Card("Heart", 14, "h14"))
+        decklist.add(6, Card("Heart", 5, "h05"))
 
         // Player 5 card Charlie
 
@@ -67,9 +68,6 @@ class Deck(private var numberOfDecks: Int) {
 //        decklist.add(4, Card("Heart", 2, "h02"))
 //        decklist.add(5, Card("Heart", 2, "h02"))
 //        decklist.add(6, Card("Heart", 6, "h06"))
-
-
-
 
 
 //        decklist.add(0,Card("Heart", 13, "h13"))
@@ -87,7 +85,7 @@ class Deck(private var numberOfDecks: Int) {
     }
 
 
-    private fun getImageId(suit: String, number: Int): String     {
+    private fun getImageId(suit: String, number: Int): String {
         val builder = StringBuilder()
         when (suit) {
             "Hearts" -> {

@@ -23,31 +23,36 @@
 
     <Button
         android:id="@+id/btn_hit"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="2dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/btn_hit"
         android:fontFamily="@font/poppins_bold_italic"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/hit_text"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_playFragment" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_double"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintWidth_percent="0.15" />
 
     <ImageView
         android:id="@+id/hit_icon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/pointhand"
         android:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_hit"
         app:layout_constraintEnd_toEndOf="@+id/btn_hit"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_playFragment"
-        app:layout_constraintTop_toTopOf="@+id/btn_hit" />
+        app:layout_constraintHeight_percent="0.035"
+        app:layout_constraintStart_toStartOf="@+id/btn_hit"
+        app:layout_constraintTop_toTopOf="@+id/btn_hit"
+        app:layout_constraintWidth_percent="0.06" />
 
     <TextView
         android:id="@+id/hit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:fontFamily="@font/poppins_bold_italic"
         android:text="@string/hit_text"
         android:textColor="@color/white"
@@ -59,6 +64,7 @@
         android:id="@+id/double_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:fontFamily="@font/poppins_bold_italic"
         android:text="@string/double_text"
         android:textColor="@color/white"
@@ -70,6 +76,7 @@
         android:id="@+id/stand_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:fontFamily="@font/poppins_bold_italic"
         android:text="@string/stand_text"
         android:textColor="@color/white"
@@ -81,6 +88,7 @@
         android:id="@+id/split_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:fontFamily="@font/poppins_bold_italic"
         android:text="@string/split_text"
         android:textColor="@color/white"
@@ -90,21 +98,25 @@
 
     <Button
         android:id="@+id/btn_stand"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="2dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/btn_stand"
         android:fontFamily="@font/poppins_bold_italic"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/stand_text"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_playFragment" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_hit"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintWidth_percent="0.15" />
 
 
     <ImageView
         android:id="@+id/stand_icon"
-        android:layout_width="30dp"
-        android:layout_height="35dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.05"
+        app:layout_constraintHeight_percent="0.035"
         android:background="@drawable/stophand"
         android:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_stand"
@@ -114,20 +126,24 @@
 
     <Button
         android:id="@+id/btn_double"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="63dp"
         android:background="@drawable/btn_double"
         android:fontFamily="@font/poppins_bold_italic"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/double_text"
-        app:layout_constraintStart_toEndOf="@+id/btn_hit" />
+        app:layout_constraintEnd_toEndOf="@+id/handsContainer"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintWidth_percent="0.15" />
 
     <ImageView
         android:id="@+id/double_icon"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.05"
+        app:layout_constraintHeight_percent="0.03"
         android:background="@drawable/x2"
         android:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_double"
@@ -137,34 +153,40 @@
 
     <Button
         android:id="@+id/btn_split"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="4dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/btn_split"
         android:fontFamily="@font/poppins_bold_italic"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/split_text"
-        app:layout_constraintEnd_toStartOf="@+id/btn_stand" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_stand"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintWidth_percent="0.15" />
 
 
     <ImageView
         android:id="@+id/split_icon"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintHeight_percent="0.05"
         android:background="@drawable/splitcard"
         android:elevation="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/split_text"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_split"
         app:layout_constraintEnd_toEndOf="@+id/btn_split"
         app:layout_constraintStart_toStartOf="@+id/btn_split"
         app:layout_constraintTop_toTopOf="@+id/btn_split" />
 
+
     <LinearLayout
         android:id="@+id/handsContainer"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-
-        android:layout_marginStart="5dp"
+        app:layout_constraintWidth_percent="0.95"
+        app:layout_constraintHeight_percent="0.85"
+        android:layout_marginStart="10dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/btn_stand"
         app:layout_constraintStart_toStartOf="parent"
@@ -173,8 +195,6 @@
         <com.example.blackjack21.PlayerHandView
             android:id="@+id/first_hand"
             android:layout_width="match_parent"
-
-
             android:layout_height="match_parent"
             android:layout_weight="1" />
     </LinearLayout>
