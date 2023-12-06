@@ -100,14 +100,14 @@
         android:id="@+id/btn_stand"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="130dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/btn_stand"
         android:fontFamily="@font/poppins_bold_italic"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/stand_text"
+        app:layout_constraintEnd_toStartOf="@+id/btn_hit"
         app:layout_constraintHeight_percent="0.05"
-        app:layout_constraintStart_toStartOf="@+id/handsContainer"
         app:layout_constraintWidth_percent="0.15" />
 
 
@@ -128,14 +128,14 @@
         android:id="@+id/btn_double"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="63dp"
+        android:layout_marginStart="5dp"
         android:background="@drawable/btn_double"
         android:fontFamily="@font/poppins_bold_italic"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/double_text"
-        app:layout_constraintEnd_toEndOf="@+id/handsContainer"
         app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintStart_toEndOf="@+id/btn_hit"
         app:layout_constraintWidth_percent="0.15" />
 
     <ImageView
@@ -155,14 +155,14 @@
         android:id="@+id/btn_split"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="63dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/btn_split"
         android:fontFamily="@font/poppins_bold_italic"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/split_text"
+        app:layout_constraintEnd_toStartOf="@+id/btn_stand"
         app:layout_constraintHeight_percent="0.05"
-        app:layout_constraintStart_toStartOf="@+id/handsContainer"
         app:layout_constraintWidth_percent="0.15" />
 
 
