@@ -7,236 +7,281 @@
     tools:context=".BetViewFragment">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/vertical_guideline_bet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontal_guideline_bet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"/>
-
-    <FrameLayout
-        android:id="@+id/fragment_BetFrame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/vertical_guideline_bet"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-    </FrameLayout>
+    android:id="@+id/horizontal_guideline_bet"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.5" />
 
 
-    <ImageView
-        android:id="@+id/bet_value10"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/chip_value10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bet_value20" />
-
-    <ImageView
-        android:id="@+id/bet_value20"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/chip_value20"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet" />
-
-    <ImageView
-        android:id="@+id/bet_value50"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/chip_value50"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_bet" />
-
-    <ImageView
-        android:id="@+id/bet_value100"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/chip_value100"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bet_value50" />
-
-    <Button
-        android:id="@+id/btn_removeBet"
-        android:layout_width="75dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="55dp"
-        android:background="@drawable/btn_stand"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/bet_value10"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet"
-        tools:ignore="SmallSp" />
-
-    <ImageView
-        android:id="@+id/symbol_clearBet"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@drawable/x"
-        android:elevation="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_removeBet"
-        app:layout_constraintEnd_toEndOf="@+id/btn_removeBet"
-        app:layout_constraintStart_toStartOf="@+id/btn_removeBet"
-        app:layout_constraintTop_toTopOf="@+id/btn_removeBet" />
-
-    <Button
-        android:id="@+id/btn_placeBet"
-        android:layout_width="75dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="55dp"
-        android:background="@drawable/btn_hit"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/bet_value50"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_bet"
-        tools:ignore="SmallSp" />
-
-    <TextView
-        android:id="@+id/clear_betText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="30dp"
-        android:fontFamily="@font/poppins_bold_italic"
-        android:text="@string/clear_betText"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet"
-        app:layout_constraintTop_toBottomOf="@+id/btn_removeBet"
-        tools:ignore="SmallSp" />
-
-
-    <TextView
-        android:id="@+id/deal_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/poppins_bold_italic"
-        android:text="@string/deal_text"
-        android:textSize="10sp"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_bet"
-        app:layout_constraintTop_toBottomOf="@+id/btn_placeBet"
-        tools:ignore="SmallSp" />
-
-    <ImageView
-        android:id="@+id/symbol_placeBet"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@drawable/triangle"
-        android:elevation="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_placeBet"
-        app:layout_constraintEnd_toEndOf="@+id/btn_placeBet"
-        app:layout_constraintStart_toStartOf="@+id/btn_placeBet"
-        app:layout_constraintTop_toTopOf="@+id/btn_placeBet" />
-
-    <ImageView
-        android:id="@+id/total_bet_chip"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="220dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bet_marker_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintTop_toTopOf="@+id/horizontal_guideline_bet"
+        app:layout_constraintWidth_percent="1">
 
-    <TextView
-        android:id="@+id/betAmountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="190dp"
-        android:fontFamily="@font/poppins_bold_italic"
-        android:gravity="center"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="BetAmount" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_guideline_bet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/placeYourBetView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:fontFamily="@font/poppins_bold_italic"
-        android:text="@string/place_your_bet"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/bet_value50"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/btn_removeBet"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/btn_stand"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/downArrowBet20"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintWidth_percent="0.2"
+            tools:ignore="SmallSp" />
 
-    <ImageView
-        android:id="@+id/downArrowBet10"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginEnd="99dp"
-        android:layout_marginBottom="3dp"
-        android:src="@drawable/down_arrow"
-        app:layout_constraintBottom_toTopOf="@+id/bet_value10"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet" />
+        <ImageView
+            android:id="@+id/symbol_clearBet"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/x"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_removeBet"
+            app:layout_constraintEnd_toEndOf="@+id/btn_removeBet"
+            app:layout_constraintHeight_percent="0.06"
+            app:layout_constraintStart_toStartOf="@+id/btn_removeBet"
+            app:layout_constraintTop_toTopOf="@+id/btn_removeBet"
+            app:layout_constraintWidth_percent="0.05" />
 
-    <ImageView
-        android:id="@+id/downArrowBet20"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginBottom="3dp"
-        android:src="@drawable/down_arrow"
-        app:layout_constraintBottom_toTopOf="@+id/bet_value20"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet" />
+        <Button
+            android:id="@+id/btn_placeBet"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/btn_hit"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/downArrowBet50"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline_bet"
+            app:layout_constraintWidth_percent="0.2"
+            tools:ignore="SmallSp" />
 
-    <ImageView
-        android:id="@+id/downArrowBet50"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginBottom="3dp"
-        android:src="@drawable/down_arrow"
-        app:layout_constraintBottom_toTopOf="@+id/bet_value50"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_bet" />
+        <TextView
+            android:id="@+id/clear_betText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/poppins_bold_italic"
+            android:gravity="center"
+            android:text="@string/clear_betText"
+            android:textColor="@color/white"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeMaxTextSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_removeBet"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintStart_toStartOf="@+id/btn_removeBet"
+            app:layout_constraintTop_toBottomOf="@+id/btn_removeBet"
+            app:layout_constraintWidth_percent="0.2"
+            tools:ignore="SmallSp" />
 
-    <ImageView
-        android:id="@+id/downArrowBet100"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="99dp"
-        android:layout_marginBottom="3dp"
-        android:src="@drawable/down_arrow"
-        app:layout_constraintBottom_toTopOf="@+id/bet_value100"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_bet" />
 
-    <TextView
-        android:id="@+id/notEnoughMoneyTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="170dp"
-        android:fontFamily="@font/poppins_bold_italic"
-        android:text="@string/not_enough_money"
-        android:textColor="@color/white"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/deal_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/poppins_bold_italic"
+            android:gravity="center"
+            android:text="@string/deal_text"
+            android:textColor="@color/white"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeMaxTextSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_placeBet"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintStart_toStartOf="@+id/btn_placeBet"
+            app:layout_constraintTop_toBottomOf="@+id/btn_placeBet"
+            app:layout_constraintWidth_percent="0.2"
+            tools:ignore="SmallSp" />
+
+        <ImageView
+            android:id="@+id/symbol_placeBet"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/triangle"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_placeBet"
+            app:layout_constraintEnd_toEndOf="@+id/btn_placeBet"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintStart_toStartOf="@+id/btn_placeBet"
+            app:layout_constraintTop_toTopOf="@+id/btn_placeBet"
+            app:layout_constraintWidth_percent="0.05" />
+
+        <ImageView
+            android:id="@+id/total_bet_chip"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/betAmountTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.15" />
+
+        <TextView
+            android:id="@+id/betAmountTextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="35dp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/poppins_bold_italic"
+            android:gravity="center"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/btn_placeBet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.5"
+            tools:text="BetAmount" />
+
+        <TextView
+            android:id="@+id/placeYourBetView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="25dp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/poppins_bold_italic"
+            android:gravity="center"
+            android:text="@string/place_your_bet"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/downArrowBet50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
+
+        <TextView
+            android:id="@+id/notEnoughMoneyTextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:autoSizeMaxTextSize="16sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/poppins_bold_italic"
+            android:gravity="center"
+            android:text="@string/not_enough_money"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/btn_placeBet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.06"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
+
+        <ImageView
+            android:id="@+id/bet_value10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/chip_value10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bet_value20"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.15" />
+
+        <ImageView
+            android:id="@+id/bet_value20"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/chip_value20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_bet"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.15" />
+
+        <ImageView
+            android:id="@+id/bet_value50"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/chip_value50"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline_bet"
+            app:layout_constraintWidth_percent="0.15" />
+
+        <ImageView
+            android:id="@+id/bet_value100"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/chip_value100"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toEndOf="@+id/bet_value50"
+            app:layout_constraintWidth_percent="0.15" />
+
+        <ImageView
+            android:id="@+id/downArrowBet10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="1dp"
+            android:src="@drawable/down_arrow"
+            app:layout_constraintBottom_toTopOf="@+id/bet_value10"
+            app:layout_constraintEnd_toEndOf="@+id/bet_value10"
+            app:layout_constraintHeight_percent="0.03"
+            app:layout_constraintStart_toStartOf="@+id/bet_value10"
+            app:layout_constraintWidth_percent="0.03" />
+
+        <ImageView
+            android:id="@+id/downArrowBet20"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="2dp"
+            android:src="@drawable/down_arrow"
+            app:layout_constraintBottom_toTopOf="@+id/bet_value20"
+            app:layout_constraintEnd_toEndOf="@+id/bet_value20"
+            app:layout_constraintHeight_percent="0.03"
+            app:layout_constraintStart_toStartOf="@+id/bet_value20"
+            app:layout_constraintWidth_percent="0.03" />
+
+        <ImageView
+            android:id="@+id/downArrowBet50"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="1dp"
+            android:src="@drawable/down_arrow"
+            app:layout_constraintBottom_toTopOf="@+id/bet_value50"
+            app:layout_constraintEnd_toEndOf="@+id/bet_value50"
+            app:layout_constraintHeight_percent="0.03"
+            app:layout_constraintStart_toStartOf="@+id/bet_value50"
+            app:layout_constraintWidth_percent="0.03" />
+
+        <ImageView
+            android:id="@+id/downArrowBet100"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="1dp"
+            android:src="@drawable/down_arrow"
+            app:layout_constraintBottom_toTopOf="@+id/bet_value100"
+            app:layout_constraintEnd_toEndOf="@+id/bet_value100"
+            app:layout_constraintHeight_percent="0.03"
+            app:layout_constraintStart_toStartOf="@+id/bet_value100"
+            app:layout_constraintWidth_percent="0.03" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
