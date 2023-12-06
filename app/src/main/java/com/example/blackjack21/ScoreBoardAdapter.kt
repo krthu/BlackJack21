@@ -32,7 +32,7 @@ class ScoreBoardAdapter(
         val player = data[position]
         holder.placmentTextView.text = (position+1).toString()
         holder.nameTextView.text = player.name
-        holder.moneyTextView.text = player.money.toString()
+        holder.moneyTextView.text = "$${player.money.toInt()}"
 
         Animations.smallToBigAnimation(holder.itemView)
     }
