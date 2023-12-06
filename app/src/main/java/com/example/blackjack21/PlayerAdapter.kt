@@ -75,7 +75,7 @@ class PlayerAdapter(
 
 
         holder.nameTextView.text = player.name.replaceFirstChar { it.uppercase() }
-        holder.moneyTextView.text = "$${player.money}"
+        holder.moneyTextView.text = "$${player.money.toInt()}"
 
         holder.deleteImageView.setOnClickListener{
             confirmDialog(position, it.context)
