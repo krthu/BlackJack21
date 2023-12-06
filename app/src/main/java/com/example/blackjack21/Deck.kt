@@ -33,6 +33,31 @@ class Deck(private var numberOfDecks: Int) {
             }
         }
     }
+    private fun getImageId(suit: String, number: Int): String     {
+        val builder = StringBuilder()
+        when (suit) {
+            "Hearts" -> {
+                builder.append("h")
+            }
+
+            "Diamonds" -> {
+                builder.append("d")
+            }
+
+            "Clubs" -> {
+                builder.append("c")
+            }
+
+            "Spades" -> {
+                builder.append("s")
+            }
+        }
+        if (number < 10) {
+            builder.append(0)
+        }
+        builder.append(number)
+        return builder.toString()
+    }
 
     fun stackDeck() {
 
@@ -50,6 +75,7 @@ class Deck(private var numberOfDecks: Int) {
 //        decklist.add(4,Card("Heart", 6, "h06"))
 
         // Player split and one BJ
+
 
         decklist.add(0, Card("Heart", 13, "h13"))
         decklist.add(1, Card("Heart", 5, "h05"))
@@ -83,32 +109,4 @@ class Deck(private var numberOfDecks: Int) {
 //        decklist.add(10,Card("Heart", 10, "s10"))
 //        decklist.add(11,Card("Heart", 3, "s03"))
     }
-
-
-    private fun getImageId(suit: String, number: Int): String {
-        val builder = StringBuilder()
-        when (suit) {
-            "Hearts" -> {
-                builder.append("h")
-            }
-
-            "Diamonds" -> {
-                builder.append("d")
-            }
-
-            "Clubs" -> {
-                builder.append("c")
-            }
-
-            "Spades" -> {
-                builder.append("s")
-            }
-        }
-        if (number < 10) {
-            builder.append(0)
-        }
-        builder.append(number)
-        return builder.toString()
-    }
-
 }

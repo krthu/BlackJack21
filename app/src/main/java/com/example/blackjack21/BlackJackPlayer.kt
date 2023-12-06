@@ -1,14 +1,10 @@
 package com.example.blackjack21
 
-class BlackJackPlayer(name: String, var money: Double) : Player(name) {
+class BlackJackPlayer(var name: String, var money: Double){
     val hands = mutableListOf<Hand>()
 
     // Förenklad metod för att uppdatera saldot
     fun updateBalance(amount: Double) {
-        money += amount
-    }
-
-    fun addMoney(amount: Double) {
         money += amount
     }
 
@@ -34,8 +30,6 @@ class BlackJackPlayer(name: String, var money: Double) : Player(name) {
         }
         return false
     }
-
-
 
     fun addCard(indexOfHand: Int, card: Card) {
         hands[indexOfHand].addCard(card)

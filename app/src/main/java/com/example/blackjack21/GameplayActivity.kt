@@ -1,25 +1,16 @@
 package com.example.blackjack21
 
 import android.app.AlertDialog
-import android.content.Context
-import android.net.ipsec.ike.ChildSaProposal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.get
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import kotlin.math.log
 
 class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener {
 
@@ -157,7 +148,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             handler.postDelayed({
                 onHitPress()
                 updatePlayerUI()
-                buttonsEnabled(true)
             }, delayBetweenCards)
             fragment?.doubleButton?.isVisible = true
             fragment?.doubleText?.isVisible = true
@@ -178,10 +168,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
                 fragment?.updateBetValueText(currentPlayer.hands[currentHandIndex].bet.toInt(), currentHandIndex)
                 hasDoubled = true
                 onHitPress()
-             //   onStandPress()
             }
-        } else {
-            Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT)
         }
     }
 
@@ -199,28 +186,21 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             val handler = Handler(Looper.getMainLooper())
             val delayBetweenCards = 500L //
             fragment?.activeHandView?.cardImageViews?.get(1)?.setImageResource(0)
-
-
             handler.postDelayed({
                 updatePlayerUI(1)
 
             }, delayBetweenCards)
             handler.postDelayed({
-                // Card for the old hand
+                // New card for the first hand
                 onHitPress()
-
                 updatePlayerUI()
             }, delayBetweenCards * 2 )
-
-
 
             handler.postDelayed({
                 if (fragment?.handsContainer?.getChildAt(0)?.alpha == 1f){
                     fragment?.handsContainer?.getChildAt(1)?.alpha = 0.5f
                 }
             }, delayBetweenCards*3)
-        }else{
-            Toast.makeText(this, "Not enough Money", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -278,9 +258,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
 
 
             if (getBlackJackValue(currentPlayer.hands[currentHandIndex].cards) == 21) {
-                //checkBlackJack()
                 onStandPress()
-
             }
         }, delayBetweenCards * 4)
 
@@ -418,58 +396,46 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
             val dealerValue = getBlackJackValue(dealerCards)
             val betAmount = currentPlayer.hands[i].getBetAmount()
             var winOrLoseMultiplier = -1.0
-            Log.d("!!!", "Player: $playerValue Dealer: $dealerValue")
             when {
                 // Player Bust
                 playerValue > 21 -> {
-                    Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Bust")
                 }
                 // Someone has Black Jack
                 playerValue == 21 && currentPlayer.hands[i].cards.size == 2 || dealerValue == 21 && dealerCards.size == 2 ->{
                     when{
                         // Both have Black Jack
                         dealerValue == 21 && dealerCards.size == 2 && playerValue == 21 && currentPlayer.hands[i].cards.size == 2 -> {
-                            currentPlayer.addMoney(betAmount)
+                            currentPlayer.updateBalance(betAmount)
                             winOrLoseMultiplier = 1.0
-                            Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Both BJ")
                         }
                         // Dealer has Black Jack
                         dealerValue == 21 && dealerCards.size == 2 -> {
-                            Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Dealer has BJ")
                         }
                         // Player had Black Jack
                         else -> {
-                            currentPlayer.addMoney(betAmount * 2.5)
+                            currentPlayer.updateBalance(betAmount * 2.5)
                             winOrLoseMultiplier = 2.5
-                            Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player has BJ")
                         }
                     }
                 }
                 // Dealer bust or player win or player has 5 card charlie
                 dealerValue > 21 || playerValue > dealerValue || playerValue <= 21 && currentPlayer.hands[i].cards.size == 5 -> {
-                    currentPlayer.addMoney(betAmount * 2)
+                    currentPlayer.updateBalance(betAmount * 2)
                     winOrLoseMultiplier = 2.0
-                    Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Player Wins")
                 }
                 // Tie game
                 playerValue == dealerValue -> {
-                    Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Tie")
-                    currentPlayer.addMoney(betAmount)
+                    currentPlayer.updateBalance(betAmount)
                     winOrLoseMultiplier = 1.0
                 }
                 // Dealer Win
                 else -> {
-                    Log.d("!!!", "Player: $playerValue Dealer: $dealerValue Dealer wins")
+
                 }
             }
             val amountWonOrLost = betAmount * winOrLoseMultiplier
             startResultAnimation(i, amountWonOrLost )
 
-        }
-
-
-        if (moneyBefore != null) {
-            Log.d("!!!", "Money changed ${GameManager.activePlayer?.money!! - moneyBefore}")
         }
         cleanUpGame()
     }
@@ -485,12 +451,6 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({ resetGame() }, 3000)
         updatePlayerInfo()
-    }
-
-
-    // Help method for the dealer to check for BJ if the visible card is Ace or 10
-    private fun Card.isFaceCardOrAce(): Boolean {
-        return this.number == 14 || (this.number in 11..13)
     }
 
     private fun clearTable() {
@@ -524,9 +484,7 @@ class GameplayActivity : AppCompatActivity(), GameplayFragment.GamePlayListener 
         hasDoubled = false
         currentHandIndex = 0
         clearTable()
-
         currentPlayer?.clearHands()
-
         dealerCards.clear()
         updateDealerCardImages(dealerCards)
         GameManager.savePlayersToSharedPref(this)

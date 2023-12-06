@@ -1,17 +1,13 @@
 package com.example.blackjack21
 
-import android.app.Activity
+
 import android.app.AlertDialog
 import android.content.Context
-import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Im
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class PlayerAdapter(
@@ -68,7 +64,7 @@ class PlayerAdapter(
         return ItemViewHolder(inflatedView)
     }
 
-// returns how many item there is
+
     override fun getItemCount(): Int {
         return data.size
     }
