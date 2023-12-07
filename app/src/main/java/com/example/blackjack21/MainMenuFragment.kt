@@ -14,7 +14,6 @@ class MainMenuFragment : Fragment() {
 
     private lateinit var startGameView: TextView
     private lateinit var scoreBoardView: TextView
-    private lateinit var quitView: TextView
     private lateinit var flagView: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +35,12 @@ class MainMenuFragment : Fragment() {
 
         startGameView = view.findViewById(R.id.startGameView)
         scoreBoardView = view.findViewById(R.id.scoreBoardView)
-        quitView = view.findViewById(R.id.quitView)
+
         flagView = view.findViewById(R.id.flagImage)
 
         startGameView.setOnClickListener { onStartPress() }
         scoreBoardView.setOnClickListener { onScoreBoardPress() }
-        quitView.setOnClickListener { onQuitPress() }
+
         flagView.setOnClickListener { toggleLanguage() }
 
         if (GameManager.currentLanguage == "en") {
@@ -96,11 +95,6 @@ class MainMenuFragment : Fragment() {
 
     fun onScoreBoardPress(){
         changeFragment(ScoreBoardFragment())
-    }
-
-    fun onQuitPress(){
-
-        requireActivity().finish();
     }
 
     companion object {
