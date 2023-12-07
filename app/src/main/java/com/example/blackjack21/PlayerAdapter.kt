@@ -47,6 +47,7 @@ class PlayerAdapter(
 
         dialogBuilder.setPositiveButton(context.getString(R.string.delete)) {dialog, _ ->
             deletePlayer(position, name, context)
+            notifyDataSetChanged()
             dialog.dismiss()
         }
         dialogBuilder.setNegativeButton(context.getString(R.string.cancel)) {dialog, _ ->
